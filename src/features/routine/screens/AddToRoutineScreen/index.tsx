@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { DefaultView } from '../../../../shared/components/DefaultView';
+import { Divider } from '../../../../shared/components/Divider';
 import { StackNavigationParamList } from '../../../../shared/navigation/stack';
 import { ItemCreatableTypeSelector } from '../../components/ItemCreatableTypeSelector';
 import { addToRoutineScreenStyles } from './styles';
@@ -25,6 +26,8 @@ export const AddToRoutineScreen: React.FC<AddToRoutineScreenProps> = ({}) => {
           selectedCreatableType={selectedCreatableType}
           setSelectedCreatableType={setSelectedCreatableType}
         />
+
+        <Divider />
       </View>
     </DefaultView>
   );
