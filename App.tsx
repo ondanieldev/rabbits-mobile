@@ -11,7 +11,7 @@ import { Stack } from './src/shared/navigation/stack';
 import { appStyles } from './src/shared/styles/appStyles';
 
 function App(): React.JSX.Element {
-  const { routineScreen } = useApp();
+  const { routineScreen, addToRoutineScreen } = useApp();
 
   return (
     <NavigationContainer>
@@ -37,7 +37,7 @@ function App(): React.JSX.Element {
           name="AddToRoutineScreen"
           component={AddToRoutineScreen}
           options={{
-            title: 'Add to your routine a...',
+            title: addToRoutineScreen.title,
             headerStyle: appStyles.header,
             headerTintColor: appStyles.header.color,
           }}

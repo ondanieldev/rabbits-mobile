@@ -1,4 +1,8 @@
 {
   "today": "Today",
-  "progressBarText": "{0} of {1} tasks completed!"
+  "progressBarText": "{0} of {1} tasks completed!",
+  "addToRoutineScreenTitle": "Add to your routine a new...",
+  "habit": "habit",
+  "reminder": "reminder",
+  "event": "event"
 }

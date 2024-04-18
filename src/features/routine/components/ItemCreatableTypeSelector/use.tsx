@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text } from 'react-native';
 
 import { ItemCreatableTypeSelectorProps } from '.';
@@ -16,6 +17,8 @@ export const useItemCreatableTypeSelector: ItemCreatableTypeSelectorHook = ({
   selectedCreatableType,
   setSelectedCreatableType,
 }) => {
+  const { t } = useTranslation('routine');
+
   const Buttons = useMemo(
     () =>
       itemCreatableTypes.map(type => {
@@ -34,12 +37,12 @@ export const useItemCreatableTypeSelector: ItemCreatableTypeSelectorHook = ({
                 itemCreatableTypeSelectorStyles.text,
                 isSelected ? itemCreatableTypeSelectorStyles.selectedText : {},
               )}>
-              {type}
+              {t(type)}
             </Text>
           </SelectableButton>
         );
       }),
-    [selectedCreatableType, setSelectedCreatableType],
+    [selectedCreatableType, setSelectedCreatableType, t],
   );
 
   return {
