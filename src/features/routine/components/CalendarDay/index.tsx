@@ -1,5 +1,7 @@
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Text } from 'react-native';
 
+import { SelectableButton } from '../../../../shared/components/SelectableButton';
+import { calendarDayStyles } from './styles';
 import { useCalendarDay } from './use';
 
 export interface CalendarDayProps {
@@ -9,14 +11,15 @@ export interface CalendarDayProps {
 }
 
 export const CalendarDay: React.FC<CalendarDayProps> = props => {
-  const { day, dayOfWeek, styles } = useCalendarDay(props);
+  const { day, dayOfWeek, isSelected, styles } = useCalendarDay(props);
 
   return (
-    <TouchableHighlight onPress={() => props.setReferenceDate(props.date)}>
-      <View style={styles.container}>
-        <Text style={styles.dayOfWeek}>{dayOfWeek}</Text>
-        <Text style={styles.day}>{day}</Text>
-      </View>
-    </TouchableHighlight>
+    <SelectableButton
+      onPress={() => props.setReferenceDate(props.date)}
+      styles={{ view: calendarDayStyles.container }}
+      isSelected={isSelected}>
+      <Text style={styles.dayOfWeek}>{dayOfWeek}</Text>
+      <Text style={styles.day}>{day}</Text>
+    </SelectableButton>
   );
 };
