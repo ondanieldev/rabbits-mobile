@@ -36,7 +36,11 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="AddToRoutineScreen"
           component={AddToRoutineScreen}
-          options={{ title: 'Create a new task' }}
+          options={{
+            title: 'Add to your routine a...',
+            headerStyle: appStyles.header,
+            headerTintColor: appStyles.header.color,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
