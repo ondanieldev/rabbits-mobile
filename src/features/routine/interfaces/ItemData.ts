@@ -1,6 +1,5 @@
+import { ItemObjectType } from '../enums/ItemObjectType';
 import { TaskKind } from '../enums/TaskKind';
-
-export type ItemObjectType = 'task' | 'appointment';
 
 export interface ItemData {
   objectType: ItemObjectType;
