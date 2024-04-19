@@ -1,7 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
-import { format } from 'date-fns';
-
 import { Button } from '../../../../shared/components/Button';
 import { DateTimePicker } from '../../../../shared/components/DateTimePicker';
 import { DayOfWeekInput } from '../../../../shared/components/DayOfWeekInput';
@@ -11,13 +7,19 @@ import { TextInput } from '../../../../shared/components/TextInput';
 import { useCreateHabitForm } from './use';
 
 export const CreateHabitForm: React.FC = () => {
-  const { form, onSubmit } = useCreateHabitForm();
-
-  const { t } = useTranslation('routine');
+  const {
+    buttonText,
+    daysOfWeekLabel,
+    formatTime,
+    nameLabel,
+    timeLabel,
+    form,
+    onSubmit,
+  } = useCreateHabitForm();
 
   return (
     <Form form={form}>
-      <TextInput id="a" form={form} label={t('name')} name="name" />
+      <TextInput form={form} label={nameLabel} name="name" />
 
       <Divider />
 
@@ -25,17 +27,17 @@ export const CreateHabitForm: React.FC = () => {
         mode="time"
         name="time"
         form={form}
-        baseTextInputProps={{ label: t('time') }}
-        formatDisplayedValue={date => format(date, 'HH:mm')}
+        baseTextInputProps={{ label: timeLabel }}
+        formatDisplayedValue={formatTime}
       />
 
       <Divider />
 
-      <DayOfWeekInput form={form} name="daysOfWeek" label="Days of week" />
+      <DayOfWeekInput form={form} label={daysOfWeekLabel} name="daysOfWeek" />
 
       <Divider />
 
-      <Button onPress={form.handleSubmit(onSubmit)}>{t('save')}</Button>
+      <Button onPress={form.handleSubmit(onSubmit)}>{buttonText}</Button>
     </Form>
   );
 };
