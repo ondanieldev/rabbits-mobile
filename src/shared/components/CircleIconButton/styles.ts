@@ -6,7 +6,7 @@ export const circleIconButtonStyles = StyleSheet.create({
   icon: {
     color: colors.background,
   },
-  buttonContainer: {
+  touchable: {
     backgroundColor: colors.primary,
     height: sizes.sm,
     width: sizes.sm,

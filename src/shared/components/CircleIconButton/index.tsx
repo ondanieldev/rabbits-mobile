@@ -1,4 +1,4 @@
-import { GestureResponderEvent, TouchableHighlight, View } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 import FeIcon from 'react-native-vector-icons/Feather';
 
 import { circleIconButtonStyles } from './styles';
@@ -6,7 +6,7 @@ import { circleIconButtonStyles } from './styles';
 interface CircleIconButtonProps {
   iconName: string;
   iconSize: number;
-  onPress: ((event: GestureResponderEvent) => void) | undefined;
+  onPress?: () => void;
 }
 
 export const CircleIconButton: React.FC<CircleIconButtonProps> = ({
@@ -15,14 +15,14 @@ export const CircleIconButton: React.FC<CircleIconButtonProps> = ({
   onPress,
 }) => {
   return (
-    <TouchableHighlight onPress={onPress}>
-      <View style={circleIconButtonStyles.buttonContainer}>
-        <FeIcon
-          name={iconName}
-          style={circleIconButtonStyles.icon}
-          size={iconSize}
-        />
-      </View>
+    <TouchableHighlight
+      style={circleIconButtonStyles.touchable}
+      onPress={onPress}>
+      <FeIcon
+        name={iconName}
+        style={circleIconButtonStyles.icon}
+        size={iconSize}
+      />
     </TouchableHighlight>
   );
 };
