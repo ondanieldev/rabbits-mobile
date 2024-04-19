@@ -29,7 +29,7 @@ export const DayOfWeekInput: React.FC<DayOfWeekInputProps<any>> = ({
       control={form.control}
       render={({ field, fieldState }) => (
         <View style={dayOfWeekInputStyles.container}>
-          {label && <InputLabel>label</InputLabel>}
+          {label && <InputLabel>{label}</InputLabel>}
 
           <ScrollView
             horizontal={true}
