@@ -17,6 +17,7 @@ export interface DateTimePickerProps<T extends FieldValues> {
   formatDisplayedValue?: (value: Date) => string;
 }
 
+// TODO: move logic to a hook and check regulatedDate
 export const DateTimePicker: React.FC<DateTimePickerProps<any>> = ({
   mode,
   name,
