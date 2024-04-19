@@ -32,7 +32,12 @@ export const RoutineScreen: React.FC<RoutineScreenProps> = ({
         totalCount={10}
       />
 
-      <ReminderList reminderList={reminderList} />
+      <ReminderList
+        reminderList={reminderList}
+        defaultReminderItemProps={{
+          onSelect: () => {},
+        }}
+      />
 
       <ItemList itemDataList={itemDataList} />
     </DefaultView>
