@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { colors, fontSizes, radius, spacings } from '../../styles/globalStyles';
 
-export const textInputStyles = StyleSheet.create({
+export const baseTextInputStyles = StyleSheet.create({
   container: {
     gap: spacings.xs,
   },

@@ -7,15 +7,15 @@ import {
   TextStyle,
 } from 'react-native';
 
-import { TextInputProps } from '.';
-import { textInputStyles } from './styles';
+import { BaseTextInputProps } from '.';
+import { baseTextInputStyles } from './styles';
 
 type Styles = {
   input: StyleProp<TextStyle>;
 };
 
-export type TextInputHook = (
-  props: Pick<TextInputProps<any>, 'onBlur' | 'onFocus'>,
+export type BaseTextInputHook = (
+  props: Pick<BaseTextInputProps, 'onBlur' | 'onFocus'>,
 ) => {
   isSelected: boolean;
   onFocus: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
@@ -23,7 +23,7 @@ export type TextInputHook = (
   styles: Styles;
 };
 
-export const useTextInput: TextInputHook = ({
+export const useBaseTextInput: BaseTextInputHook = ({
   onBlur: propOnBlur,
   onFocus: propOnFocus,
 }) => {
@@ -52,8 +52,8 @@ export const useTextInput: TextInputHook = ({
   const styles = useMemo<Styles>(
     () => ({
       input: StyleSheet.compose(
-        textInputStyles.input,
-        isSelected && textInputStyles.inputSelected,
+        baseTextInputStyles.input,
+        isSelected && baseTextInputStyles.inputSelected,
       ),
     }),
     [isSelected],
