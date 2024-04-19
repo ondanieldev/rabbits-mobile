@@ -15,34 +15,38 @@ type Styles = {
 };
 
 export type BaseTextInputHook = (
-  props: Pick<BaseTextInputProps, 'onBlur' | 'onFocus'>,
+  props: Pick<BaseTextInputProps, 'onBlur' | 'onFocus' | 'secureTextEntry'>,
 ) => {
   isSelected: boolean;
   onFocus: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   styles: Styles;
+  showSecureText: boolean;
+  setShowSecureText: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const useBaseTextInput: BaseTextInputHook = ({
   onBlur: propOnBlur,
   onFocus: propOnFocus,
+  secureTextEntry,
 }) => {
   const [isSelected, setIsSelected] = useState(false);
+  const [showSecureText, setShowSecureText] = useState(!secureTextEntry);
 
   const onFocus = useCallback(
     (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setIsSelected(true);
-      propOnBlur?.(e);
+      propOnFocus?.(e);
     },
-    [propOnBlur],
+    [propOnFocus],
   );
 
   const onBlur = useCallback(
     (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setIsSelected(false);
-      propOnFocus?.(e);
+      propOnBlur?.(e);
     },
-    [propOnFocus],
+    [propOnBlur],
   );
 
   const styles = useMemo<Styles>(
@@ -60,5 +64,7 @@ export const useBaseTextInput: BaseTextInputHook = ({
     onFocus,
     onBlur,
     styles,
+    showSecureText,
+    setShowSecureText,
   };
 };

@@ -6,6 +6,9 @@ export const baseTextInputStyles = StyleSheet.create({
   container: {
     gap: spacings.xs,
   },
+  inputContainer: {
+    position: 'relative',
+  },
   input: {
     backgroundColor: colors.background,
     borderWidth: 1,
@@ -17,5 +20,10 @@ export const baseTextInputStyles = StyleSheet.create({
   },
   inputSelected: {
     borderColor: colors.primary,
+  },
+  secureIconButton: {
+    position: 'absolute',
+    right: 12,
+    top: 12,
   },
 });
