@@ -17,5 +17,12 @@
   "Wed": "Wed",
   "Thu": "Thu",
   "Fri": "Fri",
-  "Sat": "Sat"
+  "Sat": "Sat",
+  "sundayInitial": "S",
+  "mondayInitial": "M",
+  "tuesdayInitial": "T",
+  "wednesdayInitial": "W",
+  "thursdayInitial": "T",
+  "fridayInitial": "F",
+  "saturdayInitial": "S"
 }
