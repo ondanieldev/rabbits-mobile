@@ -1,11 +1,16 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import {
+  StyleProp,
+  Text,
+  TouchableHighlight,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { CircleCheckBox } from '../../../../shared/components/CircleCheckBox';
-import {
-  SelectableItem,
-  SelectableItemStyles,
-} from '../../../../shared/components/SelectableItem';
+import { IconButton } from '../../../../shared/components/IconButton';
+import { Overlay } from '../../../../shared/components/Overlay';
+import { colors } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
 import { itemStyles } from './styles';
 import { useItem } from './use';
@@ -13,7 +18,11 @@ import { useItem } from './use';
 export interface ItemProps {
   data: ItemData;
   isEditing?: boolean;
-  selectableItemStyles?: SelectableItemStyles;
+  styles?: {
+    touchable?: StyleProp<ViewStyle>;
+  };
+  onSelect?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
 // add edit mode
@@ -22,25 +31,38 @@ export const Item: React.FC<ItemProps> = props => {
 
   return (
     // change onPress based on editMode
-    <SelectableItem
-      onToggle={() => {}}
-      styles={props.selectableItemStyles}
-      defaultSelected={props.data.isCompleted}>
-      <View style={itemStyles.contentContainer}>
-        {!props.isEditing && (
-          <CircleCheckBox defaultChecked={props.data.isCompleted} />
-        )}
-        {/* Selectable when !isEditMode */}
-        {/* Trash when isEditMode */}
+    <TouchableHighlight
+      onPress={() => props.onSelect?.(props.data.id)}
+      style={styles.touchable}>
+      <View>
+        {!props.isEditing && props.data.isCompleted && <Overlay />}
 
-        <View style={itemStyles.textContainer}>
-          <Text style={styles.name}>{props.data.name}</Text>
+        <View style={itemStyles.contentContainer}>
+          {!props.isEditing && (
+            <CircleCheckBox isChecked={props.data.isCompleted} />
+          )}
 
-          {/* stop using mock for time */}
-          {/* add date when appointment and edit mode */}
-          <Text style={styles.date}>{dateText}</Text>
+          {props.isEditing && (
+            <IconButton
+              buttonProps={{
+                onPress: () => props.onDelete?.(props.data.id),
+              }}
+              iconProps={{
+                name: 'trash',
+                color: colors.danger,
+              }}
+            />
+          )}
+
+          <View style={itemStyles.textContainer}>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.name}>
+              {props.data.name}
+            </Text>
+
+            <Text style={styles.date}>{dateText}</Text>
+          </View>
         </View>
       </View>
-    </SelectableItem>
+    </TouchableHighlight>
   );
 };

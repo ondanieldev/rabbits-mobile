@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { StyleProp, StyleSheet, TextStyle } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 import { format } from 'date-fns';
 
@@ -7,6 +7,7 @@ import { ItemProps } from '.';
 import { itemStyles } from './styles';
 
 type Styles = {
+  touchable: StyleProp<ViewStyle>;
   name: StyleProp<TextStyle>;
   date: StyleProp<TextStyle>;
 };
@@ -16,7 +17,7 @@ export type ItemHook = (props: ItemProps) => {
   styles: Styles;
 };
 
-export const useItem: ItemHook = ({ data, isEditing }) => {
+export const useItem: ItemHook = ({ data, isEditing, styles: propStyles }) => {
   const dateText = useMemo(() => {
     if (!data.date) {
       return '';
@@ -34,6 +35,10 @@ export const useItem: ItemHook = ({ data, isEditing }) => {
     const applyCustom = data.objectType === 'appointment' && !isEditing;
 
     return {
+      touchable: StyleSheet.compose(
+        itemStyles.touchable,
+        propStyles?.touchable && propStyles?.touchable,
+      ),
       date: applyCustom
         ? StyleSheet.compose(itemStyles.date, itemStyles.appointmentText)
         : itemStyles.date,
@@ -41,7 +46,7 @@ export const useItem: ItemHook = ({ data, isEditing }) => {
         ? StyleSheet.compose(itemStyles.name, itemStyles.appointmentText)
         : itemStyles.name,
     };
-  }, [data, isEditing]);
+  }, [data, isEditing, propStyles]);
 
   return {
     dateText,
