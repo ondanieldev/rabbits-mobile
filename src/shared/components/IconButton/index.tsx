@@ -18,7 +18,7 @@ export interface IconButtonProps {
 
 export const IconButton: React.FC<IconButtonProps> = ({
   buttonProps,
-  iconProps: { name, size, color = colors.selectable },
+  iconProps: { name, size = 25, color = colors.selectable },
 }) => {
   return (
     <TouchableHighlight {...buttonProps}>
