@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { colors } from '../../../../shared/styles/globalStyles';
-import { RoutineProgressStyles } from './styles';
+import { routineProgressStyles } from './styles';
 import { useRoutineProgress } from './use';
 
 export interface RoutineProgressProps {
@@ -14,8 +14,8 @@ export const RoutineProgress: React.FC<RoutineProgressProps> = props => {
   const { progress, text } = useRoutineProgress(props);
 
   return (
-    <View style={RoutineProgressStyles.container}>
-      <Text style={RoutineProgressStyles.text}>{text}</Text>
+    <View style={routineProgressStyles.container}>
+      <Text style={routineProgressStyles.text}>{text}</Text>
 
       <Progress.Bar
         color={colors.primary}

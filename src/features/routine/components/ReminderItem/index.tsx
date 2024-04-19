@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, TouchableHighlight, View } from 'react-native';
+import { TouchableHighlight, View } from 'react-native';
 
 import { Overlay } from '../../../../shared/components/Overlay';
+import { Text } from '../../../../shared/components/Text';
 import { ItemData } from '../../interfaces/ItemData';
 import { reminderItemStyles } from './styles';
 
@@ -20,7 +21,7 @@ export const ReminderItem: React.FC<ReminderItemProps> = ({
       onPress={() => onSelect?.(data.id)}>
       <View style={reminderItemStyles.contentContainer}>
         {data.isCompleted && <Overlay />}
-        <Text style={reminderItemStyles.name}>{data.name}</Text>
+        <Text>{data.name}</Text>
       </View>
     </TouchableHighlight>
   );

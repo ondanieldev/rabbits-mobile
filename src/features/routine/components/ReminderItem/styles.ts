@@ -1,11 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import {
-  colors,
-  fontSizes,
-  radius,
-  sizes,
-} from '../../../../shared/styles/globalStyles';
+import { colors, radius, sizes } from '../../../../shared/styles/globalStyles';
 
 export const reminderItemStyles = StyleSheet.create({
   container: {
@@ -21,9 +16,5 @@ export const reminderItemStyles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  name: {
-    color: colors.primaryText,
-    fontSize: fontSizes.md,
   },
 });

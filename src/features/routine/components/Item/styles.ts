@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 
 import {
   colors,
-  fontSizes,
   radius,
   sizes,
   spacings,
@@ -32,12 +31,6 @@ export const itemStyles = StyleSheet.create({
   },
   name: {
     flex: 1,
-    color: colors.primaryText,
-    fontSize: fontSizes.md,
-  },
-  date: {
-    color: colors.primaryText,
-    fontSize: fontSizes.md,
   },
   appointmentText: {
     color: colors.primary,

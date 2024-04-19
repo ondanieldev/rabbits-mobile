@@ -39,9 +39,7 @@ export const useItem: ItemHook = ({ data, isEditing, styles: propStyles }) => {
         itemStyles.touchable,
         propStyles?.touchable && propStyles?.touchable,
       ),
-      date: applyHighlight
-        ? StyleSheet.compose(itemStyles.date, itemStyles.appointmentText)
-        : itemStyles.date,
+      date: applyHighlight ? itemStyles.appointmentText : {},
       name: applyHighlight
         ? StyleSheet.compose(itemStyles.name, itemStyles.appointmentText)
         : itemStyles.name,

@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  StyleProp,
-  Text,
-  TouchableHighlight,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, TouchableHighlight, View, ViewStyle } from 'react-native';
 
 import { CircleCheckBox } from '../../../../shared/components/CircleCheckBox';
 import { IconButton } from '../../../../shared/components/IconButton';
 import { Overlay } from '../../../../shared/components/Overlay';
+import { Text } from '../../../../shared/components/Text';
 import { colors } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
 import { itemStyles } from './styles';

@@ -6,7 +6,7 @@ import {
   spacings,
 } from '../../../../shared/styles/globalStyles';
 
-export const RoutineProgressStyles = StyleSheet.create({
+export const routineProgressStyles = StyleSheet.create({
   container: {
     padding: spacings.sm,
     backgroundColor: colors.background,

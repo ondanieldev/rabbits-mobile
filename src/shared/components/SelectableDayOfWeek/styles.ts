@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { colors, sizes } from '../../styles/globalStyles';
+import { colors, fontSizes, sizes } from '../../styles/globalStyles';
 
 export const selectableDayOfWeekStyles = StyleSheet.create({
   touchable: {
@@ -18,6 +18,7 @@ export const selectableDayOfWeekStyles = StyleSheet.create({
     borderColor: colors.primary,
   },
   label: {
+    fontSize: fontSizes.sm,
     color: colors.selectable,
   },
   labelSelected: {

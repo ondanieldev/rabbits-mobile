@@ -1,5 +1,4 @@
-import { Text } from 'react-native';
-
+import { Text } from '../Text';
 import { inputLabelStyles } from './styles';
 
 export interface InputLabelProps {
