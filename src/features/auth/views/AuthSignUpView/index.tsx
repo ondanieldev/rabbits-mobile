@@ -5,25 +5,25 @@ import { AuthCard } from '../../components/AuthCard';
 import { AuthCTALink } from '../../components/AuthCTALink';
 import { AuthTitle } from '../../components/AuthTitle';
 import { AuthView } from '../../components/AuthView';
-import { SignInForm } from '../../components/SignInForm';
-import { useAuthSignInView } from './use';
+import { SignUpForm } from '../../components/SignUpForm';
+import { useAuthSignUpView } from './use';
 
-export interface AuthSignInViewProps
+export interface AuthSignUpViewProps
   extends NativeStackScreenProps<
     StackNavigationParamList,
-    'AuthSignInScreen'
+    'AuthSignUpScreen'
   > {}
 
-export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
+export const AuthSignUpView: React.FC<AuthSignUpViewProps> = () => {
   const { titleBase, titleHighlight, ctaBase, ctaHighlight, ctaOnPress } =
-    useAuthSignInView();
+    useAuthSignUpView();
 
   return (
     <AuthView>
       <AuthCard>
         <AuthTitle base={titleBase} highlight={titleHighlight} />
 
-        <SignInForm />
+        <SignUpForm />
       </AuthCard>
 
       <AuthCTALink

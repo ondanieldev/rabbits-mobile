@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 
-export type AuthSignInViewHook = () => {
+export type AuthSignUpViewHook = () => {
   titleBase: string;
   titleHighlight: string;
   ctaBase: string;
@@ -13,18 +13,18 @@ export type AuthSignInViewHook = () => {
   ctaOnPress: () => void;
 };
 
-export const useAuthSignInView: AuthSignInViewHook = () => {
+export const useAuthSignUpView: AuthSignUpViewHook = () => {
   const { t } = useTranslation('auth');
   const navigation = useNavigation<StackNavigationProp>();
 
-  const titleBase = useMemo(() => t('signInTo'), [t]);
+  const titleBase = useMemo(() => t('signUpTo'), [t]);
   const titleHighlight = useMemo(() => t('habits'), [t]);
 
-  const ctaBase = useMemo(() => t('signUpCTA'), [t]);
-  const ctaHighlight = useMemo(() => t('signUpLink'), [t]);
+  const ctaBase = useMemo(() => t('signInCTA'), [t]);
+  const ctaHighlight = useMemo(() => t('signInLink'), [t]);
 
   const ctaOnPress = useCallback(() => {
-    navigation.navigate('AuthSignUpScreen', {});
+    navigation.navigate('AuthSignInScreen', {});
   }, [navigation]);
 
   return {
