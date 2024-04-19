@@ -1,10 +1,11 @@
-import { Text } from 'react-native';
 import {
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
   View,
 } from 'react-native';
 
+import { InputError } from '../InputError';
+import { InputLabel } from '../InputLabel';
 import { baseTextInputStyles } from './styles';
 import { useBaseTextInput } from './use';
 
@@ -25,7 +26,7 @@ export const BaseTextInput: React.FC<BaseTextInputProps> = ({
 
   return (
     <View style={baseTextInputStyles.container}>
-      {label && <Text style={baseTextInputStyles.label}>{label}</Text>}
+      {label && <InputLabel>{label}</InputLabel>}
 
       <RNTextInput
         onFocus={onFocus}
@@ -34,7 +35,7 @@ export const BaseTextInput: React.FC<BaseTextInputProps> = ({
         {...props}
       />
 
-      {errorMsg && <Text style={baseTextInputStyles.error}>{errorMsg}</Text>}
+      {errorMsg && <InputError>{errorMsg}</InputError>}
     </View>
   );
 };

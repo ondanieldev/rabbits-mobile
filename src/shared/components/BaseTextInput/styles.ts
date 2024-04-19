@@ -6,11 +6,6 @@ export const baseTextInputStyles = StyleSheet.create({
   container: {
     gap: spacings.xs,
   },
-  label: {
-    fontSize: fontSizes.md,
-    color: colors.primaryText,
-    textTransform: 'capitalize',
-  },
   input: {
     backgroundColor: colors.background,
     borderWidth: 1,
@@ -22,8 +17,5 @@ export const baseTextInputStyles = StyleSheet.create({
   },
   inputSelected: {
     borderColor: colors.primary,
-  },
-  error: {
-    color: colors.danger,
   },
 });
