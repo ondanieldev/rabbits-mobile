@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 import { CircleCheckBoxProps } from '.';
@@ -9,18 +9,10 @@ type Styles = {
 };
 
 export type CircleCheckBoxHook = (props: CircleCheckBoxProps) => {
-  isChecked: boolean;
-  handleToggle: () => void;
   styles: Styles;
 };
 
-export const useCircleCheckBox: CircleCheckBoxHook = ({ defaultChecked }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked || false);
-
-  const handleToggle = useCallback(() => {
-    setIsChecked(!isChecked);
-  }, [isChecked]);
-
+export const useCircleCheckBox: CircleCheckBoxHook = ({ isChecked }) => {
   const styles = useMemo<Styles>(
     () => ({
       container: isChecked
@@ -33,13 +25,7 @@ export const useCircleCheckBox: CircleCheckBoxHook = ({ defaultChecked }) => {
     [isChecked],
   );
 
-  useEffect(() => {
-    setIsChecked(!!defaultChecked);
-  }, [defaultChecked]);
-
   return {
-    handleToggle,
-    isChecked,
     styles,
   };
 };

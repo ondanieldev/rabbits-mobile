@@ -5,19 +5,22 @@ import { colors } from '../../styles/globalStyles';
 import { useCircleCheckBox } from './use';
 
 export interface CircleCheckBoxProps {
-  defaultChecked?: boolean;
+  onSelect?: (isChecked: boolean) => void;
+  isChecked?: boolean;
 }
 
 export const CircleCheckBox: React.FC<CircleCheckBoxProps> = props => {
-  const { handleToggle, isChecked, styles } = useCircleCheckBox(props);
+  const { styles } = useCircleCheckBox(props);
 
   return (
-    <TouchableHighlight onPress={handleToggle}>
-      <View style={styles.container}>
-        {isChecked && (
-          <FeIcon name="check" color={colors.background} size={25} />
-        )}
-      </View>
+    <TouchableHighlight
+      style={styles.container}
+      onPress={() => props.onSelect?.(!props.isChecked)}>
+      {props.isChecked ? (
+        <FeIcon name="check" color={colors.background} size={25} />
+      ) : (
+        <View />
+      )}
     </TouchableHighlight>
   );
 };
