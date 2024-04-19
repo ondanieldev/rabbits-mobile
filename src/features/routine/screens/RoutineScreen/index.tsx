@@ -39,7 +39,12 @@ export const RoutineScreen: React.FC<RoutineScreenProps> = ({
         }}
       />
 
-      <ItemList itemDataList={itemDataList} />
+      <ItemList
+        itemDataList={itemDataList}
+        defaultItemProps={{
+          onSelect: () => {},
+        }}
+      />
     </DefaultView>
   );
 };

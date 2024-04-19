@@ -8,7 +8,10 @@ export type ItemListHook = (props: ItemListProps) => {
   Items: JSX.Element[];
 };
 
-export const useItemList: ItemListHook = ({ itemDataList }) => {
+export const useItemList: ItemListHook = ({
+  itemDataList,
+  defaultItemProps,
+}) => {
   const Items = useMemo(
     () =>
       itemDataList.map((data, index) => {
@@ -23,13 +26,14 @@ export const useItemList: ItemListHook = ({ itemDataList }) => {
 
         return (
           <Item
+            {...defaultItemProps}
             key={data.id}
             data={data}
-            selectableItemStyles={{ touchable }}
+            styles={{ touchable }}
           />
         );
       }),
-    [itemDataList],
+    [itemDataList, defaultItemProps],
   );
 
   return {
