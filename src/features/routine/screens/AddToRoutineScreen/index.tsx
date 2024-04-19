@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { DefaultView } from '../../../../shared/components/DefaultView';
 import { Divider } from '../../../../shared/components/Divider';
 import { StackNavigationParamList } from '../../../../shared/navigation/stack';
+import { CreateHabitForm } from '../../components/CreateHabitForm';
 import { ItemCreatableTypeSelector } from '../../components/ItemCreatableTypeSelector';
 import { addToRoutineScreenStyles } from './styles';
 import { useAddToRoutineScreen } from './use';
@@ -28,6 +29,8 @@ export const AddToRoutineScreen: React.FC<AddToRoutineScreenProps> = ({}) => {
         />
 
         <Divider />
+
+        {selectedCreatableType === 'habit' && <CreateHabitForm />}
       </View>
     </DefaultView>
   );

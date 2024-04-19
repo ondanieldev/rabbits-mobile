@@ -4,5 +4,8 @@
   "addToRoutineScreenTitle": "Add to your routine a new...",
   "habit": "habit",
   "reminder": "reminder",
-  "event": "event"
+  "event": "event",
+  "save": "save",
+  "name": "name",
+  "time": "time"
 }
