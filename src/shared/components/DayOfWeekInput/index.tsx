@@ -36,6 +36,7 @@ export const DayOfWeekInput: React.FC<DayOfWeekInputProps<any>> = ({
             contentContainerStyle={dayOfWeekInputStyles.listContainer}>
             {selectableDayOfWeekDataList.map(data => (
               <SelectableDayOfWeek
+                key={data.value}
                 label={data.label}
                 onPress={isSelected => {
                   field.value = onPress(field.value, data.value, isSelected);
