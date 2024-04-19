@@ -9,5 +9,7 @@
   "name": "name",
   "time": "time",
   "daysOfWeek": "days of week",
-  "date": "date"
+  "date": "date",
+  "editRoutineScreenTitle": "Edit your routine",
+  "searchByName": "Search by name"
 }

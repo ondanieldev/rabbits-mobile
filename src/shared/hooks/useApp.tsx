@@ -14,6 +14,9 @@ export type AppHook = () => {
   addToRoutineScreen: {
     title: string;
   };
+  editRoutineScreen: {
+    title: string;
+  };
 };
 
 export const useApp: AppHook = () => {
@@ -28,7 +31,15 @@ export const useApp: AppHook = () => {
     [referenceDate],
   );
 
-  const title = useMemo(() => t('addToRoutineScreenTitle'), [t]);
+  const addToRoutineScreenTitle = useMemo(
+    () => t('addToRoutineScreenTitle'),
+    [t],
+  );
+
+  const editRoutineScreenTitle = useMemo(
+    () => t('editRoutineScreenTitle'),
+    [t],
+  );
 
   return {
     routineScreen: {
@@ -38,7 +49,10 @@ export const useApp: AppHook = () => {
       setReferenceDate,
     },
     addToRoutineScreen: {
-      title,
+      title: addToRoutineScreenTitle,
+    },
+    editRoutineScreen: {
+      title: editRoutineScreenTitle,
     },
   };
 };

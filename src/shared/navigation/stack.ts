@@ -8,6 +8,7 @@ export type ScreenNames = ['RoutineScreen', 'AddToRoutineScreen'];
 export type StackNavigationParamList = {
   RoutineScreen: RoutineScreenParams;
   AddToRoutineScreen: {};
+  EditRoutineScreen: {};
 };
 
 export type StackNavigationProp = NavigationProp<StackNavigationParamList>;
