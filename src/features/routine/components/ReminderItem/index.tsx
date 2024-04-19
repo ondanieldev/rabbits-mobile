@@ -1,27 +1,27 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
 
-import { SelectableItem } from '../../../../shared/components/SelectableItem';
+import { Overlay } from '../../../../shared/components/Overlay';
 import { ItemData } from '../../interfaces/ItemData';
 import { reminderItemStyles } from './styles';
-import { useReminderItem } from './use';
 
 export interface ReminderItemProps {
   data: ItemData;
+  onPress?: (id: string) => void;
 }
 
-// add edit mode
-export const ReminderItem: React.FC<ReminderItemProps> = props => {
-  const {} = useReminderItem(props);
-
+export const ReminderItem: React.FC<ReminderItemProps> = ({
+  data,
+  onPress,
+}) => {
   return (
-    // change onPress based on editMode
-    <SelectableItem
-      defaultSelected={props.data.isCompleted}
-      onToggle={() => {}}>
+    <TouchableHighlight
+      style={reminderItemStyles.container}
+      onPress={() => onPress?.(data.id)}>
       <View style={reminderItemStyles.contentContainer}>
-        <Text style={reminderItemStyles.name}>{props.data.name}</Text>
+        {data.isCompleted && <Overlay />}
+        <Text style={reminderItemStyles.name}>{data.name}</Text>
       </View>
-    </SelectableItem>
+    </TouchableHighlight>
   );
 };
