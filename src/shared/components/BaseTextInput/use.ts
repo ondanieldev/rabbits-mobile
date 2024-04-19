@@ -32,9 +32,7 @@ export const useBaseTextInput: BaseTextInputHook = ({
   const onFocus = useCallback(
     (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setIsSelected(true);
-      if (propOnBlur) {
-        propOnBlur(e);
-      }
+      propOnBlur?.(e);
     },
     [propOnBlur],
   );
@@ -42,9 +40,7 @@ export const useBaseTextInput: BaseTextInputHook = ({
   const onBlur = useCallback(
     (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
       setIsSelected(false);
-      if (propOnFocus) {
-        propOnFocus(e);
-      }
+      propOnFocus?.(e);
     },
     [propOnFocus],
   );
