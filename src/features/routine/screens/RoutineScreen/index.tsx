@@ -5,7 +5,7 @@ import { StackNavigationParamList } from '../../../../shared/navigation/stack';
 import { ItemList } from '../../components/ItemList';
 import { ReminderList } from '../../components/ReminderList';
 import { RoutineManager } from '../../components/RoutineManager';
-import { useRoutineScreen } from './use';
+import { getRoutineScreenItemDataList } from '../../data';
 
 export interface RoutineScreenParams {}
 
@@ -19,10 +19,6 @@ export const RoutineScreen: React.FC<RoutineScreenProps> = ({
   referenceDate,
   setReferenceDate,
 }) => {
-  const { reminderList, itemDataList } = useRoutineScreen({
-    referenceDate,
-  });
-
   return (
     <DefaultView>
       <RoutineManager
@@ -33,14 +29,14 @@ export const RoutineScreen: React.FC<RoutineScreenProps> = ({
       />
 
       <ReminderList
-        reminderList={reminderList}
+        reminderList={getRoutineScreenItemDataList()}
         defaultReminderItemProps={{
           onSelect: () => {},
         }}
       />
 
       <ItemList
-        itemDataList={itemDataList}
+        itemDataList={getRoutineScreenItemDataList()}
         defaultItemProps={{
           onSelect: () => {},
         }}
