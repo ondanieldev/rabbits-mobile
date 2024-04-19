@@ -7,5 +7,7 @@
   "event": "event",
   "save": "save",
   "name": "name",
-  "time": "time"
+  "time": "time",
+  "daysOfWeek": "days of week",
+  "date": "date"
 }
