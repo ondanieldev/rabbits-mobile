@@ -1,62 +1,36 @@
 import { Controller, FieldValues, UseFormReturn } from 'react-hook-form';
-import { Text } from 'react-native';
-import {
-  TextInput as BaseTextInput,
-  TextInputProps as BaseTextInputProps,
-  View,
-} from 'react-native';
 
-import { textInputStyles } from './styles';
-import { useTextInput } from './use';
+import { BaseTextInput, BaseTextInputProps } from '../BaseTextInput';
 
 export interface TextInputProps<T extends FieldValues>
-  extends Omit<BaseTextInputProps, 'style'> {
+  extends BaseTextInputProps {
   form: UseFormReturn<T>;
-  label?: string;
   name: string;
 }
 
 export const TextInput: React.FC<TextInputProps<any>> = ({
   form,
-  label,
   name,
+  label,
   ...props
 }) => {
-  const { onBlur, onFocus, styles } = useTextInput({
-    onBlur: props.onBlur,
-    onFocus: props.onFocus,
-  });
-
   return (
-    <View style={textInputStyles.container}>
-      {label && <Text style={textInputStyles.label}>{label}</Text>}
-
-      <Controller
-        control={form.control}
-        name={name}
-        render={({
-          field: { onBlur: formOnBlur, onChange, value },
-          fieldState: { error },
-        }) => (
-          <View style={textInputStyles.container}>
-            <BaseTextInput
-              onFocus={onFocus}
-              onBlur={e => {
-                onBlur(e);
-                formOnBlur();
-              }}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-              {...props}
-            />
-
-            {error && (
-              <Text style={textInputStyles.error}>{error.message}</Text>
-            )}
-          </View>
-        )}
-      />
-    </View>
+    <Controller
+      control={form.control}
+      name={name}
+      render={({
+        field: { onBlur, onChange, value },
+        fieldState: { error },
+      }) => (
+        <BaseTextInput
+          onBlur={onBlur}
+          onChangeText={onChange}
+          value={value}
+          label={label}
+          errorMsg={error?.message}
+          {...props}
+        />
+      )}
+    />
   );
 };
