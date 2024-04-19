@@ -7,21 +7,21 @@ import { CreateAppointmentForm } from '../../components/CreateAppointmentForm';
 import { CreateHabitForm } from '../../components/CreateHabitForm';
 import { CreateReminderForm } from '../../components/CreateReminderForm';
 import { ItemCreatableTypeSelector } from '../../components/ItemCreatableTypeSelector';
-import { addToRoutineScreenStyles } from './styles';
-import { useAddToRoutineScreen } from './use';
+import { routineUpsertViewStyles } from './styles';
+import { useRoutineUpsertView } from './use';
 
-export interface AddToRoutineScreenProps
+export interface RoutineUpsertViewProps
   extends NativeStackScreenProps<
     StackNavigationParamList,
-    'AddToRoutineScreen'
+    'RoutineUpsertScreen'
   > {}
 
-export const AddToRoutineScreen: React.FC<AddToRoutineScreenProps> = ({}) => {
+export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = ({}) => {
   const { selectedCreatableType, setSelectedCreatableType } =
-    useAddToRoutineScreen();
+    useRoutineUpsertView();
 
   return (
-    <DefaultView style={addToRoutineScreenStyles.container}>
+    <DefaultView style={routineUpsertViewStyles.container}>
       <ItemCreatableTypeSelector
         selectedCreatableType={selectedCreatableType}
         setSelectedCreatableType={setSelectedCreatableType}

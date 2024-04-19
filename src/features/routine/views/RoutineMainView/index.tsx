@@ -7,15 +7,16 @@ import { ReminderList } from '../../components/ReminderList';
 import { RoutineManager } from '../../components/RoutineManager';
 import { getRoutineScreenItemDataList } from '../../data';
 
-export interface RoutineScreenParams {}
-
-export interface RoutineScreenProps
-  extends NativeStackScreenProps<StackNavigationParamList, 'RoutineScreen'> {
+export interface RoutineMainViewProps
+  extends NativeStackScreenProps<
+    StackNavigationParamList,
+    'RoutineMainScreen'
+  > {
   referenceDate: Date;
   setReferenceDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-export const RoutineScreen: React.FC<RoutineScreenProps> = ({
+export const RoutineMainView: React.FC<RoutineMainViewProps> = ({
   referenceDate,
   setReferenceDate,
 }) => {

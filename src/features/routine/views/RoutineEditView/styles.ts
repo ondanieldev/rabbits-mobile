@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { colors, spacings } from '../../../../shared/styles/globalStyles';
 
-export const addToRoutineScreenStyles = StyleSheet.create({
+export const routineEditViewStyles = StyleSheet.create({
   container: {
     gap: spacings.sm,
     padding: spacings.md,

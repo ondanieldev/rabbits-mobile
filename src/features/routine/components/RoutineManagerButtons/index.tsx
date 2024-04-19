@@ -14,12 +14,12 @@ export const RoutineManagerButtons: React.FC = () => {
       <CircleIconButton
         iconName="plus"
         iconSize={25}
-        onPress={() => navigation.navigate('AddToRoutineScreen', {})}
+        onPress={() => navigation.navigate('RoutineUpsertScreen', {})}
       />
       <CircleIconButton
         iconName="edit-2"
         iconSize={20}
-        onPress={() => navigation.navigate('EditRoutineScreen', {})}
+        onPress={() => navigation.navigate('RoutineEditScreen', {})}
       />
       <CircleIconButton iconName="log-out" iconSize={20} onPress={() => {}} />
     </View>
