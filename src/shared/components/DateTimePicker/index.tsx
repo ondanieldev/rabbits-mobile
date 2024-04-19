@@ -4,7 +4,6 @@ import { Pressable, View } from 'react-native';
 import BaseDateTimePicker, {
   AndroidNativeProps,
 } from '@react-native-community/datetimepicker';
-import { subMinutes, subSeconds } from 'date-fns';
 
 import { BaseTextInput, BaseTextInputProps } from '../BaseTextInput';
 import { useDateTimePicker } from './use';
@@ -51,10 +50,9 @@ export const DateTimePicker: React.FC<DateTimePickerProps<any>> = ({
               value={field.value}
               mode={mode}
               is24Hour={true}
-              onChange={(e, date) => {
+              onChange={(_, date) => {
                 if (date) {
-                  const regulatedDate = subMinutes(subSeconds(date, 28), 6);
-                  field.onChange(regulatedDate);
+                  field.onChange(date);
                   setShow(false);
                 }
               }}
