@@ -5,9 +5,14 @@ import {
   RouteConfig,
   RouteProp,
 } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationOptions,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 
 export const stackScreenNames = [
+  'AuthSignInScreen',
+  'AuthSignUpScreen',
   'RoutineMainScreen',
   'RoutineUpsertScreen',
   'RoutineEditScreen',
@@ -19,7 +24,7 @@ export type StackRouteConfig<T extends StackScreenName> = RouteConfig<
   StackNavigationParamList,
   T,
   NavigationState,
-  {},
+  NativeStackNavigationOptions,
   EventMapBase
 >;
 
@@ -33,6 +38,8 @@ export type StackScreenChildren<T extends StackScreenName> = (
 ) => React.ReactNode;
 
 export type StackNavigationParamList = {
+  AuthSignInScreen: {};
+  AuthSignUpScreen: {};
   RoutineMainScreen: {};
   RoutineUpsertScreen: {};
   RoutineEditScreen: {};
