@@ -32,17 +32,17 @@ export const useItem: ItemHook = ({ data, isEditing, styles: propStyles }) => {
   }, [data, isEditing]);
 
   const styles = useMemo<Styles>(() => {
-    const applyCustom = data.objectType === 'appointment' && !isEditing;
+    const applyHighlight = data.objectType === 'appointment' && !isEditing;
 
     return {
       touchable: StyleSheet.compose(
         itemStyles.touchable,
         propStyles?.touchable && propStyles?.touchable,
       ),
-      date: applyCustom
+      date: applyHighlight
         ? StyleSheet.compose(itemStyles.date, itemStyles.appointmentText)
         : itemStyles.date,
-      name: applyCustom
+      name: applyHighlight
         ? StyleSheet.compose(itemStyles.name, itemStyles.appointmentText)
         : itemStyles.name,
     };
