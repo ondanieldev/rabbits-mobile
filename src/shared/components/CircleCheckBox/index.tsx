@@ -5,7 +5,7 @@ import { colors } from '../../styles/globalStyles';
 import { useCircleCheckBox } from './use';
 
 export interface CircleCheckBoxProps {
-  onSelect?: (isChecked: boolean) => void;
+  onToggle?: (isChecked: boolean) => void;
   isChecked?: boolean;
 }
 
@@ -15,7 +15,7 @@ export const CircleCheckBox: React.FC<CircleCheckBoxProps> = props => {
   return (
     <TouchableHighlight
       style={styles.container}
-      onPress={() => props.onSelect?.(!props.isChecked)}>
+      onPress={() => props.onToggle?.(!props.isChecked)}>
       {props.isChecked ? (
         <FeIcon name="check" color={colors.background} size={25} />
       ) : (
