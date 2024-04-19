@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { DefaultView } from '../../../../shared/components/DefaultView';
@@ -23,19 +21,17 @@ export const AddToRoutineScreen: React.FC<AddToRoutineScreenProps> = ({}) => {
     useAddToRoutineScreen();
 
   return (
-    <DefaultView>
-      <View style={addToRoutineScreenStyles.container}>
-        <ItemCreatableTypeSelector
-          selectedCreatableType={selectedCreatableType}
-          setSelectedCreatableType={setSelectedCreatableType}
-        />
+    <DefaultView style={addToRoutineScreenStyles.container}>
+      <ItemCreatableTypeSelector
+        selectedCreatableType={selectedCreatableType}
+        setSelectedCreatableType={setSelectedCreatableType}
+      />
 
-        <Divider />
+      <Divider />
 
-        {selectedCreatableType === 'habit' && <CreateHabitForm />}
-        {selectedCreatableType === 'reminder' && <CreateReminderForm />}
-        {selectedCreatableType === 'event' && <CreateAppointmentForm />}
-      </View>
+      {selectedCreatableType === 'habit' && <CreateHabitForm />}
+      {selectedCreatableType === 'reminder' && <CreateReminderForm />}
+      {selectedCreatableType === 'event' && <CreateAppointmentForm />}
     </DefaultView>
   );
 };
