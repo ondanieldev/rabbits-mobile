@@ -13,6 +13,10 @@ export class AuthService {
     return response.data;
   }
 
+  public static async signOut(): Promise<void> {
+    await habitsApi.post('/auth/sign-out');
+  }
+
   public static async signUp(data: SignUpSchema): Promise<User> {
     const response = await habitsApi.post<User>('/auth/sign-up', data);
     return response.data;
