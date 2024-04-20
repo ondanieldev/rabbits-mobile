@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-import { mmkvStorage } from '../storage/mmkv';
+import { AccessTokenStorage } from '../../features/auth/storages/AccessTokenStorage';
 
 export const habitsApi = axios.create({
   baseURL: process.env.HABITS_API_URL,
 });
 
 habitsApi.interceptors.request.use(config => {
-  const accessToken = mmkvStorage.getString('accessToken');
+  const accessToken = AccessTokenStorage.get();
 
   if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers.Authorization = `Bearer ${accessToken.accessToken}`;
   }
 
   return config;
