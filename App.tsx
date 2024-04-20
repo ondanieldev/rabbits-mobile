@@ -13,6 +13,7 @@ import { useRoutineMainScreen } from './src/features/routine/screens/RoutineMain
 import { useRoutineUpsertScreen } from './src/features/routine/screens/RoutineUpsertScreen/use';
 import { useAsync } from './src/shared/hooks/useAsync';
 import { Stack } from './src/shared/navigation/stack';
+import { SplashView } from './src/shared/views/SplashView';
 
 function App(): React.JSX.Element {
   const {
@@ -31,8 +32,7 @@ function App(): React.JSX.Element {
   }, []);
 
   if (isProfileLoading) {
-    // TODO: Add a loading screen
-    return <></>;
+    return <SplashView />;
   }
 
   return (
