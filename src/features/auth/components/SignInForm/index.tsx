@@ -5,7 +5,7 @@ import { TextInput } from '../../../../shared/components/TextInput';
 import { useSignInForm } from './use';
 
 export const SignInForm: React.FC = () => {
-  const { emailLabel, passwordLabel, buttonText, form, onSubmit } =
+  const { emailLabel, passwordLabel, buttonText, form, signIn } =
     useSignInForm();
 
   return (
@@ -21,7 +21,7 @@ export const SignInForm: React.FC = () => {
 
       <Divider />
 
-      <Button onPress={form.handleSubmit(onSubmit)}>{buttonText}</Button>
+      <Button onPress={form.handleSubmit(signIn)}>{buttonText}</Button>
     </Form>
   );
 };
