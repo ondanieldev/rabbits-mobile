@@ -14,4 +14,7 @@ export const circleIconButtonStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  touchableLoading: {
+    opacity: 0.5,
+  },
 });
