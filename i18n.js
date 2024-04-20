@@ -4,6 +4,7 @@ import i18n from 'i18next';
 
 import enAuth from './public/locales/en/auth.json';
 import enCommon from './public/locales/en/common.json';
+import enError from './public/locales/en/error.json';
 import enRoutine from './public/locales/en/routine.json';
 
 // TODO: improve locales loading
@@ -11,8 +12,9 @@ i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
   resources: {
     en: {
-      common: enCommon,
       auth: enAuth,
+      common: enCommon,
+      error: enError,
       routine: enRoutine,
     },
   },
