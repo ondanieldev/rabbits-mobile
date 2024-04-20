@@ -16,4 +16,7 @@ export const buttonStyles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
+  touchableDisabled: {
+    opacity: 0.5,
+  },
 });
