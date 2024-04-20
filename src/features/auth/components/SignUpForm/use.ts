@@ -1,10 +1,15 @@
-import { useCallback, useMemo } from 'react';
-import { SubmitHandler, UseFormReturn, useForm } from 'react-hook-form';
+import { useMemo } from 'react';
+import { UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigation } from '@react-navigation/native';
 
+import { useAsync } from '../../../../shared/hooks/useAsync';
+import { User } from '../../../../shared/interfaces/User';
+import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { SignUpSchema, signUpSchema } from '../../schemas/signUpSchema';
+import { AuthService } from '../../services/AuthService';
 
 export type SignUpFormHook = () => {
   emailLabel: string;
@@ -12,10 +17,26 @@ export type SignUpFormHook = () => {
   confirmPasswordLabel: string;
   buttonText: string;
   form: UseFormReturn<SignUpSchema>;
-  onSubmit: SubmitHandler<SignUpSchema>;
+  signUp: (data: SignUpSchema) => Promise<User | null>;
+  isLoadingSignUp: boolean;
 };
 
 export const useSignUpForm: SignUpFormHook = () => {
+  const navigation = useNavigation<StackNavigationProp>();
+
+  const { fetch: signUp, isLoading: isLoadingSignUp } = useAsync(
+    AuthService.signUp,
+    {
+      errorOptions: {
+        showAlert: true,
+        title: 'signUpError',
+      },
+      onSuccess: () => {
+        navigation.navigate('AuthSignInScreen', {});
+      },
+    },
+  );
+
   const { t } = useTranslation('auth');
 
   const emailLabel = useMemo(() => t('email'), [t]);
@@ -32,16 +53,13 @@ export const useSignUpForm: SignUpFormHook = () => {
     mode: 'onSubmit',
   });
 
-  const onSubmit = useCallback<SubmitHandler<SignUpSchema>>(data => {
-    console.log(data);
-  }, []);
-
   return {
     emailLabel,
     passwordLabel,
     confirmPasswordLabel,
     buttonText,
     form,
-    onSubmit,
+    signUp,
+    isLoadingSignUp,
   };
 };

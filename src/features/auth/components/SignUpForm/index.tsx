@@ -11,7 +11,8 @@ export const SignUpForm: React.FC = () => {
     confirmPasswordLabel,
     buttonText,
     form,
-    onSubmit,
+    isLoadingSignUp,
+    signUp,
   } = useSignUpForm();
 
   return (
@@ -34,7 +35,9 @@ export const SignUpForm: React.FC = () => {
 
       <Divider />
 
-      <Button onPress={form.handleSubmit(onSubmit)}>{buttonText}</Button>
+      <Button isLoading={isLoadingSignUp} onPress={form.handleSubmit(signUp)}>
+        {buttonText}
+      </Button>
     </Form>
   );
 };
