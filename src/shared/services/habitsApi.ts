@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-import { AccessTokenStorage } from '../../features/auth/storages/AccessTokenStorage';
+import { AuthTokenStorage } from '../../features/auth/storages/AuthTokenStorage';
 
 export const habitsApi = axios.create({
   baseURL: process.env.HABITS_API_URL,
 });
 
 habitsApi.interceptors.request.use(config => {
-  const accessToken = AccessTokenStorage.get();
+  const authToken = AuthTokenStorage.get();
 
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken.accessToken}`;
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken.accessToken}`;
   }
 
   return config;
