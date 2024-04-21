@@ -2,17 +2,13 @@ import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
+import { useAuth } from '../../hooks/useAuth';
 import { useSignInForm } from './use';
 
 export const SignInForm: React.FC = () => {
-  const {
-    emailLabel,
-    passwordLabel,
-    buttonText,
-    form,
-    isLoadingSignIn,
-    signIn,
-  } = useSignInForm();
+  const { isLoadingSignIn, signIn } = useAuth();
+
+  const { emailLabel, passwordLabel, buttonText, form } = useSignInForm();
 
   return (
     <Form form={form}>
