@@ -17,17 +17,14 @@ export interface RoutineMainViewProps
   setReferenceDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-export const RoutineMainView: React.FC<RoutineMainViewProps> = ({
-  referenceDate,
-  setReferenceDate,
-}) => {
-  const { reminderList, isLoadingReminderList } = useRoutineMainView();
+export const RoutineMainView: React.FC<RoutineMainViewProps> = props => {
+  const { reminderList, isLoadingReminderList } = useRoutineMainView(props);
 
   return (
     <DefaultView>
       <RoutineManager
-        referenceDate={referenceDate}
-        setReferenceDate={setReferenceDate}
+        referenceDate={props.referenceDate}
+        setReferenceDate={props.setReferenceDate}
         completedCount={4}
         totalCount={10}
       />
