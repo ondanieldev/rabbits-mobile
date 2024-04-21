@@ -1,7 +1,7 @@
-import { Button } from '../../../../shared/components/Button';
 import { DayOfWeekInput } from '../../../../shared/components/DayOfWeekInput';
 import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
+import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
 import { useCreateReminderForm } from './use';
 
@@ -19,7 +19,9 @@ export const CreateReminderForm: React.FC = () => {
 
       <Divider />
 
-      <Button onPress={form.handleSubmit(onSubmit)}>{buttonText}</Button>
+      <TextButton onPress={form.handleSubmit(onSubmit)}>
+        {buttonText}
+      </TextButton>
     </Form>
   );
 };

@@ -20,7 +20,7 @@ export const RoutineManagerButtons: React.FC = () => {
     AuthService.signOut,
     {
       onSuccess: () => {
-        AuthTokenStorage.delete;
+        AuthTokenStorage.delete();
         dispatch(setAuthToken(null));
       },
     },
@@ -29,20 +29,32 @@ export const RoutineManagerButtons: React.FC = () => {
   return (
     <View style={routineManagerButtonsStyles.container}>
       <CircleIconButton
-        iconName="plus"
-        iconSize={25}
-        onPress={() => navigation.navigate('RoutineUpsertScreen', {})}
+        iconProps={{
+          name: 'plus',
+          size: 25,
+        }}
+        buttonProps={{
+          onPress: () => navigation.navigate('RoutineUpsertScreen', {}),
+        }}
       />
       <CircleIconButton
-        iconName="edit-2"
-        iconSize={20}
-        onPress={() => navigation.navigate('RoutineEditScreen', {})}
+        iconProps={{
+          name: 'edit-2',
+          size: 20,
+        }}
+        buttonProps={{
+          onPress: () => navigation.navigate('RoutineEditScreen', {}),
+        }}
       />
       <CircleIconButton
-        iconName="log-out"
-        iconSize={20}
-        onPress={() => signOut}
-        isLoading={isLoadingSignOut}
+        iconProps={{
+          name: 'log-out',
+          size: 20,
+        }}
+        buttonProps={{
+          onPress: () => signOut({}),
+          isLoading: isLoadingSignOut,
+        }}
       />
     </View>
   );

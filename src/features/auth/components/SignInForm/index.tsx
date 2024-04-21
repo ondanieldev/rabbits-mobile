@@ -1,6 +1,6 @@
-import { Button } from '../../../../shared/components/Button';
 import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
+import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
 import { useSignInForm } from './use';
 
@@ -27,9 +27,11 @@ export const SignInForm: React.FC = () => {
 
       <Divider />
 
-      <Button isLoading={isLoadingSignIn} onPress={form.handleSubmit(signIn)}>
+      <TextButton
+        isLoading={isLoadingSignIn}
+        onPress={form.handleSubmit(signIn)}>
         {buttonText}
-      </Button>
+      </TextButton>
     </Form>
   );
 };
