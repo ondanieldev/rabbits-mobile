@@ -1,11 +1,13 @@
 import './i18n';
 
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { NavigationContainer } from '@react-navigation/native';
 
 import { AuthService } from './src/features/auth/services/AuthService';
 import { AuthTokenStorage } from './src/features/auth/storages/AuthTokenStorage';
+import { setAuthToken } from './src/features/auth/stores/authStore';
 import { AuthSignInView } from './src/features/auth/views/AuthSignInView';
 import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
 import { useRoutineEditScreen } from './src/features/routine/screens/RoutineEditScreen/use';
@@ -26,15 +28,22 @@ export function AppWrapper(): React.JSX.Element {
 }
 
 export function App(): React.JSX.Element {
-  const {
-    fetch: readProfile,
-    isLoading: isProfileLoading,
-    output: profile,
-  } = useAsync(AuthService.readProfile, {
-    onFailure: AuthTokenStorage.delete,
-  });
+  const dispatch = useDispatch();
 
   const authToken = useSelector(state => state.auth.authToken);
+
+  const { fetch: readProfile, isLoading: isProfileLoading } = useAsync(
+    AuthService.readProfile,
+    {
+      onSuccess: () => {
+        dispatch(setAuthToken(AuthTokenStorage.get()));
+      },
+      onFailure: () => {
+        AuthTokenStorage.delete();
+        dispatch(setAuthToken(null));
+      },
+    },
+  );
 
   const routineMainScreen = useRoutineMainScreen();
   const routineUpsertScreen = useRoutineUpsertScreen();
@@ -43,7 +52,7 @@ export function App(): React.JSX.Element {
   useEffect(() => {
     readProfile({});
     //  eslint-disable-next-line react-hooks/exhaustive-deps -- We only want to run this once
-  }, [authToken]);
+  }, []);
 
   if (isProfileLoading) {
     return <SplashView />;
@@ -52,7 +61,7 @@ export function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {profile === null ? (
+        {authToken === null ? (
           <>
             <Stack.Screen
               component={AuthSignInView}
