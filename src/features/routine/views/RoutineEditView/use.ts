@@ -7,42 +7,43 @@ import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { useTask } from '../../contexts/taskContext';
-import {
-  appointmentListAsItemDataList,
-  habitListAsItemDataList,
-} from '../../data';
+import { appointmentListAsItemDataList } from '../../data';
 import { ItemCreatableType } from '../../enums/ItemCreatableType';
 import { ItemData } from '../../interfaces/ItemData';
 import { deleteTask } from '../../stores/taskStore';
 import { ItemDataUtils } from '../../utils/ItemDataUtils';
 
 export const useRoutineEditView = () => {
+  /**
+   * Translation
+   */
   const { t } = useTranslation('routine');
   const searchLabel = useMemo(() => t('searchByName'), [t]);
 
-  const navigation = useNavigation<StackNavigationProp>();
-
-  const { taskList } = useTask();
-
-  const dispatch = useDispatch();
-  const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
-
-  const isDeleting = useMemo(
-    () => deleteTaskStatus === 'pending',
-    [deleteTaskStatus],
-  );
-
+  /**
+   * Select form
+   */
   const [selectedCreatableType, setSelectedCreatableType] =
     useState<ItemCreatableType>('habit');
 
+  /**
+   * Load list
+   */
+  const { taskList } = useTask();
+
+  const [search, setSearch] = useState('');
+
   const itemDataList = useMemo<ItemData[]>(() => {
-    if (selectedCreatableType === 'habit') {
-      return habitListAsItemDataList;
-    }
+    const matchesSearch = (query: string) => {
+      if (!search) {
+        return true;
+      }
+      return query.toLowerCase().includes(search.toLowerCase());
+    };
 
     if (selectedCreatableType === 'reminder') {
       return taskList
-        .filter(task => task.kind === 'reminder')
+        .filter(task => task.kind === 'reminder' && matchesSearch(task.name))
         .map(task => ItemDataUtils.fromTaskToItemData(task));
     }
 
@@ -51,7 +52,17 @@ export const useRoutineEditView = () => {
     }
 
     return [];
-  }, [selectedCreatableType, taskList]);
+  }, [selectedCreatableType, taskList, search]);
+
+  /**
+   * Redux
+   */
+  const dispatch = useDispatch();
+
+  /**
+   * Select task
+   */
+  const navigation = useNavigation<StackNavigationProp>();
 
   const onSelect = useCallback(
     (data: ItemData) => {
@@ -59,6 +70,11 @@ export const useRoutineEditView = () => {
     },
     [navigation],
   );
+
+  /**
+   * Delete task
+   */
+  const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
 
   const onDelete = useCallback(
     async (data: ItemData) => {
@@ -73,11 +89,21 @@ export const useRoutineEditView = () => {
     [dispatch],
   );
 
+  const isDeleting = useMemo(
+    () => deleteTaskStatus === 'pending',
+    [deleteTaskStatus],
+  );
+
+  /**
+   * Return
+   */
   return {
+    searchLabel,
     selectedCreatableType,
     setSelectedCreatableType,
     itemDataList,
-    searchLabel,
+    search,
+    setSearch,
     onSelect,
     onDelete,
     isDeleting,

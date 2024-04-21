@@ -20,9 +20,11 @@ export interface RoutineEditViewProps
 export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
   const {
     searchLabel,
-    itemDataList,
     selectedCreatableType,
     setSelectedCreatableType,
+    itemDataList,
+    search,
+    setSearch,
     onSelect,
     onDelete,
     isDeleting,
@@ -38,7 +40,11 @@ export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
 
         <Divider />
 
-        <BaseTextInput label={searchLabel} />
+        <BaseTextInput
+          label={searchLabel}
+          onChangeText={setSearch}
+          value={search}
+        />
       </View>
 
       <ItemList
