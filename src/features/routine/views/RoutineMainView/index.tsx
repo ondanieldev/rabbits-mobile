@@ -6,6 +6,7 @@ import { ItemList } from '../../components/ItemList';
 import { ReminderList } from '../../components/ReminderList';
 import { RoutineManager } from '../../components/RoutineManager';
 import { getRoutineScreenItemDataList } from '../../data';
+import { useRoutineMainView } from './use';
 
 export interface RoutineMainViewProps
   extends NativeStackScreenProps<
@@ -20,6 +21,8 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = ({
   referenceDate,
   setReferenceDate,
 }) => {
+  const { reminderList, isLoadingReminderList } = useRoutineMainView();
+
   return (
     <DefaultView>
       <RoutineManager
@@ -30,10 +33,11 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = ({
       />
 
       <ReminderList
-        reminderList={getRoutineScreenItemDataList()}
+        reminderList={reminderList}
         defaultReminderItemProps={{
           onSelect: () => {},
         }}
+        isLoading={isLoadingReminderList}
       />
 
       <ItemList
