@@ -4,9 +4,14 @@ import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
+import { Task } from '../../interfaces/Task';
 import { useCreateHabitForm } from './use';
 
-export const CreateHabitForm: React.FC = () => {
+export interface CreateHabitFormProps {
+  editingHabit?: Task;
+}
+
+export const CreateHabitForm: React.FC<CreateHabitFormProps> = props => {
   const {
     buttonText,
     daysOfWeekLabel,
@@ -15,7 +20,7 @@ export const CreateHabitForm: React.FC = () => {
     timeLabel,
     form,
     onSubmit,
-  } = useCreateHabitForm();
+  } = useCreateHabitForm(props);
 
   return (
     <Form form={form}>

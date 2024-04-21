@@ -29,7 +29,9 @@ export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = props => {
 
       <Divider />
 
-      {selectedCreatableType === 'habit' && <CreateHabitForm />}
+      {selectedCreatableType === 'habit' && (
+        <CreateHabitForm editingHabit={editingTask} />
+      )}
       {selectedCreatableType === 'reminder' && (
         <CreateReminderForm ediditingReminder={editingTask} />
       )}

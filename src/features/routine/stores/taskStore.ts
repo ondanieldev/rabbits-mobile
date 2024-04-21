@@ -35,10 +35,10 @@ export interface TaskState {
 const taskAdapter = createEntityAdapter({
   sortComparer: (a: Task, b: Task) => {
     if (a.hours !== b.hours) {
-      return b.hours - a.hours;
+      return a.hours - b.hours;
     }
     if (a.minutes !== b.minutes) {
-      return b.minutes - a.minutes;
+      return b.minutes - b.minutes;
     }
     return a.name.localeCompare(b.name);
   },

@@ -34,6 +34,7 @@ export const useRoutineEditView = () => {
   const [search, setSearch] = useState('');
 
   const itemDataList = useMemo<ItemData[]>(() => {
+    // Function to filter tasks based on search query
     const matchesSearch = (query: string) => {
       if (!search) {
         return true;
@@ -41,12 +42,21 @@ export const useRoutineEditView = () => {
       return query.toLowerCase().includes(search.toLowerCase());
     };
 
+    // Habit list
+    if (selectedCreatableType === 'habit') {
+      return taskList
+        .filter(task => task.kind === 'habit' && matchesSearch(task.name))
+        .map(task => ItemDataUtils.fromTaskToItemData(task));
+    }
+
+    // Reminder list
     if (selectedCreatableType === 'reminder') {
       return taskList
         .filter(task => task.kind === 'reminder' && matchesSearch(task.name))
         .map(task => ItemDataUtils.fromTaskToItemData(task));
     }
 
+    // Appointment list
     if (selectedCreatableType === 'event') {
       return appointmentListAsItemDataList;
     }
