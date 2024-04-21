@@ -7,6 +7,7 @@ import { RoutineUpsertView } from '../../views/RoutineUpsertView';
 
 export type RoutineUpsertScreenParams = {
   taskId?: string;
+  appointmentId?: string;
 };
 
 export type RoutineUpsertScreenHook =

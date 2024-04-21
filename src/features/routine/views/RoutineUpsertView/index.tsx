@@ -17,8 +17,12 @@ export interface RoutineUpsertViewProps
   > {}
 
 export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = props => {
-  const { selectedCreatableType, setSelectedCreatableType, editingTask } =
-    useRoutineUpsertView(props);
+  const {
+    selectedCreatableType,
+    setSelectedCreatableType,
+    editingTask,
+    editingAppointment,
+  } = useRoutineUpsertView(props);
 
   return (
     <DefaultView style={routineUpsertViewStyles.container}>
@@ -35,7 +39,9 @@ export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = props => {
       {selectedCreatableType === 'reminder' && (
         <CreateReminderForm ediditingReminder={editingTask} />
       )}
-      {selectedCreatableType === 'event' && <CreateAppointmentForm />}
+      {selectedCreatableType === 'event' && (
+        <CreateAppointmentForm editingAppointment={editingAppointment} />
+      )}
     </DefaultView>
   );
 };

@@ -3,9 +3,16 @@ import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
+import { Appointment } from '../../interfaces/Appointment';
 import { useCreateAppointmentForm } from './use';
 
-export const CreateAppointmentForm: React.FC = () => {
+export interface CreateAppointmentFormProps {
+  editingAppointment?: Appointment;
+}
+
+export const CreateAppointmentForm: React.FC<
+  CreateAppointmentFormProps
+> = props => {
   const {
     buttonText,
     dateLabel,
@@ -15,7 +22,7 @@ export const CreateAppointmentForm: React.FC = () => {
     timeLabel,
     form,
     onSubmit,
-  } = useCreateAppointmentForm();
+  } = useCreateAppointmentForm(props);
 
   return (
     <Form form={form}>

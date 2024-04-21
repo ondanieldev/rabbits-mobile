@@ -6,10 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
+import { useAppointment } from '../../contexts/appointmentContext';
 import { useTask } from '../../contexts/taskContext';
-import { appointmentListAsItemDataList } from '../../data';
 import { ItemCreatableType } from '../../enums/ItemCreatableType';
 import { ItemData } from '../../interfaces/ItemData';
+import { deleteAppointment } from '../../stores/appointmentStore';
 import { deleteTask } from '../../stores/taskStore';
 import { ItemDataUtils } from '../../utils/ItemDataUtils';
 
@@ -30,6 +31,7 @@ export const useRoutineEditView = () => {
    * Load list
    */
   const { taskList } = useTask();
+  const { appointmentList } = useAppointment();
 
   const [search, setSearch] = useState('');
 
@@ -58,11 +60,13 @@ export const useRoutineEditView = () => {
 
     // Appointment list
     if (selectedCreatableType === 'event') {
-      return appointmentListAsItemDataList;
+      return appointmentList
+        .filter(appointment => matchesSearch(appointment.name))
+        .map(ItemDataUtils.fromAppointmentToItemData);
     }
 
     return [];
-  }, [selectedCreatableType, taskList, search]);
+  }, [selectedCreatableType, taskList, search, appointmentList]);
 
   /**
    * Redux
@@ -76,7 +80,13 @@ export const useRoutineEditView = () => {
 
   const onSelect = useCallback(
     (data: ItemData) => {
-      navigation.navigate('RoutineUpsertScreen', { taskId: data.id });
+      if (data.objectType === 'task') {
+        navigation.navigate('RoutineUpsertScreen', { taskId: data.id });
+      } else if (data.objectType === 'appointment') {
+        navigation.navigate('RoutineUpsertScreen', {
+          appointmentId: data.id,
+        });
+      }
     },
     [navigation],
   );
@@ -91,6 +101,8 @@ export const useRoutineEditView = () => {
       try {
         if (data.objectType === 'task') {
           dispatch(deleteTask(data.id));
+        } else if (data.objectType === 'appointment') {
+          dispatch(deleteAppointment(data.id));
         }
       } catch {
         //
