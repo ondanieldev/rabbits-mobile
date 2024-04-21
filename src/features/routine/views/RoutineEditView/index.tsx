@@ -23,6 +23,9 @@ export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
     itemDataList,
     selectedCreatableType,
     setSelectedCreatableType,
+    onSelect,
+    onDelete,
+    isDeleting,
   } = useRoutineEditView();
 
   return (
@@ -42,7 +45,9 @@ export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
         itemDataList={itemDataList}
         defaultItemProps={{
           isEditing: true,
-          onSelect: () => {},
+          isDeleting,
+          onSelect,
+          onDelete,
         }}
       />
     </DefaultView>

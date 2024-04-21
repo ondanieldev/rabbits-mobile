@@ -6,7 +6,9 @@ import { Button, ButtonProps } from '../Button';
 
 export interface IconButtonProps {
   buttonProps?: ButtonProps;
-  iconProps: IconProps;
+  iconProps: IconProps & {
+    disabledColor?: string;
+  };
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({
@@ -15,6 +17,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
     name,
     size = fontSizes.md,
     color = colors.selectable,
+    disabledColor = colors.disabled,
     ...iconProps
   },
 }) => {
@@ -23,7 +26,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
       <FeIcon
         name={name}
         size={size}
-        color={buttonProps?.disabled ? colors.disabled : color}
+        color={buttonProps?.disabled ? disabledColor : color}
         {...iconProps}
       />
     </Button>

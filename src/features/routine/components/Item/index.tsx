@@ -16,9 +16,10 @@ export interface ItemProps {
   styles?: {
     touchable?: StyleProp<ViewStyle>;
   };
-  onSelect?: (id: string) => void;
-  onDelete?: (id: string) => void;
-  onToggle?: (id: string) => void;
+  onSelect?: (data: ItemData) => void;
+  onDelete?: (data: ItemData) => void;
+  onToggle?: (data: ItemData) => void;
+  isDeleting?: boolean;
 }
 
 // add edit mode
@@ -29,7 +30,7 @@ export const Item: React.FC<ItemProps> = props => {
     // change onPress based on editMode
     <TouchableHighlight
       disabled={!props.isEditing}
-      onPress={() => props.onSelect?.(props.data.id)}
+      onPress={() => props.onSelect?.(props.data)}
       style={styles.touchable}>
       <View>
         {!props.isEditing && props.data.isCompleted && <Overlay />}
@@ -38,18 +39,20 @@ export const Item: React.FC<ItemProps> = props => {
           {!props.isEditing && (
             <CircleCheckBox
               isChecked={props.data.isCompleted}
-              onToggle={() => props.onToggle?.(props.data.id)}
+              onToggle={() => props.onToggle?.(props.data)}
             />
           )}
 
           {props.isEditing && (
             <IconButton
               buttonProps={{
-                onPress: () => props.onDelete?.(props.data.id),
+                onPress: () => props.onDelete?.(props.data),
+                disabled: props.isDeleting,
               }}
               iconProps={{
                 name: 'trash',
                 color: colors.danger,
+                disabledColor: colors.selectable,
               }}
             />
           )}
