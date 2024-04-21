@@ -22,6 +22,12 @@ export const fontSizes = {
   lg: 25,
 };
 
+export const iconSizes = {
+  sm: 20,
+  md: 25,
+  lg: 40,
+};
+
 export const sizes = {
   sm: 30,
   md: 40,

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { CircleIconButton } from '../../../../shared/components/CircleIconButton';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
+import { iconSizes } from '../../../../shared/styles/globalStyles';
 import { useAuth } from '../../../auth/hooks/useAuth';
 import { routineManagerButtonsStyles } from './style';
 
@@ -17,7 +18,7 @@ export const RoutineManagerButtons: React.FC = () => {
       <CircleIconButton
         iconProps={{
           name: 'plus',
-          size: 25,
+          size: iconSizes.md,
         }}
         buttonProps={{
           onPress: () => navigation.navigate('RoutineUpsertScreen', {}),
@@ -26,7 +27,7 @@ export const RoutineManagerButtons: React.FC = () => {
       <CircleIconButton
         iconProps={{
           name: 'edit-2',
-          size: 20,
+          size: iconSizes.sm,
         }}
         buttonProps={{
           onPress: () => navigation.navigate('RoutineEditScreen', {}),
@@ -35,7 +36,7 @@ export const RoutineManagerButtons: React.FC = () => {
       <CircleIconButton
         iconProps={{
           name: 'log-out',
-          size: 20,
+          size: iconSizes.sm,
         }}
         buttonProps={{
           onPress: () => signOut({}),

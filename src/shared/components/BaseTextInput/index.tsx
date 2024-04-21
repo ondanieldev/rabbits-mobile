@@ -4,7 +4,7 @@ import {
   View,
 } from 'react-native';
 
-import { colors } from '../../styles/globalStyles';
+import { colors, iconSizes } from '../../styles/globalStyles';
 import { IconButton } from '../IconButton';
 import { InputError } from '../InputError';
 import { InputLabel } from '../InputLabel';
@@ -48,7 +48,7 @@ export const BaseTextInput: React.FC<BaseTextInputProps> = ({
           <IconButton
             iconProps={{
               name: showSecureText ? 'eye-off' : 'eye',
-              size: 25,
+              size: iconSizes.md,
               color: colors.selectable,
             }}
             buttonProps={{

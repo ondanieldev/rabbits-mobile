@@ -1,6 +1,6 @@
 import { Container } from '../../../../shared/components/Container';
 import { IconButton } from '../../../../shared/components/IconButton';
-import { colors } from '../../../../shared/styles/globalStyles';
+import { colors, iconSizes } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
 import { ReminderItem, ReminderItemProps } from '../ReminderItem';
 import { reminderListStyles } from './styles';
@@ -25,7 +25,7 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
       <IconButton
         iconProps={{
           name: 'chevron-left',
-          size: 40,
+          size: iconSizes.lg,
           color: colors.primaryText,
         }}
         buttonProps={{
@@ -42,7 +42,7 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
       <IconButton
         iconProps={{
           name: 'chevron-right',
-          size: 40,
+          size: iconSizes.lg,
           color: colors.primaryText,
         }}
         buttonProps={{

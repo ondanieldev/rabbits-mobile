@@ -1,7 +1,7 @@
 import FeIcon from 'react-native-vector-icons/Feather';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
-import { colors } from '../../styles/globalStyles';
+import { colors, fontSizes } from '../../styles/globalStyles';
 import { Button, ButtonProps } from '../Button';
 
 export interface IconButtonProps {
@@ -11,7 +11,12 @@ export interface IconButtonProps {
 
 export const IconButton: React.FC<IconButtonProps> = ({
   buttonProps,
-  iconProps: { name, size = 25, color = colors.selectable, ...iconProps },
+  iconProps: {
+    name,
+    size = fontSizes.md,
+    color = colors.selectable,
+    ...iconProps
+  },
 }) => {
   return (
     <Button {...buttonProps}>

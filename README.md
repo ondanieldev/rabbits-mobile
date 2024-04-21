@@ -4,4 +4,5 @@
 
 - Turn lists into FlatLists
 - Translate validating errors
-- Replace View by SafeAreaView or related where it needs to
+- Improve error handling
+- Mesure screen hooks performance
