@@ -24,7 +24,8 @@ export class TaskService {
     return response.data;
   }
 
-  static async delete(taskId: string): Promise<void> {
+  static async delete(taskId: string): Promise<string> {
     await habitsApi.delete<Task>(`/tasks/${taskId}`);
+    return taskId;
   }
 }

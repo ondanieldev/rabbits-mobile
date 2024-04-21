@@ -10,6 +10,7 @@ import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
 import { useRoutineEditScreen } from './src/features/routine/screens/RoutineEditScreen/use';
 import { useRoutineMainScreen } from './src/features/routine/screens/RoutineMainScreen/use';
 import { useRoutineUpsertScreen } from './src/features/routine/screens/RoutineUpsertScreen/use';
+import { ContextProvider } from './src/shared/contexts';
 import { Stack } from './src/shared/navigation/stack';
 import { ReduxProvider } from './src/shared/stores/ReduxProvider';
 import { SplashView } from './src/shared/views/SplashView';
@@ -17,7 +18,9 @@ import { SplashView } from './src/shared/views/SplashView';
 export function AppWrapper(): React.JSX.Element {
   return (
     <ReduxProvider>
-      <App />
+      <ContextProvider>
+        <App />
+      </ContextProvider>
     </ReduxProvider>
   );
 }
