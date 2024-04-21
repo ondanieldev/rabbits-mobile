@@ -1,3 +1,5 @@
+import { ActivityIndicator, View } from 'react-native';
+
 import { Container } from '../../../../shared/components/Container';
 import { IconButton } from '../../../../shared/components/IconButton';
 import { colors, iconSizes } from '../../../../shared/styles/globalStyles';
@@ -9,6 +11,7 @@ import { useReminderList } from './use';
 export interface ReminderListProps {
   reminderList: ItemData[];
   defaultReminderItemProps?: Partial<ReminderItemProps>;
+  isLoading?: boolean;
 }
 
 export const ReminderList: React.FC<ReminderListProps> = props => {
@@ -20,7 +23,7 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
     handlePrevReminder,
   } = useReminderList(props);
 
-  return (
+  return currentReminder && !props.isLoading ? (
     <Container style={reminderListStyles.container}>
       <IconButton
         iconProps={{
@@ -51,5 +54,9 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
         }}
       />
     </Container>
+  ) : (
+    <View style={reminderListStyles.loadingContainer}>
+      <ActivityIndicator size="small" color={colors.primary} animating />
+    </View>
   );
 };

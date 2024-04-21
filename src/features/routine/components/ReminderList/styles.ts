@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { spacings } from '../../../../shared/styles/globalStyles';
+import { sizes, spacings } from '../../../../shared/styles/globalStyles';
 
 export const reminderListStyles = StyleSheet.create({
   container: {
@@ -18,5 +18,10 @@ export const reminderListStyles = StyleSheet.create({
   itemTextContainer: {
     padding: 0,
     justifyContent: 'center',
+  },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: sizes.lg,
   },
 });
