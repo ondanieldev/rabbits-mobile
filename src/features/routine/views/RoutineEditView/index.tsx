@@ -23,6 +23,7 @@ export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
     selectedCreatableType,
     setSelectedCreatableType,
     itemDataList,
+    isLoading,
     search,
     setSearch,
     onSelect,
@@ -55,6 +56,7 @@ export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
           onSelect,
           onDelete,
         }}
+        isLoading={isLoading}
       />
     </DefaultView>
   );

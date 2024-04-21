@@ -68,6 +68,15 @@ export const useRoutineEditView = () => {
     return [];
   }, [selectedCreatableType, taskList, search, appointmentList]);
 
+  const taskListStatus = useSelector(state => state.task.taskListStatus);
+  const appointmentListStatus = useSelector(
+    state => state.appointment.appointmentListStatus,
+  );
+  const isLoading = useMemo(
+    () => taskListStatus === 'pending' || appointmentListStatus === 'pending',
+    [taskListStatus, appointmentListStatus],
+  );
+
   /**
    * Redux
    */
@@ -92,9 +101,12 @@ export const useRoutineEditView = () => {
   );
 
   /**
-   * Delete task
+   * Delete
    */
   const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
+  const deleteAppointmentStatus = useSelector(
+    state => state.appointment.deleteAppointmentStatus,
+  );
 
   const onDelete = useCallback(
     async (data: ItemData) => {
@@ -112,8 +124,9 @@ export const useRoutineEditView = () => {
   );
 
   const isDeleting = useMemo(
-    () => deleteTaskStatus === 'pending',
-    [deleteTaskStatus],
+    () =>
+      deleteTaskStatus === 'pending' || deleteAppointmentStatus === 'pending',
+    [deleteTaskStatus, deleteAppointmentStatus],
   );
 
   /**
@@ -124,6 +137,7 @@ export const useRoutineEditView = () => {
     selectedCreatableType,
     setSelectedCreatableType,
     itemDataList,
+    isLoading,
     search,
     setSearch,
     onSelect,
