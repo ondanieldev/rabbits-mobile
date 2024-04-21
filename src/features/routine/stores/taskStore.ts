@@ -8,8 +8,9 @@ import {
 import { AsyncStatus } from '../../../shared/enums/AsyncStatus';
 import { OffsetPaginationQuery } from '../../../shared/interfaces/OffsetPaginationQuery';
 import { ReduxStoreRootState } from '../../../shared/stores/reduxStore';
+import { CreateTask } from '../interfaces/CreateTask';
 import { Task } from '../interfaces/Task';
-import { UpsertTask } from '../interfaces/UpsertTask';
+import { UpdateTask } from '../interfaces/UpdateTask';
 import { TaskService } from '../services/TaskService';
 
 /**
@@ -62,7 +63,7 @@ export const taskStoreInitialState: TaskState = taskAdapter.getInitialState({
  */
 export const createTask = createAsyncThunk(
   'task/createTask',
-  async (input: UpsertTask) => TaskService.create(input),
+  async (input: CreateTask) => TaskService.create(input),
 );
 
 export const readTaskList = createAsyncThunk(
@@ -72,7 +73,7 @@ export const readTaskList = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
   'task/updateTask',
-  async (input: UpsertTask) => TaskService.update(input),
+  async (input: UpdateTask) => TaskService.update(input),
 );
 
 export const deleteTask = createAsyncThunk(
@@ -143,6 +144,5 @@ export const taskStore = createSlice({
 /**
  * Selectors
  */
-export const { selectAll: selectTaskList } = taskAdapter.getSelectors(
-  (state: ReduxStoreRootState) => state.task,
-);
+export const { selectAll: selectTaskList, selectById: selectTask } =
+  taskAdapter.getSelectors((state: ReduxStoreRootState) => state.task);

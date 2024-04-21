@@ -41,6 +41,7 @@ export const DayOfWeekInput: React.FC<DayOfWeekInputProps<any>> = ({
                 onPress={isSelected => {
                   field.value = onPress(field.value, data.value, isSelected);
                 }}
+                defaultSelected={field.value.includes(data.value)}
               />
             ))}
           </ScrollView>

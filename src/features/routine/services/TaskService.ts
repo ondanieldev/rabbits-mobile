@@ -1,11 +1,12 @@
 import { OffsetPaginated } from '../../../shared/interfaces/OffsetPaginated';
 import { OffsetPaginationQuery } from '../../../shared/interfaces/OffsetPaginationQuery';
 import { habitsApi } from '../../../shared/services/habitsApi';
+import { CreateTask } from '../interfaces/CreateTask';
 import { Task } from '../interfaces/Task';
-import { UpsertTask } from '../interfaces/UpsertTask';
+import { UpdateTask } from '../interfaces/UpdateTask';
 
 export class TaskService {
-  static async create(input: UpsertTask): Promise<Task> {
+  static async create(input: CreateTask): Promise<Task> {
     const response = await habitsApi.post<Task>('/tasks', input);
     return response.data;
   }
@@ -19,8 +20,8 @@ export class TaskService {
     return response.data;
   }
 
-  static async update(input: UpsertTask): Promise<Task> {
-    const response = await habitsApi.put<Task>('/tasks', input);
+  static async update({ id, ...input }: UpdateTask): Promise<Task> {
+    const response = await habitsApi.put<Task>(`/tasks/${id}`, input);
     return response.data;
   }
 

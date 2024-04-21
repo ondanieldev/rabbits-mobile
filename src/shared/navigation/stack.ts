@@ -10,6 +10,8 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
+import { RoutineUpsertScreenParams } from '../../features/routine/screens/RoutineUpsertScreen/use';
+
 export const stackScreenNames = [
   'AuthSignInScreen',
   'AuthSignUpScreen',
@@ -41,7 +43,7 @@ export type StackNavigationParamList = {
   AuthSignInScreen: {};
   AuthSignUpScreen: {};
   RoutineMainScreen: {};
-  RoutineUpsertScreen: {};
+  RoutineUpsertScreen: RoutineUpsertScreenParams;
   RoutineEditScreen: {};
 };
 

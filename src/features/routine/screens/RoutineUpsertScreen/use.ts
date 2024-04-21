@@ -5,6 +5,10 @@ import { StackRouteConfig } from '../../../../shared/navigation/stack';
 import { appStyles } from '../../../../shared/styles/appStyles';
 import { RoutineUpsertView } from '../../views/RoutineUpsertView';
 
+export type RoutineUpsertScreenParams = {
+  taskId?: string;
+};
+
 export type RoutineUpsertScreenHook =
   () => StackRouteConfig<'RoutineUpsertScreen'>;
 
