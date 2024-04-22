@@ -1,4 +1,5 @@
 import { AppointmentProvider } from '../../features/routine/contexts/appointmentContext';
+import { DayProvider } from '../../features/routine/contexts/dayContext';
 import { TaskProvider } from '../../features/routine/contexts/taskContext';
 
 export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -6,7 +7,9 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   return (
     <TaskProvider>
-      <AppointmentProvider>{children}</AppointmentProvider>
+      <AppointmentProvider>
+        <DayProvider>{children}</DayProvider>
+      </AppointmentProvider>
     </TaskProvider>
   );
 };

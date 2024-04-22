@@ -5,7 +5,6 @@ import { StackNavigationParamList } from '../../../../shared/navigation/stack';
 import { ItemList } from '../../components/ItemList';
 import { ReminderList } from '../../components/ReminderList';
 import { RoutineManager } from '../../components/RoutineManager';
-import { getRoutineScreenItemDataList } from '../../data';
 import { useRoutineMainView } from './use';
 
 export interface RoutineMainViewProps
@@ -18,7 +17,8 @@ export interface RoutineMainViewProps
 }
 
 export const RoutineMainView: React.FC<RoutineMainViewProps> = props => {
-  const { reminderList, isLoadingReminderList } = useRoutineMainView(props);
+  const { reminderList, isLoadingReminderList, isLoadingItemList, itemList } =
+    useRoutineMainView(props);
 
   return (
     <DefaultView>
@@ -38,10 +38,11 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = props => {
       />
 
       <ItemList
-        itemDataList={getRoutineScreenItemDataList()}
+        itemDataList={itemList}
         defaultItemProps={{
           onSelect: () => {},
         }}
+        isLoading={isLoadingItemList}
       />
     </DefaultView>
   );
