@@ -106,7 +106,6 @@ export const useRoutineMainView = () => {
       .map(appointment => ItemDataUtils.fromAppointmentToItemData(appointment));
 
     const result = appointments.concat(habits);
-    console.log(result);
     return result.sort((a, b) => {
       if (!a.date && !b.date) {
         return 0;
@@ -134,12 +133,10 @@ export const useRoutineMainView = () => {
    */
   const onSelect = useCallback(
     async (data: ItemData) => {
-      console.log('b');
       if (data.objectType === 'task') {
         if (data.isCompleted && data.completedRefId) {
           await dispatch(deleteCompletedTask(data.completedRefId)).unwrap();
         } else {
-          console.log('a');
           const day = referenceDate.getDate();
           const month = referenceDate.getMonth() + 1;
           const year = referenceDate.getFullYear();
