@@ -1,4 +1,4 @@
-import { Controller, FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
 import { ScrollView, View } from 'react-native';
 
 import { InputError } from '../InputError';
@@ -21,36 +21,31 @@ export const DayOfWeekInput: React.FC<DayOfWeekInputProps<any>> = ({
   label,
   name,
 }) => {
-  const { onPress } = useDayOfWeekInput();
+  const { onPress, totalValue, error } = useDayOfWeekInput({
+    form,
+    name,
+  });
 
   return (
-    <Controller
-      name={name}
-      control={form.control}
-      render={({ field, fieldState }) => (
-        <View style={dayOfWeekInputStyles.container}>
-          {label && <InputLabel>{label}</InputLabel>}
+    <View style={dayOfWeekInputStyles.container}>
+      {label && <InputLabel>{label}</InputLabel>}
 
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={dayOfWeekInputStyles.listContainer}>
-            {selectableDayOfWeekDataList.map(data => (
-              <SelectableDayOfWeek
-                key={data.value}
-                label={data.label}
-                onPress={isSelected => {
-                  field.value = onPress(field.value, data.value, isSelected);
-                }}
-                defaultSelected={field.value.includes(data.value)}
-              />
-            ))}
-          </ScrollView>
+      <ScrollView
+        horizontal={true}
+        contentContainerStyle={dayOfWeekInputStyles.listContainer}>
+        {selectableDayOfWeekDataList.map(data => (
+          <SelectableDayOfWeek
+            key={data.value}
+            label={data.label}
+            onPress={isSelected => {
+              onPress(data.value, isSelected);
+            }}
+            defaultSelected={totalValue.includes(data.value)}
+          />
+        ))}
+      </ScrollView>
 
-          {fieldState.error?.message && (
-            <InputError>{fieldState.error.message}</InputError>
-          )}
-        </View>
-      )}
-    />
+      {error && <InputError>{error}</InputError>}
+    </View>
   );
 };

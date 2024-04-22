@@ -1,31 +1,47 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-export type DayOfWeekInputHook = () => {
-  onPress: (
-    totalValue: number[],
-    value: number,
-    isSelected: boolean,
-  ) => number[];
-};
+import { DayOfWeekInputProps } from '.';
 
-export const useDayOfWeekInput: DayOfWeekInputHook = () => {
+export const useDayOfWeekInput = ({ form, name }: DayOfWeekInputProps<any>) => {
+  const [error, setError] = useState<string | undefined>(undefined);
+
+  const totalValue = useMemo(() => form.watch(name), [form, name]);
+
   const onPress = useCallback(
-    (totalValue: number[], value: number, isSelected: boolean) => {
+    (value: number, isSelected: boolean) => {
+      let result: number[] = [];
       if (!Array.isArray(totalValue)) {
-        totalValue = [];
+        result = [];
+      } else {
+        result = [...totalValue];
       }
-      const index = totalValue.indexOf(value);
+      const index = result.indexOf(value);
       if (isSelected && index === -1) {
-        totalValue.push(value);
+        result.push(value);
       } else if (!isSelected && index !== -1) {
-        totalValue.splice(index, 1);
+        result.splice(index, 1);
       }
-      return totalValue;
+      form.setValue(name, result);
     },
-    [],
+    [form, name, totalValue],
   );
 
+  useEffect(() => {
+    form.register(name);
+  }, [form, name]);
+
+  useEffect(() => {
+    const fieldError = form.formState.errors[name];
+    if (fieldError?.message) {
+      setError(fieldError.message as string);
+    } else {
+      setError(undefined);
+    }
+  }, [form, name, form.formState.errors]);
+
   return {
+    totalValue,
     onPress,
+    error,
   };
 };
