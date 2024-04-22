@@ -21,6 +21,7 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
     itemList,
     referenceDate,
     setReferenceDate,
+    onSelect,
   } = useRoutineMainView();
 
   return (
@@ -35,7 +36,7 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
       <ReminderList
         reminderList={reminderList}
         defaultReminderItemProps={{
-          onSelect: () => {},
+          onSelect,
         }}
         isLoading={isLoadingReminderList}
       />
@@ -43,7 +44,7 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
       <ItemList
         itemDataList={itemList}
         defaultItemProps={{
-          onSelect: () => {},
+          onToggle: onSelect,
         }}
         isLoading={isLoadingItemList}
       />

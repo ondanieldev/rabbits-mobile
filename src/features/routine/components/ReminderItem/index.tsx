@@ -8,7 +8,7 @@ import { reminderItemStyles } from './styles';
 
 export interface ReminderItemProps {
   data: ItemData;
-  onSelect?: (id: string) => void;
+  onSelect?: (data: ItemData) => void;
 }
 
 export const ReminderItem: React.FC<ReminderItemProps> = ({
@@ -18,7 +18,7 @@ export const ReminderItem: React.FC<ReminderItemProps> = ({
   return (
     <TouchableHighlight
       style={reminderItemStyles.container}
-      onPress={() => onSelect?.(data.id)}>
+      onPress={() => onSelect?.(data)}>
       <View style={reminderItemStyles.contentContainer}>
         {data.isCompleted && <Overlay />}
         <Text>{data.name}</Text>

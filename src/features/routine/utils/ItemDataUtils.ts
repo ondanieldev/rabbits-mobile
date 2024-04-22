@@ -24,6 +24,7 @@ export class ItemDataUtils {
       daysOfWeek: task.daysOfWeek,
       kind: task.kind,
       date,
+      completedRefId: completedTask?.id,
     };
   };
 
@@ -36,6 +37,7 @@ export class ItemDataUtils {
       objectType: 'appointment',
       date,
       daysOfWeek: [date.getDay() + 1],
+      completedRefId: appointment.id,
     };
   };
 }

@@ -46,15 +46,11 @@ export const DayProvider: React.FC<{
   );
 
   useEffect(() => {
-    if (completedTaskListStatus === 'idle') {
-      const year = referenceDate.getFullYear();
-      const month = referenceDate.getMonth() + 1;
-      const day = referenceDate.getDate();
-      dispatch(
-        readCompletedTaskList({ limit: 100, page: 1, year, month, day }),
-      );
-    }
-  }, [dispatch, completedTaskListStatus, referenceDate]);
+    const year = referenceDate.getFullYear();
+    const month = referenceDate.getMonth() + 1;
+    const day = referenceDate.getDate();
+    dispatch(readCompletedTaskList({ limit: 100, page: 1, year, month, day }));
+  }, [dispatch, referenceDate]);
 
   const value = useMemo(
     () => ({

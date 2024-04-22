@@ -9,6 +9,7 @@ export interface ItemData {
   showDate?: boolean;
   showTime?: boolean;
   isCompleted?: boolean;
+  completedRefId?: string;
   kind?: TaskKind;
   daysOfWeek?: number[];
 }

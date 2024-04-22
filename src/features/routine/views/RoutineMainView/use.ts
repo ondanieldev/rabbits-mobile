@@ -1,13 +1,22 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { isSameDay } from 'date-fns';
 
+import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useAppointment } from '../../contexts/appointmentContext';
 import { useDay } from '../../contexts/dayContext';
 import { useTask } from '../../contexts/taskContext';
+import { ItemData } from '../../interfaces/ItemData';
+import { updateAppointment } from '../../stores/appointmentStore';
+import {
+  createCompletedTask,
+  deleteCompletedTask,
+} from '../../stores/completedTaskStore';
 import { ItemDataUtils } from '../../utils/ItemDataUtils';
 
 export const useRoutineMainView = () => {
+  const dispatch = useDispatch();
+
   /**
    * Load task list
    */
@@ -43,7 +52,16 @@ export const useRoutineMainView = () => {
           ItemDataUtils.fromTaskToItemData(
             task,
             completedTaskList.find(
-              completedTask => completedTask.taskId === task.id,
+              completedTask =>
+                completedTask.taskId === task.id &&
+                isSameDay(
+                  new Date(
+                    completedTask.year,
+                    completedTask.month - 1,
+                    completedTask.day,
+                  ),
+                  referenceDate,
+                ),
             ),
           ),
         ),
@@ -69,7 +87,16 @@ export const useRoutineMainView = () => {
         ItemDataUtils.fromTaskToItemData(
           task,
           completedTaskList.find(
-            completedTask => completedTask.taskId === task.id,
+            completedTask =>
+              completedTask.taskId === task.id &&
+              isSameDay(
+                new Date(
+                  completedTask.year,
+                  completedTask.month - 1,
+                  completedTask.day,
+                ),
+                referenceDate,
+              ),
           ),
         ),
       );
@@ -78,7 +105,8 @@ export const useRoutineMainView = () => {
       .filter(appointment => isSameDay(appointment.date, referenceDate))
       .map(appointment => ItemDataUtils.fromAppointmentToItemData(appointment));
 
-    const result = habits.concat(appointments);
+    const result = appointments.concat(habits);
+    console.log(result);
     return result.sort((a, b) => {
       if (!a.date && !b.date) {
         return 0;
@@ -101,6 +129,43 @@ export const useRoutineMainView = () => {
     [taskListStatus, appointmentListStatus, completedTaskListStatus],
   );
 
+  /**
+   * Complete task
+   */
+  const onSelect = useCallback(
+    async (data: ItemData) => {
+      console.log('b');
+      if (data.objectType === 'task') {
+        if (data.isCompleted && data.completedRefId) {
+          await dispatch(deleteCompletedTask(data.completedRefId)).unwrap();
+        } else {
+          console.log('a');
+          const day = referenceDate.getDate();
+          const month = referenceDate.getMonth() + 1;
+          const year = referenceDate.getFullYear();
+          await dispatch(
+            createCompletedTask({
+              day,
+              month,
+              year,
+              taskId: data.id,
+            }),
+          ).unwrap();
+        }
+      } else if (data.objectType === 'appointment') {
+        await dispatch(
+          updateAppointment({
+            date: data.date || referenceDate,
+            id: data.id,
+            isCompleted: !data.isCompleted,
+            name: data.name,
+          }),
+        ).unwrap();
+      }
+    },
+    [dispatch, referenceDate],
+  );
+
   return {
     reminderList,
     isLoadingReminderList,
@@ -108,5 +173,6 @@ export const useRoutineMainView = () => {
     isLoadingItemList,
     referenceDate,
     setReferenceDate,
+    onSelect,
   };
 };
