@@ -116,7 +116,9 @@ export const useRoutineMainView = () => {
       if (!b.date) {
         return 1;
       }
-      return a.date.getTime() - b.date.getTime();
+      const aTime = a.date.getHours() * 60 + a.date.getMinutes();
+      const bTime = b.date.getHours() * 60 + b.date.getMinutes();
+      return aTime - bTime;
     });
   }, [taskList, referenceDate, completedTaskList, appointmentList]);
 
