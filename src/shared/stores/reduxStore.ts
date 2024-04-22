@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { authStore } from '../../features/auth/stores/authStore';
 import { appointmentStore } from '../../features/routine/stores/appointmentStore';
+import { completedTaskStore } from '../../features/routine/stores/completedTaskStore';
 import { taskStore } from '../../features/routine/stores/taskStore';
 
 export const reduxStore = configureStore({
@@ -9,6 +10,7 @@ export const reduxStore = configureStore({
     auth: authStore.reducer,
     task: taskStore.reducer,
     appointment: appointmentStore.reducer,
+    completedTask: completedTaskStore.reducer,
   },
 });
 
