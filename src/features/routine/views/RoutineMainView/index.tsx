@@ -22,6 +22,8 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
     referenceDate,
     setReferenceDate,
     onSelect,
+    completedCount,
+    totalCount,
   } = useRoutineMainView();
 
   return (
@@ -29,8 +31,8 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
       <RoutineManager
         referenceDate={referenceDate}
         setReferenceDate={setReferenceDate}
-        completedCount={4}
-        totalCount={10}
+        completedCount={completedCount}
+        totalCount={totalCount}
       />
 
       <ReminderList

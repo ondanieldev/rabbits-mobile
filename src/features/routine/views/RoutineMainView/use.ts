@@ -166,6 +166,18 @@ export const useRoutineMainView = () => {
     [dispatch, referenceDate],
   );
 
+  const totalCount = useMemo(
+    () => itemList.length + reminderList.length,
+    [itemList, reminderList],
+  );
+
+  const completedCount = useMemo(
+    () =>
+      itemList.filter(item => item.isCompleted).length +
+      reminderList.filter(item => item.isCompleted).length,
+    [itemList, reminderList],
+  );
+
   return {
     reminderList,
     isLoadingReminderList,
@@ -174,5 +186,7 @@ export const useRoutineMainView = () => {
     referenceDate,
     setReferenceDate,
     onSelect,
+    totalCount,
+    completedCount,
   };
 };
