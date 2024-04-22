@@ -6,7 +6,7 @@ import { useCalendarDay } from './use';
 
 export interface CalendarDayProps {
   referenceDate: Date;
-  setReferenceDate: React.Dispatch<React.SetStateAction<Date>>;
+  setReferenceDate: (date: Date) => void;
   date: Date;
 }
 

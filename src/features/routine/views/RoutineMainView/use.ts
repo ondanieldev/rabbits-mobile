@@ -2,13 +2,12 @@ import { useMemo } from 'react';
 
 import { isSameDay } from 'date-fns';
 
-import { RoutineMainViewProps } from '.';
 import { useAppointment } from '../../contexts/appointmentContext';
 import { useDay } from '../../contexts/dayContext';
 import { useTask } from '../../contexts/taskContext';
 import { ItemDataUtils } from '../../utils/ItemDataUtils';
 
-export const useRoutineMainView = ({ referenceDate }: RoutineMainViewProps) => {
+export const useRoutineMainView = () => {
   /**
    * Load task list
    */
@@ -22,7 +21,12 @@ export const useRoutineMainView = ({ referenceDate }: RoutineMainViewProps) => {
   /**
    * Load completed task list
    */
-  const { completedTaskList, completedTaskListStatus } = useDay();
+  const {
+    completedTaskList,
+    completedTaskListStatus,
+    referenceDate,
+    setReferenceDate,
+  } = useDay();
 
   /**
    * Setup reminder list
@@ -102,5 +106,7 @@ export const useRoutineMainView = ({ referenceDate }: RoutineMainViewProps) => {
     isLoadingReminderList,
     itemList,
     isLoadingItemList,
+    referenceDate,
+    setReferenceDate,
   };
 };

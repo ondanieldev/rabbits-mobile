@@ -1,19 +1,16 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback } from 'react';
 
-import {
-  StackRouteConfig,
-  StackScreenChildren,
-  StackScreenChildrenProps,
-} from '../../../../shared/navigation/stack';
+import { StackRouteConfig } from '../../../../shared/navigation/stack';
 import { appStyles } from '../../../../shared/styles/appStyles';
 import { RoutineManagerButtons } from '../../components/RoutineManagerButtons';
 import { RoutineTitle } from '../../components/RoutineTitle';
+import { useDay } from '../../contexts/dayContext';
 import { RoutineMainView } from '../../views/RoutineMainView';
 
 export type RoutineMainScreenHook = () => StackRouteConfig<'RoutineMainScreen'>;
 
 export const useRoutineMainScreen: RoutineMainScreenHook = () => {
-  const [referenceDate, setReferenceDate] = useState(new Date());
+  const { referenceDate } = useDay();
 
   const getHeaderRight = useCallback(() => <RoutineManagerButtons />, []);
 
@@ -22,23 +19,13 @@ export const useRoutineMainScreen: RoutineMainScreenHook = () => {
     [referenceDate],
   );
 
-  const children = useMemo<StackScreenChildren<'RoutineMainScreen'>>(() => {
-    return (props: StackScreenChildrenProps<'RoutineMainScreen'>) => (
-      <RoutineMainView
-        {...props}
-        referenceDate={referenceDate}
-        setReferenceDate={setReferenceDate}
-      />
-    );
-  }, [referenceDate]);
-
   return {
+    component: RoutineMainView,
     name: 'RoutineMainScreen',
     options: {
       headerRight: () => getHeaderRight(),
       headerTitle: () => getHeaderTitle(),
       headerStyle: appStyles.header,
     },
-    children,
   };
 };

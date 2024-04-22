@@ -11,20 +11,23 @@ export interface RoutineMainViewProps
   extends NativeStackScreenProps<
     StackNavigationParamList,
     'RoutineMainScreen'
-  > {
-  referenceDate: Date;
-  setReferenceDate: React.Dispatch<React.SetStateAction<Date>>;
-}
+  > {}
 
-export const RoutineMainView: React.FC<RoutineMainViewProps> = props => {
-  const { reminderList, isLoadingReminderList, isLoadingItemList, itemList } =
-    useRoutineMainView(props);
+export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
+  const {
+    reminderList,
+    isLoadingReminderList,
+    isLoadingItemList,
+    itemList,
+    referenceDate,
+    setReferenceDate,
+  } = useRoutineMainView();
 
   return (
     <DefaultView>
       <RoutineManager
-        referenceDate={props.referenceDate}
-        setReferenceDate={props.setReferenceDate}
+        referenceDate={referenceDate}
+        setReferenceDate={setReferenceDate}
         completedCount={4}
         totalCount={10}
       />

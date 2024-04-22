@@ -5,7 +5,7 @@ import { useCalendarWeek } from './use';
 
 export interface CalendarWeekProps {
   referenceDate: Date;
-  setReferenceDate: React.Dispatch<React.SetStateAction<Date>>;
+  setReferenceDate: (date: Date) => void;
   scrollViewRef: React.RefObject<ScrollView>;
 }
 

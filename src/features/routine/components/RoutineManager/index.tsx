@@ -7,7 +7,7 @@ export interface RoutineManagerProps {
   completedCount: number;
   totalCount: number;
   referenceDate: Date;
-  setReferenceDate: React.Dispatch<React.SetStateAction<Date>>;
+  setReferenceDate: (date: Date) => void;
 }
 
 export const RoutineManager: React.FC<RoutineManagerProps> = ({
