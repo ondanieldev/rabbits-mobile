@@ -1,4 +1,4 @@
-import { ActivityIndicator, ScrollView, View } from 'react-native';
+import { ActivityIndicator, FlatList, View } from 'react-native';
 
 import { colors } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
@@ -13,12 +13,14 @@ export interface ItemListProps {
 }
 
 export const ItemList: React.FC<ItemListProps> = props => {
-  const { Items } = useItemList(props);
+  const { renderItem } = useItemList(props);
 
   return !props.isLoading ? (
-    <ScrollView contentContainerStyle={itemListStyles.container}>
-      {Items}
-    </ScrollView>
+    <FlatList
+      data={props.itemDataList}
+      renderItem={({ index, item }) => renderItem(item, index)}
+      contentContainerStyle={itemListStyles.container}
+    />
   ) : (
     <View style={itemListStyles.loadingContainer}>
       <ActivityIndicator size="large" color={colors.primary} animating />
