@@ -14,10 +14,16 @@ export const useRoutineProgress: useRoutineProgressHook = ({
 }) => {
   const { t } = useTranslation('routine');
 
-  const progress = useMemo(
-    () => completedCount / totalCount,
-    [completedCount, totalCount],
-  );
+  const progress = useMemo(() => {
+    const result = completedCount / totalCount;
+    if (result < 0 || isNaN(result)) {
+      return 0;
+    }
+    if (result > 1) {
+      return 1;
+    }
+    return result;
+  }, [completedCount, totalCount]);
 
   const text = useMemo(
     () =>
