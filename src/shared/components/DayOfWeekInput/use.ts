@@ -2,11 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { DayOfWeekInputProps } from '.';
 
-export const useDayOfWeekInput = ({ form, name }: DayOfWeekInputProps<any>) => {
+export const useDayOfWeekInput = ({
+  form: { watch, setValue, register, formState },
+  name,
+}: DayOfWeekInputProps<any>) => {
   const [error, setError] = useState<string | undefined>(undefined);
-  const [totalValue, setTotalValue] = useState<number[]>(
-    form.watch(name) || [],
-  );
+  const totalValue = watch(name);
 
   const onPress = useCallback(
     (value: number, isSelected: boolean) => {
@@ -22,27 +23,23 @@ export const useDayOfWeekInput = ({ form, name }: DayOfWeekInputProps<any>) => {
       } else if (!isSelected && index !== -1) {
         result.splice(index, 1);
       }
-      setTotalValue(result);
+      setValue(name, result);
     },
-    [totalValue],
+    [setValue, name, totalValue],
   );
 
   useEffect(() => {
-    form.register(name);
-  }, [form, name]);
+    register(name);
+  }, [register, name]);
 
   useEffect(() => {
-    form.setValue(name, totalValue);
-  }, [totalValue, form, name]);
-
-  useEffect(() => {
-    const fieldError = form.formState.errors[name];
+    const fieldError = formState.errors[name];
     if (fieldError?.message) {
       setError(fieldError.message as string);
     } else {
       setError(undefined);
     }
-  }, [form, name, form.formState.errors]);
+  }, [name, formState.errors]);
 
   return {
     totalValue,
