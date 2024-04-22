@@ -23,7 +23,19 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
     handlePrevReminder,
   } = useReminderList(props);
 
-  return currentReminder && !props.isLoading ? (
+  if (!currentReminder) {
+    return <></>;
+  }
+
+  if (props.isLoading) {
+    return (
+      <View style={reminderListStyles.loadingContainer}>
+        <ActivityIndicator size="small" color={colors.primary} animating />
+      </View>
+    );
+  }
+
+  return (
     <Container style={reminderListStyles.container}>
       <IconButton
         iconProps={{
@@ -54,9 +66,5 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
         }}
       />
     </Container>
-  ) : (
-    <View style={reminderListStyles.loadingContainer}>
-      <ActivityIndicator size="small" color={colors.primary} animating />
-    </View>
   );
 };
