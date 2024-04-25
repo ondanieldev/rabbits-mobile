@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import { ItemListProps } from '.';
 import { ItemData } from '../../interfaces/ItemData';
@@ -9,6 +9,9 @@ export const useItemList = ({
   defaultItemProps,
   itemDataList,
 }: ItemListProps) => {
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
+
   const renderItem = useCallback(
     (item: ItemData, index: number) => {
       let touchable = itemListStyles.defaultItem;
@@ -19,9 +22,26 @@ export const useItemList = ({
       } else {
         touchable = itemListStyles.middleItem;
       }
-      return <Item {...defaultItemProps} data={item} styles={{ touchable }} />;
+
+      return (
+        <Item
+          {...defaultItemProps}
+          data={item}
+          styles={{ touchable }}
+          isDeleting={defaultItemProps?.isDeleting && deletingId === item.id}
+          isToggling={defaultItemProps?.isToggling && togglingId === item.id}
+          onDelete={() => {
+            setDeletingId(item.id);
+            defaultItemProps?.onDelete?.(item);
+          }}
+          onToggle={() => {
+            setTogglingId(item.id);
+            defaultItemProps?.onToggle?.(item);
+          }}
+        />
+      );
     },
-    [defaultItemProps, itemDataList],
+    [defaultItemProps, itemDataList, deletingId, togglingId],
   );
 
   return {

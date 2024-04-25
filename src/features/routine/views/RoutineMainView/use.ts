@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { isSameDay } from 'date-fns';
 
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
+import { useSelector } from '../../../../shared/hooks/useSelector';
 import { useAppointment } from '../../contexts/appointmentContext';
 import { useDay } from '../../contexts/dayContext';
 import { useTask } from '../../contexts/taskContext';
@@ -133,6 +134,27 @@ export const useRoutineMainView = () => {
   /**
    * Complete task
    */
+  const createCompletedTaskStatus = useSelector(
+    state => state.completedTask.createCompletedTaskStatus,
+  );
+  const deleteCompletedTaskStatus = useSelector(
+    state => state.completedTask.deleteCompletedTaskStatus,
+  );
+  const updateAppointmentStatus = useSelector(
+    state => state.appointment.updateAppointmentStatus,
+  );
+  const isToggling = useMemo(
+    () =>
+      createCompletedTaskStatus === 'pending' ||
+      deleteCompletedTaskStatus === 'pending' ||
+      updateAppointmentStatus === 'pending',
+    [
+      createCompletedTaskStatus,
+      deleteCompletedTaskStatus,
+      updateAppointmentStatus,
+    ],
+  );
+
   const onSelect = useCallback(
     async (data: ItemData) => {
       if (data.objectType === 'task') {
@@ -165,6 +187,9 @@ export const useRoutineMainView = () => {
     [dispatch, referenceDate],
   );
 
+  /**
+   * Progress bar
+   */
   const totalCount = useMemo(
     () => itemList.length + reminderList.length,
     [itemList, reminderList],
@@ -187,5 +212,6 @@ export const useRoutineMainView = () => {
     onSelect,
     totalCount,
     completedCount,
+    isToggling,
   };
 };

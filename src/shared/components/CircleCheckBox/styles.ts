@@ -14,4 +14,7 @@ export const circleCheckBoxStyles = StyleSheet.create({
   containerChecked: {
     backgroundColor: colors.primary,
   },
+  containerLoading: {
+    opacity: 0.5,
+  },
 });

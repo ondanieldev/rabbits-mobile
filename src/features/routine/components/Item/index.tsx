@@ -20,6 +20,7 @@ export interface ItemProps {
   onDelete?: (data: ItemData) => void;
   onToggle?: (data: ItemData) => void;
   isDeleting?: boolean;
+  isToggling?: boolean;
 }
 
 // add edit mode
@@ -40,6 +41,7 @@ export const Item: React.FC<ItemProps> = props => {
             <CircleCheckBox
               isChecked={props.data.isCompleted}
               onToggle={() => props.onToggle?.(props.data)}
+              isLoading={props.isToggling}
             />
           )}
 
