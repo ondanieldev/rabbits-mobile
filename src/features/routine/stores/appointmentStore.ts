@@ -102,7 +102,7 @@ export const appointmentStore = createSlice({
       })
       .addCase(readAppointmentList.fulfilled, (state, action) => {
         state.appointmentListStatus = 'fulfilled';
-        appointmentAdapter.upsertMany(state, action.payload.items);
+        appointmentAdapter.setAll(state, action.payload.items);
       })
       .addCase(readAppointmentList.rejected, (state, action) => {
         state.appointmentListStatus = 'rejected';

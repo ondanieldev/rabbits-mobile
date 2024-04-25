@@ -91,7 +91,7 @@ export const completedTaskStore = createSlice({
       })
       .addCase(readCompletedTaskList.fulfilled, (state, action) => {
         state.completedTaskListStatus = 'fulfilled';
-        completedTaskAdapter.upsertMany(state, action.payload.items);
+        completedTaskAdapter.setAll(state, action.payload.items);
       })
       .addCase(readCompletedTaskList.rejected, (state, action) => {
         state.completedTaskListStatus = 'rejected';

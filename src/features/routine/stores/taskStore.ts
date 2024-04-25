@@ -107,7 +107,7 @@ export const taskStore = createSlice({
       })
       .addCase(readTaskList.fulfilled, (state, action) => {
         state.taskListStatus = 'fulfilled';
-        taskAdapter.upsertMany(state, action.payload.items);
+        taskAdapter.setAll(state, action.payload.items);
       })
       .addCase(readTaskList.rejected, (state, action) => {
         state.taskListStatus = 'rejected';
