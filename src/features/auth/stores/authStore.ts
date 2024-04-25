@@ -120,4 +120,7 @@ export const authStore = createSlice({
 export const selectAuthToken = (state: ReduxStoreRootState) =>
   state.auth.authToken;
 
+/**
+ * Actions
+ */
 export const { setAuthToken } = authStore.actions;

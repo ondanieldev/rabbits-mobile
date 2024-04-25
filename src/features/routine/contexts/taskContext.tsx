@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useMemo } from 'react';
 import { AsyncStatus } from '../../../shared/enums/AsyncStatus';
 import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
+import { useAuth } from '../../auth/contexts/authContext';
 import { Task } from '../interfaces/Task';
 import { readTaskList, selectTaskList } from '../stores/taskStore';
 
@@ -19,6 +20,8 @@ export const TaskContext = createContext<TaskContext>({
 export const TaskProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const { authToken } = useAuth();
+
   const dispatch = useDispatch();
 
   const taskList = useSelector(selectTaskList);
@@ -26,10 +29,8 @@ export const TaskProvider: React.FC<{
   const taskListStatus = useSelector(state => state.task.taskListStatus);
 
   useEffect(() => {
-    if (taskListStatus === 'idle') {
-      dispatch(readTaskList({ limit: 100, page: 1 }));
-    }
-  }, [dispatch, taskListStatus]);
+    dispatch(readTaskList({ limit: 100, page: 1 }));
+  }, [dispatch, authToken]);
 
   const value = useMemo(
     () => ({

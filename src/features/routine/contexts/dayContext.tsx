@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { AsyncStatus } from '../../../shared/enums/AsyncStatus';
 import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
+import { useAuth } from '../../auth/contexts/authContext';
 import { CompletedTask } from '../interfaces/CompletedTask';
 import {
   readCompletedTaskList,
@@ -26,6 +27,8 @@ export const DayContext = createContext<DayContext>({
 export const DayProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const { authToken } = useAuth();
+
   /**
    * Redux
    */
@@ -50,7 +53,7 @@ export const DayProvider: React.FC<{
     const month = referenceDate.getMonth() + 1;
     const day = referenceDate.getDate();
     dispatch(readCompletedTaskList({ limit: 100, page: 1, year, month, day }));
-  }, [dispatch, referenceDate]);
+  }, [dispatch, referenceDate, authToken]);
 
   const value = useMemo(
     () => ({
