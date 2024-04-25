@@ -2,13 +2,22 @@
 
 ## TODO
 
-- Refactor auth using redux and context
 - Refactor general
+  - activity indicators
+  - ensure nothing is loading when hitting api
+  - others
 - Implement motifications
 - Improve error handling
 - Create a good Readme
 - Update figma
 - Deploy on Google Play
 - Mesure performance
-- Turn lists into FlatLists
 - Translate validating errors
+
+## Roadmap
+
+- Go to "Today"
+- Highlight today
+- Notifications
+- Alarm
+- Preferences
