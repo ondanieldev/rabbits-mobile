@@ -24,7 +24,7 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
     onSelect,
     completedCount,
     totalCount,
-    isToggling,
+    isTogglingItem,
   } = useRoutineMainView();
 
   return (
@@ -48,7 +48,7 @@ export const RoutineMainView: React.FC<RoutineMainViewProps> = () => {
         itemDataList={itemList}
         defaultItemProps={{
           onToggle: onSelect,
-          isToggling,
+          isToggling: isTogglingItem,
         }}
         isLoading={isLoadingItemList}
       />

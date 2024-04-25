@@ -132,7 +132,7 @@ export const useRoutineMainView = () => {
   );
 
   /**
-   * Complete task
+   * Complete item
    */
   const createCompletedTaskStatus = useSelector(
     state => state.completedTask.createCompletedTaskStatus,
@@ -143,7 +143,7 @@ export const useRoutineMainView = () => {
   const updateAppointmentStatus = useSelector(
     state => state.appointment.updateAppointmentStatus,
   );
-  const isToggling = useMemo(
+  const isTogglingItem = useMemo(
     () =>
       createCompletedTaskStatus === 'pending' ||
       deleteCompletedTaskStatus === 'pending' ||
@@ -212,6 +212,6 @@ export const useRoutineMainView = () => {
     onSelect,
     totalCount,
     completedCount,
-    isToggling,
+    isTogglingItem,
   };
 };

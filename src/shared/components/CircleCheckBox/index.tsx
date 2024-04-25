@@ -22,7 +22,7 @@ export const CircleCheckBox: React.FC<CircleCheckBoxProps> = props => {
         {props.isLoading && (
           <ActivityIndicator
             size="small"
-            color={props.isChecked ? colors.selectable : colors.primary}
+            color={props.isChecked ? colors.background : colors.primary}
           />
         )}
 
