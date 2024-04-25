@@ -19,12 +19,12 @@ export const useCalendar: CalendarHook = ({
 
   const handleNextWeek = useCallback(() => {
     setReferenceDate(startOfWeek(addWeeks(referenceDate, 1)));
-    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+    scrollViewRef.current?.scrollTo({ x: 0, y: 0, animated: false });
   }, [referenceDate, setReferenceDate]);
 
   const handlePrevWeek = useCallback(() => {
     setReferenceDate(endOfWeek(subWeeks(referenceDate, 1)));
-    scrollViewRef.current?.scrollToEnd();
+    scrollViewRef.current?.scrollToEnd({ animated: false });
   }, [referenceDate, setReferenceDate]);
 
   return {
