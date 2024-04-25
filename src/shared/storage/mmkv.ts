@@ -1,6 +1,6 @@
 import { MMKV } from 'react-native-mmkv';
 
 export const mmkvStorage = new MMKV({
-  id: 'habits',
+  id: 'mmkv.default',
   encryptionKey: process.env.MMKV_ENCRYPTION_KEY,
 });

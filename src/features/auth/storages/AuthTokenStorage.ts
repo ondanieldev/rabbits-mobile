@@ -14,6 +14,8 @@ export class AuthTokenStorage {
   }
 
   public static delete(): void {
-    mmkvStorage.delete(authTokenStorageKey);
+    if (mmkvStorage.contains(authTokenStorageKey)) {
+      mmkvStorage.delete(authTokenStorageKey);
+    }
   }
 }
