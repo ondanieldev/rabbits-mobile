@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "assets:mkdir": "mkdir ./android/app/src/main/assets/",
+    "assets:android": "touch ./android/app/src/main/assets/index.android",
     "bundle:android": "react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android --assets-dest ./android/app/src/main/res/",
     "build:android:debug": "cd android/ && ./gradlew assembleDebug && cd ..",
     "build:android:release": "cd android/ && ./gradlew assembleRelease && cd ..",
