@@ -4,8 +4,8 @@ import { colors, spacings } from '../../../../shared/styles/globalStyles';
 
 export const authCTALinkStyles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     gap: spacings.xs,
+    alignItems: 'center',
   },
   highlight: {
     color: colors.primary,
