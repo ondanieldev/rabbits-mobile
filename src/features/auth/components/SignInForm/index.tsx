@@ -2,13 +2,17 @@ import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
-import { useAuth } from '../../hooks/useAuth';
 import { useSignInForm } from './use';
 
 export const SignInForm: React.FC = () => {
-  const { isLoadingSignIn, signIn } = useAuth();
-
-  const { emailLabel, passwordLabel, buttonText, form } = useSignInForm();
+  const {
+    emailLabel,
+    passwordLabel,
+    buttonText,
+    form,
+    onSubmit,
+    signInStatus,
+  } = useSignInForm();
 
   return (
     <Form form={form}>
@@ -24,8 +28,8 @@ export const SignInForm: React.FC = () => {
       <Divider />
 
       <TextButton
-        isLoading={isLoadingSignIn}
-        onPress={form.handleSubmit(signIn)}>
+        isLoading={signInStatus === 'pending'}
+        onPress={form.handleSubmit(onSubmit)}>
         {buttonText}
       </TextButton>
     </Form>

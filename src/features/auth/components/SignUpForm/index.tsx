@@ -1,20 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-
 import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
-import { StackNavigationProp } from '../../../../shared/navigation/stack';
-import { useAuth } from '../../hooks/useAuth';
 import { useSignUpForm } from './use';
 
 export const SignUpForm: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp>();
-
-  const { isLoadingSignUp, signUp } = useAuth();
-
-  const { emailLabel, passwordLabel, confirmPasswordLabel, buttonText, form } =
-    useSignUpForm();
+  const {
+    emailLabel,
+    passwordLabel,
+    confirmPasswordLabel,
+    buttonText,
+    form,
+    onSubmit,
+    signUpStatus,
+  } = useSignUpForm();
 
   return (
     <Form form={form}>
@@ -37,10 +36,8 @@ export const SignUpForm: React.FC = () => {
       <Divider />
 
       <TextButton
-        isLoading={isLoadingSignUp}
-        onPress={form.handleSubmit(data =>
-          signUp(data).then(() => navigation.navigate('AuthSignInScreen', {})),
-        )}>
+        isLoading={signUpStatus === 'pending'}
+        onPress={form.handleSubmit(onSubmit)}>
         {buttonText}
       </TextButton>
     </Form>

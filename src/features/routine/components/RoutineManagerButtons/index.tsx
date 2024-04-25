@@ -1,17 +1,13 @@
 import { View } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-
 import { CircleIconButton } from '../../../../shared/components/CircleIconButton';
-import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { iconSizes } from '../../../../shared/styles/globalStyles';
-import { useAuth } from '../../../auth/hooks/useAuth';
 import { routineManagerButtonsStyles } from './style';
+import { useRoutineManagerButtons } from './use';
 
 export const RoutineManagerButtons: React.FC = () => {
-  const navigation = useNavigation<StackNavigationProp>();
-
-  const { signOut, isLoadingSignOut } = useAuth();
+  const { handleSignOut, signOutStatus, handleAdd, handleEdit } =
+    useRoutineManagerButtons();
 
   return (
     <View style={routineManagerButtonsStyles.container}>
@@ -21,7 +17,7 @@ export const RoutineManagerButtons: React.FC = () => {
           size: iconSizes.md,
         }}
         buttonProps={{
-          onPress: () => navigation.navigate('RoutineUpsertScreen', {}),
+          onPress: handleAdd,
         }}
       />
       <CircleIconButton
@@ -30,7 +26,7 @@ export const RoutineManagerButtons: React.FC = () => {
           size: iconSizes.sm,
         }}
         buttonProps={{
-          onPress: () => navigation.navigate('RoutineEditScreen', {}),
+          onPress: handleEdit,
         }}
       />
       <CircleIconButton
@@ -39,8 +35,8 @@ export const RoutineManagerButtons: React.FC = () => {
           size: iconSizes.sm,
         }}
         buttonProps={{
-          onPress: () => signOut({}),
-          isLoading: isLoadingSignOut,
+          onPress: handleSignOut,
+          isLoading: signOutStatus === 'pending',
         }}
       />
     </View>
