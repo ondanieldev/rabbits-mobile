@@ -33,6 +33,8 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+index.android
+nohup.out
 
 # node.js
 #
