@@ -26,10 +26,12 @@ export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = props => {
 
   return (
     <DefaultView style={routineUpsertViewStyles.container}>
-      <ItemCreatableTypeSelector
-        selectedCreatableType={selectedCreatableType}
-        setSelectedCreatableType={setSelectedCreatableType}
-      />
+      {!editingTask && !editingAppointment && (
+        <ItemCreatableTypeSelector
+          selectedCreatableType={selectedCreatableType}
+          setSelectedCreatableType={setSelectedCreatableType}
+        />
+      )}
 
       <Divider />
 
