@@ -114,8 +114,8 @@ export const appointmentStore = createSlice({
       })
       .addCase(updateAppointment.fulfilled, (state, action) => {
         state.updateAppointmentStatus = 'fulfilled';
-        const existing = state.entities[action.payload.id];
-        Object.assign(existing, action.payload);
+        const { id, ...changes } = action.payload;
+        appointmentAdapter.updateOne(state, { id, changes });
       })
       .addCase(updateAppointment.rejected, (state, action) => {
         state.updateAppointmentStatus = 'rejected';

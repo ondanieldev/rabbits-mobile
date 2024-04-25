@@ -119,8 +119,8 @@ export const taskStore = createSlice({
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         state.updateTaskStatus = 'fulfilled';
-        const existing = state.entities[action.payload.id];
-        Object.assign(existing, action.payload);
+        const { id, ...changes } = action.payload;
+        taskAdapter.updateOne(state, { id, changes });
       })
       .addCase(updateTask.rejected, (state, action) => {
         state.updateTaskStatus = 'rejected';
