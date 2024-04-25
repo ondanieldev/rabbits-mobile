@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { StackRouteConfig } from '../../../../shared/navigation/stack';
@@ -16,15 +16,23 @@ export type RoutineUpsertScreenHook =
 export const useRoutineUpsertScreen: RoutineUpsertScreenHook = () => {
   const { t } = useTranslation('routine');
 
-  const title = useMemo(() => t('editRoutineScreenTitle'), [t]);
+  const headerTitle = useCallback(
+    (params: RoutineUpsertScreenParams) => {
+      if (params.taskId || params.appointmentId) {
+        return t('routineUpdateScreenTitle');
+      }
+      return t('routineAddScreenTitle');
+    },
+    [t],
+  );
 
   return {
     name: 'RoutineUpsertScreen',
     component: RoutineUpsertView,
-    options: {
-      title,
+    options: ({ route }) => ({
       headerStyle: appStyles.header,
       headerTintColor: appStyles.header.color,
-    },
+      headerTitle: headerTitle(route.params),
+    }),
   };
 };

@@ -10,7 +10,7 @@ export type RoutineEditScreenHook = () => StackRouteConfig<'RoutineEditScreen'>;
 export const useRoutineEditScreen: RoutineEditScreenHook = () => {
   const { t } = useTranslation('routine');
 
-  const title = useMemo(() => t('editRoutineScreenTitle'), [t]);
+  const title = useMemo(() => t('routineEditScreenTitle'), [t]);
 
   return {
     name: 'RoutineEditScreen',

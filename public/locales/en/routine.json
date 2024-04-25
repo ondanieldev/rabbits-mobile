@@ -1,7 +1,9 @@
 {
   "today": "Today",
   "progressBarText": "{0} of {1} tasks completed!",
-  "addToRoutineScreenTitle": "Add to your routine a new...",
+  "routineAddScreenTitle": "Add a new task",
+  "routineUpdateScreenTitle": "Edit your task",
+  "routineEditScreenTitle": "Edit your routine",
   "habit": "habit",
   "reminder": "reminder",
   "event": "event",
@@ -10,6 +12,5 @@
   "time": "time",
   "daysOfWeek": "days of week",
   "date": "date",
-  "editRoutineScreenTitle": "Edit your routine",
   "searchByName": "Search by name"
 }
