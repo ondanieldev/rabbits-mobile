@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
+import { SearchUtils } from '../../../../shared/utils/SearchUtils';
 import { useAppointment } from '../../contexts/appointmentContext';
 import { useTask } from '../../contexts/taskContext';
 import { ItemCreatableType } from '../../enums/ItemCreatableType';
@@ -22,6 +23,16 @@ export const useRoutineEditView = () => {
   const searchLabel = useMemo(() => t('searchByName'), [t]);
 
   /**
+   * Navigation setup
+   */
+  const navigation = useNavigation<StackNavigationProp>();
+
+  /**
+   * Redux setup
+   */
+  const dispatch = useDispatch();
+
+  /**
    * Select form
    */
   const [selectedCreatableType, setSelectedCreatableType] =
@@ -30,43 +41,10 @@ export const useRoutineEditView = () => {
   /**
    * Load list
    */
-  const { taskList } = useTask();
-  const { appointmentList } = useAppointment();
-
   const [search, setSearch] = useState('');
 
-  const itemDataList = useMemo<ItemData[]>(() => {
-    // Function to filter tasks based on search query
-    const matchesSearch = (query: string) => {
-      if (!search) {
-        return true;
-      }
-      return query.toLowerCase().includes(search.toLowerCase());
-    };
-
-    // Habit list
-    if (selectedCreatableType === 'habit') {
-      return taskList
-        .filter(task => task.kind === 'habit' && matchesSearch(task.name))
-        .map(task => ItemDataUtils.fromTaskToItemData(task));
-    }
-
-    // Reminder list
-    if (selectedCreatableType === 'reminder') {
-      return taskList
-        .filter(task => task.kind === 'reminder' && matchesSearch(task.name))
-        .map(task => ItemDataUtils.fromTaskToItemData(task));
-    }
-
-    // Appointment list
-    if (selectedCreatableType === 'event') {
-      return appointmentList
-        .filter(appointment => matchesSearch(appointment.name))
-        .map(ItemDataUtils.fromAppointmentToItemData);
-    }
-
-    return [];
-  }, [selectedCreatableType, taskList, search, appointmentList]);
+  const { taskList } = useTask();
+  const { appointmentList } = useAppointment();
 
   const taskListStatus = useSelector(state => state.task.taskListStatus);
   const appointmentListStatus = useSelector(
@@ -77,16 +55,44 @@ export const useRoutineEditView = () => {
     [taskListStatus, appointmentListStatus],
   );
 
-  /**
-   * Redux
-   */
-  const dispatch = useDispatch();
+  const itemDataList = useMemo<ItemData[]>(() => {
+    // Habit list
+    if (selectedCreatableType === 'habit') {
+      return taskList
+        .filter(
+          task =>
+            task.kind === 'habit' &&
+            SearchUtils.matchesInsensitve(search, task.name),
+        )
+        .map(task => ItemDataUtils.fromTaskToItemData(task));
+    }
+
+    // Reminder list
+    if (selectedCreatableType === 'reminder') {
+      return taskList
+        .filter(
+          task =>
+            task.kind === 'reminder' &&
+            SearchUtils.matchesInsensitve(search, task.name),
+        )
+        .map(task => ItemDataUtils.fromTaskToItemData(task));
+    }
+
+    // Appointment list
+    if (selectedCreatableType === 'event') {
+      return appointmentList
+        .filter(appointment =>
+          SearchUtils.matchesInsensitve(search, appointment.name),
+        )
+        .map(ItemDataUtils.fromAppointmentToItemData);
+    }
+
+    return [];
+  }, [selectedCreatableType, taskList, search, appointmentList]);
 
   /**
-   * Select task
+   * Select item
    */
-  const navigation = useNavigation<StackNavigationProp>();
-
   const onSelect = useCallback(
     (data: ItemData) => {
       if (data.objectType === 'task') {
@@ -101,11 +107,16 @@ export const useRoutineEditView = () => {
   );
 
   /**
-   * Delete
+   * Delete item
    */
   const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
   const deleteAppointmentStatus = useSelector(
     state => state.appointment.deleteAppointmentStatus,
+  );
+  const isDeleting = useMemo(
+    () =>
+      deleteTaskStatus === 'pending' || deleteAppointmentStatus === 'pending',
+    [deleteTaskStatus, deleteAppointmentStatus],
   );
 
   const onDelete = useCallback(
@@ -121,12 +132,6 @@ export const useRoutineEditView = () => {
       }
     },
     [dispatch],
-  );
-
-  const isDeleting = useMemo(
-    () =>
-      deleteTaskStatus === 'pending' || deleteAppointmentStatus === 'pending',
-    [deleteTaskStatus, deleteAppointmentStatus],
   );
 
   /**

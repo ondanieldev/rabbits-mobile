@@ -1,3 +1,4 @@
+import { DateUtils } from '../../../shared/utils/DateUtils';
 import { Appointment } from '../interfaces/Appointment';
 import { CompletedTask } from '../interfaces/CompletedTask';
 import { ItemData } from '../interfaces/ItemData';
@@ -8,13 +9,20 @@ export class ItemDataUtils {
     task: Task,
     completedTask?: CompletedTask,
   ): ItemData => {
-    const date = new Date();
-    date.setHours(task.hours);
-    date.setMinutes(task.minutes);
+    let date: Date | null = null;
     if (completedTask) {
-      date.setDate(completedTask.day);
-      date.setMonth(completedTask.month - 1);
-      date.setFullYear(completedTask.year);
+      date = DateUtils.buildDate({
+        day: completedTask.day,
+        month: completedTask.month,
+        year: completedTask.year,
+        hour: task.hours,
+        minute: task.minutes,
+      });
+    } else {
+      date = DateUtils.buildDate({
+        hour: task.hours,
+        minute: task.minutes,
+      });
     }
     return {
       id: task.id,
