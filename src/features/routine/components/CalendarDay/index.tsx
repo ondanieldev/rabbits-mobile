@@ -14,11 +14,11 @@ export interface CalendarDayProps {
 export const CalendarDay: React.FC<CalendarDayProps> = props => {
   const { day, dayOfWeek } = useCalendarDayTranslation(props);
 
-  const { isSelected, styles } = useCalendarDay(props);
+  const { isSelected, styles, onPress } = useCalendarDay(props);
 
   return (
     <SelectableButton
-      onPress={() => props.setReferenceDate(props.date)}
+      onPress={onPress}
       styles={{ view: calendarDayStyles.container }}
       isSelected={isSelected}>
       <Text style={styles.dayOfWeek}>{dayOfWeek}</Text>

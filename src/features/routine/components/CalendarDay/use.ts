@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { StyleProp, StyleSheet, TextStyle } from 'react-native';
 
 import { isSameDay } from 'date-fns';
@@ -11,7 +11,11 @@ type Styles = {
   day: StyleProp<TextStyle>;
 };
 
-export const useCalendarDay = ({ date, referenceDate }: CalendarDayProps) => {
+export const useCalendarDay = ({
+  date,
+  referenceDate,
+  setReferenceDate,
+}: CalendarDayProps) => {
   const isSelected = useMemo(
     () => isSameDay(date, referenceDate),
     [date, referenceDate],
@@ -36,8 +40,13 @@ export const useCalendarDay = ({ date, referenceDate }: CalendarDayProps) => {
     };
   }, [isSelected]);
 
+  const onPress = useCallback(() => {
+    setReferenceDate(date);
+  }, [setReferenceDate, date]);
+
   return {
     styles,
     isSelected,
+    onPress,
   };
 };
