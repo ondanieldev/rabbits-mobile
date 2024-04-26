@@ -11,11 +11,19 @@ import { SignUpSchema, signUpSchema } from '../../schemas/signUpSchema';
 import { signUp } from '../../stores/authStore';
 
 export const useSignUpForm = () => {
-  const dispatch = useDispatch();
-  const signUpStatus = useSelector(state => state.auth.signUpStatus);
-
+  /**
+   * Navigation setup
+   */
   const navigation = useNavigation<StackNavigationProp>();
 
+  /**
+   * Redux setup
+   */
+  const dispatch = useDispatch();
+
+  /**
+   * Form setup
+   */
   const form = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -24,6 +32,11 @@ export const useSignUpForm = () => {
     },
     mode: 'onSubmit',
   });
+
+  /**
+   * Sign up
+   */
+  const signUpStatus = useSelector(state => state.auth.signUpStatus);
 
   const onSubmit = useCallback(
     async ({ confirmPassword: _, ...data }: SignUpSchema) => {
@@ -37,6 +50,9 @@ export const useSignUpForm = () => {
     [dispatch, navigation],
   );
 
+  /**
+   * Return
+   */
   return {
     form,
     signUpStatus,

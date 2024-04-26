@@ -10,9 +10,14 @@ import { AuthTokenStorage } from '../../storages/AuthTokenStorage';
 import { signIn } from '../../stores/authStore';
 
 export const useSignInForm = () => {
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
-  const signInStatus = useSelector(state => state.auth.signInStatus);
 
+  /**
+   * Form setup
+   */
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -21,6 +26,11 @@ export const useSignInForm = () => {
     },
     mode: 'onSubmit',
   });
+
+  /**
+   * Sign in
+   */
+  const signInStatus = useSelector(state => state.auth.signInStatus);
 
   const onSubmit = useCallback(
     async (data: SignInSchema) => {
@@ -34,6 +44,9 @@ export const useSignInForm = () => {
     [dispatch],
   );
 
+  /**
+   * Return
+   */
   return {
     form,
     signInStatus,

@@ -7,24 +7,44 @@ import { AuthToken } from '../interfaces/AuthToken';
 import { AuthTokenStorage } from '../storages/AuthTokenStorage';
 import { readProfile, setAuthToken } from '../stores/authStore';
 
+/**
+ * Interface
+ */
 export interface AuthContext {
   authToken: AuthToken | null;
   readProfileStatus: AsyncStatus;
 }
 
+/**
+ * Context
+ */
 export const AuthContext = createContext<AuthContext>({
   authToken: null,
   readProfileStatus: 'idle',
 });
 
+/**
+ * Context provider
+ */
 export const AuthProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
 
+  /**
+   * State to be distributed
+   */
   const authToken = useSelector(state => state.auth.authToken);
   const readProfileStatus = useSelector(state => state.auth.readProfileStatus);
 
+  /**
+   * Read profile on load
+   * - If the user is authenticated, copy token from storage to redux
+   * - If the user is NOT authenticated, remove token from storage
+   */
   useEffect(() => {
     async function bootstrap() {
       try {
@@ -41,6 +61,9 @@ export const AuthProvider: React.FC<{
     }
   }, [dispatch, readProfileStatus]);
 
+  /**
+   * Return
+   */
   const value = useMemo(
     () => ({
       authToken,
@@ -52,6 +75,9 @@ export const AuthProvider: React.FC<{
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+/**
+ * Context hook
+ */
 export const useAuth = () => {
   return useContext(AuthContext);
 };

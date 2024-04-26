@@ -56,6 +56,9 @@ export const signOut = createAsyncThunk('auth/signOut', async () =>
   AuthService.signOut(),
 );
 
+/**
+ * Store
+ */
 export const authStore = createSlice({
   name: 'auth',
   initialState: authInitialState,
