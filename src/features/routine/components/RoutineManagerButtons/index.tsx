@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { CircleIconButton } from '../../../../shared/components/CircleIconButton';
-import { iconSizes } from '../../../../shared/styles/globalStyles';
+import { routineManagerButtonsIconProps } from './data';
 import { routineManagerButtonsStyles } from './style';
 import { useRoutineManagerButtons } from './use';
 
@@ -12,30 +12,21 @@ export const RoutineManagerButtons: React.FC = () => {
   return (
     <View style={routineManagerButtonsStyles.container}>
       <CircleIconButton
-        iconProps={{
-          name: 'plus',
-          size: iconSizes.md,
-        }}
+        iconProps={routineManagerButtonsIconProps.add}
         buttonProps={{
           onPress: handleAdd,
         }}
       />
 
       <CircleIconButton
-        iconProps={{
-          name: 'edit-2',
-          size: iconSizes.sm,
-        }}
+        iconProps={routineManagerButtonsIconProps.edit}
         buttonProps={{
           onPress: handleEdit,
         }}
       />
 
       <CircleIconButton
-        iconProps={{
-          name: 'log-out',
-          size: iconSizes.sm,
-        }}
+        iconProps={routineManagerButtonsIconProps.signOut}
         buttonProps={{
           onPress: handleSignOut,
           isLoading: signOutStatus === 'pending',
