@@ -12,6 +12,7 @@ import { CreateTask } from '../interfaces/CreateTask';
 import { Task } from '../interfaces/Task';
 import { UpdateTask } from '../interfaces/UpdateTask';
 import { TaskService } from '../services/TaskService';
+import { TaskUtils } from '../utils/TaskUtils';
 
 /**
  * State
@@ -33,15 +34,7 @@ export interface TaskState {
  * Adapaters
  */
 const taskAdapter = createEntityAdapter({
-  sortComparer: (a: Task, b: Task) => {
-    if (a.hours !== b.hours) {
-      return a.hours - b.hours;
-    }
-    if (a.minutes !== b.minutes) {
-      return b.minutes - b.minutes;
-    }
-    return a.name.localeCompare(b.name);
-  },
+  sortComparer: TaskUtils.sortComparer,
 });
 
 /**
