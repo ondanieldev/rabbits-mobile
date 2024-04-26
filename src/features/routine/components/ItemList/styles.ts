@@ -18,9 +18,4 @@ export const itemListStyles = StyleSheet.create({
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0,
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 });

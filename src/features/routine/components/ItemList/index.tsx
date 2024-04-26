@@ -1,6 +1,4 @@
-import { ActivityIndicator, FlatList, View } from 'react-native';
-
-import { colors } from '../../../../shared/styles/globalStyles';
+import { List } from '../../../../shared/components/List';
 import { ItemData } from '../../interfaces/ItemData';
 import { ItemProps } from '../Item';
 import { itemListStyles } from './styles';
@@ -15,15 +13,12 @@ export interface ItemListProps {
 export const ItemList: React.FC<ItemListProps> = props => {
   const { renderItem } = useItemList(props);
 
-  return !props.isLoading ? (
-    <FlatList
+  return (
+    <List
       data={props.itemDataList}
       renderItem={({ index, item }) => renderItem(item, index)}
       contentContainerStyle={itemListStyles.container}
+      isLoading={props.isLoading}
     />
-  ) : (
-    <View style={itemListStyles.loadingContainer}>
-      <ActivityIndicator size="large" color={colors.primary} animating />
-    </View>
   );
 };
