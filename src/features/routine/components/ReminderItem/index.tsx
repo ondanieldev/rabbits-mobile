@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { TouchableHighlight, View } from 'react-native';
 
 import { Overlay } from '../../../../shared/components/Overlay';
@@ -15,10 +15,12 @@ export const ReminderItem: React.FC<ReminderItemProps> = ({
   data,
   onSelect,
 }) => {
+  const onPress = useCallback(() => {
+    onSelect?.(data);
+  }, [onSelect, data]);
+
   return (
-    <TouchableHighlight
-      style={reminderItemStyles.container}
-      onPress={() => onSelect?.(data)}>
+    <TouchableHighlight style={reminderItemStyles.container} onPress={onPress}>
       <View style={reminderItemStyles.contentContainer}>
         {data.isCompleted && <Overlay />}
         <Text>{data.name}</Text>

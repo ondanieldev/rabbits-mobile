@@ -2,9 +2,10 @@ import { ActivityIndicator, View } from 'react-native';
 
 import { Container } from '../../../../shared/components/Container';
 import { IconButton } from '../../../../shared/components/IconButton';
-import { colors, iconSizes } from '../../../../shared/styles/globalStyles';
+import { colors } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
 import { ReminderItem, ReminderItemProps } from '../ReminderItem';
+import { reminderListIconProps } from './data';
 import { reminderListStyles } from './styles';
 import { useReminderList } from './use';
 
@@ -38,11 +39,7 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
   return (
     <Container style={reminderListStyles.container}>
       <IconButton
-        iconProps={{
-          name: 'chevron-left',
-          size: iconSizes.lg,
-          color: colors.primaryText,
-        }}
+        iconProps={reminderListIconProps.prev}
         buttonProps={{
           disabled: !hasPrevReminder,
           onPress: handlePrevReminder,
@@ -55,11 +52,7 @@ export const ReminderList: React.FC<ReminderListProps> = props => {
       />
 
       <IconButton
-        iconProps={{
-          name: 'chevron-right',
-          size: iconSizes.lg,
-          color: colors.primaryText,
-        }}
+        iconProps={reminderListIconProps.next}
         buttonProps={{
           disabled: !hasNextReminder,
           onPress: handleNextReminder,
