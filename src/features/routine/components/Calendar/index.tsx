@@ -1,9 +1,9 @@
 import { View } from 'react-native';
 
 import { IconButton } from '../../../../shared/components/IconButton';
-import { iconSizes } from '../../../../shared/styles/globalStyles';
 import { CalendarWeek } from '../CalendarWeek';
 import { calendarStyles } from './calendarStyles';
+import { calendarIconProps } from './data';
 import { useCalendar } from './use';
 
 export interface CalendarPops {
@@ -23,10 +23,7 @@ export const Calendar: React.FC<CalendarPops> = ({
   return (
     <View style={calendarStyles.container}>
       <IconButton
-        iconProps={{
-          name: 'chevrons-left',
-          size: iconSizes.lg,
-        }}
+        iconProps={calendarIconProps.prev}
         buttonProps={{
           onPress: handlePrevWeek,
         }}
@@ -39,10 +36,7 @@ export const Calendar: React.FC<CalendarPops> = ({
       />
 
       <IconButton
-        iconProps={{
-          name: 'chevrons-right',
-          size: iconSizes.lg,
-        }}
+        iconProps={calendarIconProps.next}
         buttonProps={{
           onPress: handleNextWeek,
         }}
