@@ -7,31 +7,54 @@ import { useAuth } from '../../auth/contexts/authContext';
 import { Task } from '../interfaces/Task';
 import { readTaskList, selectTaskList } from '../stores/taskStore';
 
+/**
+ * Interface
+ */
 export interface TaskContext {
   taskList: Task[];
   taskListStatus: AsyncStatus;
 }
 
+/**
+ * Context
+ */
 export const TaskContext = createContext<TaskContext>({
   taskList: [],
   taskListStatus: 'idle',
 });
 
+/**
+ * Context provider
+ */
 export const TaskProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  /**
+   * Auth setup
+   */
   const { authToken } = useAuth();
 
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
 
+  /**
+   * State to be distributed
+   */
   const taskList = useSelector(selectTaskList);
-
   const taskListStatus = useSelector(state => state.task.taskListStatus);
 
+  /**
+   * Read task list on load or auth changing
+   */
   useEffect(() => {
     dispatch(readTaskList({ limit: 100, page: 1 }));
   }, [dispatch, authToken]);
 
+  /**
+   * Return
+   */
   const value = useMemo(
     () => ({
       taskList,
@@ -43,6 +66,9 @@ export const TaskProvider: React.FC<{
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
 };
 
+/**
+ * Context hook
+ */
 export const useTask = () => {
   return useContext(TaskContext);
 };

@@ -20,6 +20,7 @@ export const RoutineManagerButtons: React.FC = () => {
           onPress: handleAdd,
         }}
       />
+
       <CircleIconButton
         iconProps={{
           name: 'edit-2',
@@ -29,6 +30,7 @@ export const RoutineManagerButtons: React.FC = () => {
           onPress: handleEdit,
         }}
       />
+
       <CircleIconButton
         iconProps={{
           name: 'log-out',

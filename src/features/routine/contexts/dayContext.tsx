@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { AsyncStatus } from '../../../shared/enums/AsyncStatus';
 import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
+import { DateUtils } from '../../../shared/utils/DateUtils';
 import { useAuth } from '../../auth/contexts/authContext';
 import { CompletedTask } from '../interfaces/CompletedTask';
 import {
@@ -10,6 +11,9 @@ import {
   selectCompletedTaskList,
 } from '../stores/completedTaskStore';
 
+/**
+ * Interface
+ */
 export interface DayContext {
   referenceDate: Date;
   setReferenceDate: (date: Date) => void;
@@ -17,6 +21,9 @@ export interface DayContext {
   completedTaskListStatus: AsyncStatus;
 }
 
+/**
+ * Context
+ */
 export const DayContext = createContext<DayContext>({
   referenceDate: new Date(),
   setReferenceDate: () => {},
@@ -24,37 +31,42 @@ export const DayContext = createContext<DayContext>({
   completedTaskListStatus: 'idle',
 });
 
+/**
+ * Context provider
+ */
 export const DayProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  /**
+   * Auth setup
+   */
   const { authToken } = useAuth();
 
   /**
-   * Redux
+   * Redux setup
    */
   const dispatch = useDispatch();
 
   /**
-   * Reference date
+   * State to be distributed
    */
   const [referenceDate, setReferenceDate] = useState(new Date());
-
-  /**
-   * Load completed task list
-   */
   const completedTaskList = useSelector(selectCompletedTaskList);
-
   const completedTaskListStatus = useSelector(
     state => state.completedTask.completedTaskListStatus,
   );
 
+  /**
+   * Read completed task list on load or auth changing
+   */
   useEffect(() => {
-    const year = referenceDate.getFullYear();
-    const month = referenceDate.getMonth() + 1;
-    const day = referenceDate.getDate();
+    const { year, month, day } = DateUtils.splitDate(referenceDate);
     dispatch(readCompletedTaskList({ limit: 100, page: 1, year, month, day }));
   }, [dispatch, referenceDate, authToken]);
 
+  /**
+   * Return
+   */
   const value = useMemo(
     () => ({
       referenceDate,

@@ -16,6 +16,9 @@ import {
 import { ItemDataUtils } from '../../utils/ItemDataUtils';
 
 export const useRoutineMainView = () => {
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
 
   /**

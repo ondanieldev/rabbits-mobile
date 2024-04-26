@@ -10,33 +10,57 @@ import {
   selectAppointmentList,
 } from '../stores/appointmentStore';
 
+/**
+ * Interface
+ */
 export interface AppointmentContext {
   appointmentList: Appointment[];
   appointmentListStatus: AsyncStatus;
 }
 
+/**
+ * Context
+ */
 export const AppointmentContext = createContext<AppointmentContext>({
   appointmentList: [],
   appointmentListStatus: 'idle',
 });
 
+/**
+ * Context provider
+ */
 export const AppointmentProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  /**
+   * Auth setup
+   */
   const { authToken } = useAuth();
 
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
 
+  /**
+   * State to be distributed
+   */
   const appointmentList = useSelector(selectAppointmentList);
 
   const appointmentListStatus = useSelector(
     state => state.appointment.appointmentListStatus,
   );
 
+  /**
+   * Read appointment list on load or auth changing
+   */
   useEffect(() => {
     dispatch(readAppointmentList({ limit: 100, page: 1 }));
   }, [dispatch, authToken]);
 
+  /**
+   * Return
+   */
   const value = useMemo(
     () => ({
       appointmentList,
@@ -52,6 +76,9 @@ export const AppointmentProvider: React.FC<{
   );
 };
 
+/**
+ * Context hook
+ */
 export const useAppointment = () => {
   return useContext(AppointmentContext);
 };

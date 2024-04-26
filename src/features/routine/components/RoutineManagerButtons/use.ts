@@ -9,9 +9,33 @@ import { AuthTokenStorage } from '../../../auth/storages/AuthTokenStorage';
 import { signOut } from '../../../auth/stores/authStore';
 
 export const useRoutineManagerButtons = () => {
+  /**
+   * Navigation setup
+   */
   const navigation = useNavigation<StackNavigationProp>();
 
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
+
+  /**
+   * Add
+   */
+  const handleAdd = useCallback(() => {
+    navigation.navigate('RoutineUpsertScreen', {});
+  }, [navigation]);
+
+  /**
+   * Edit
+   */
+  const handleEdit = useCallback(() => {
+    navigation.navigate('RoutineEditScreen', {});
+  }, [navigation]);
+
+  /**
+   * Sign out
+   */
   const signOutStatus = useSelector(state => state.auth.signOutStatus);
 
   const handleSignOut = useCallback(async () => {
@@ -23,18 +47,10 @@ export const useRoutineManagerButtons = () => {
     }
   }, [dispatch]);
 
-  const handleAdd = useCallback(() => {
-    navigation.navigate('RoutineUpsertScreen', {});
-  }, [navigation]);
-
-  const handleEdit = useCallback(() => {
-    navigation.navigate('RoutineEditScreen', {});
-  }, [navigation]);
-
   return {
-    signOutStatus,
-    handleSignOut,
     handleAdd,
     handleEdit,
+    handleSignOut,
+    signOutStatus,
   };
 };
