@@ -5,6 +5,7 @@
 - Refactor general
   - activity indicators
   - ensure nothing is loading when hitting api
+  - Text transforms
   - others
 - Highlight today
 - Implement go to "Today"
@@ -20,3 +21,4 @@
 - Deploy on Google Play
 - Mesure performance
 - Translate validating errors
+- Improve selecting/toggling

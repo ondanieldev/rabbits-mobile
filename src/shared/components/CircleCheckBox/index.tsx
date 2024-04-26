@@ -11,12 +11,12 @@ export interface CircleCheckBoxProps {
 }
 
 export const CircleCheckBox: React.FC<CircleCheckBoxProps> = props => {
-  const { styles } = useCircleCheckBox(props);
+  const { styles, onPress } = useCircleCheckBox(props);
 
   return (
     <TouchableHighlight
       style={styles.container}
-      onPress={() => props.onToggle?.(!props.isChecked)}
+      onPress={onPress}
       disabled={props.isLoading}>
       <View>
         {props.isLoading && (

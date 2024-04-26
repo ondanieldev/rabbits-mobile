@@ -1,12 +1,11 @@
 import {
   ActivityIndicator,
-  StyleSheet,
   TouchableHighlight,
   TouchableHighlightProps,
 } from 'react-native';
 
 import { colors } from '../../styles/globalStyles';
-import { baseButtonStyles } from './styles';
+import { useButton } from './use';
 
 export interface ButtonProps extends TouchableHighlightProps {
   isLoading?: boolean;
@@ -18,17 +17,10 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   ...props
 }) => {
+  const { styles } = useButton({ style, isLoading });
+
   return (
-    <TouchableHighlight
-      style={StyleSheet.compose(
-        baseButtonStyles.touchable,
-        StyleSheet.compose(
-          style,
-          isLoading && baseButtonStyles.touchableDisabled,
-        ),
-      )}
-      disabled={isLoading}
-      {...props}>
+    <TouchableHighlight style={styles.button} disabled={isLoading} {...props}>
       <>
         {isLoading ? (
           <ActivityIndicator size="small" color={colors.background} animating />
