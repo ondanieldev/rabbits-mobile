@@ -6,21 +6,17 @@ import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
 import { Task } from '../../interfaces/Task';
 import { useCreateHabitForm } from './use';
+import { useCreateHabitFormTranslation } from './useTranslation';
 
 export interface CreateHabitFormProps {
   editingHabit?: Task;
 }
 
 export const CreateHabitForm: React.FC<CreateHabitFormProps> = props => {
-  const {
-    buttonText,
-    daysOfWeekLabel,
-    formatTime,
-    nameLabel,
-    timeLabel,
-    form,
-    onSubmit,
-  } = useCreateHabitForm(props);
+  const { buttonText, daysOfWeekLabel, formatTime, nameLabel, timeLabel } =
+    useCreateHabitFormTranslation();
+
+  const { form, onSubmit } = useCreateHabitForm(props);
 
   return (
     <Form form={form}>

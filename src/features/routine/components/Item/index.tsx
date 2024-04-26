@@ -8,7 +8,8 @@ import { Text } from '../../../../shared/components/Text';
 import { colors } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
 import { itemStyles } from './styles';
-import { useItem } from './use';
+import { ItemHook, useItem } from './use';
+import { ItemTranslationHook, useItemTranslation } from './useTranslation';
 
 export interface ItemProps {
   data: ItemData;
@@ -23,51 +24,72 @@ export interface ItemProps {
   isToggling?: boolean;
 }
 
-// add edit mode
 export const Item: React.FC<ItemProps> = props => {
-  const { dateText, styles } = useItem(props);
+  const translationHook = useItemTranslation(props);
+  const hook = useItem(props);
 
   return (
-    // change onPress based on editMode
     <TouchableHighlight
       disabled={!props.isEditing}
       onPress={() => props.onSelect?.(props.data)}
-      style={styles.touchable}>
+      style={hook.styles.touchable}>
       <View>
         {!props.isEditing && props.data.isCompleted && <Overlay />}
 
         <View style={itemStyles.contentContainer}>
-          {!props.isEditing && (
-            <CircleCheckBox
-              isChecked={props.data.isCompleted}
-              onToggle={() => props.onToggle?.(props.data)}
-              isLoading={props.isToggling}
-            />
-          )}
+          {!props.isEditing && <Checkbox props={props} />}
 
-          {props.isEditing && (
-            <IconButton
-              buttonProps={{
-                onPress: () => props.onDelete?.(props.data),
-                disabled: props.isDeleting,
-              }}
-              iconProps={{
-                name: 'trash',
-                color: colors.danger,
-                disabledColor: colors.selectable,
-              }}
-            />
-          )}
+          {props.isEditing && <DeleteIcon props={props} />}
 
-          <View style={itemStyles.textContainer}>
-            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.name}>
-              {props.data.name}
-            </Text>
-
-            <Text style={styles.date}>{dateText}</Text>
-          </View>
+          <Texts hook={hook} props={props} translationHook={translationHook} />
         </View>
       </View>
     </TouchableHighlight>
+  );
+};
+
+const Checkbox = ({ props }: { props: ItemProps }) => {
+  return (
+    <CircleCheckBox
+      isChecked={props.data.isCompleted}
+      onToggle={() => props.onToggle?.(props.data)}
+      isLoading={props.isToggling}
+    />
+  );
+};
+
+const DeleteIcon = ({ props }: { props: ItemProps }) => {
+  return (
+    <IconButton
+      buttonProps={{
+        onPress: () => props.onDelete?.(props.data),
+        disabled: props.isDeleting,
+      }}
+      iconProps={{
+        name: 'trash',
+        color: colors.danger,
+        disabledColor: colors.selectable,
+      }}
+    />
+  );
+};
+
+const Texts = ({
+  hook,
+  props,
+  translationHook,
+}: {
+  hook: ReturnType<ItemHook>;
+  props: ItemProps;
+  translationHook: ReturnType<ItemTranslationHook>;
+}) => {
+  return (
+    <View style={itemStyles.textContainer}>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={hook.styles.name}>
+        {props.data.name}
+      </Text>
+
+      <Text style={hook.styles.date}>{translationHook.dateText}</Text>
+    </View>
   );
 };

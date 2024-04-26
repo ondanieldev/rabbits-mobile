@@ -1,10 +1,8 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
-import { format } from 'date-fns';
 
 import { CreateAppointmentFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
@@ -17,42 +15,28 @@ import {
   updateAppointment,
 } from '../../stores/appointmentStore';
 
+const buildDate = (date: Date, time: Date) => {
+  const newDate = new Date(date);
+  newDate.setHours(time.getHours());
+  newDate.setMinutes(time.getMinutes());
+  return newDate;
+};
+
 export const useCreateAppointmentForm = ({
   editingAppointment,
 }: CreateAppointmentFormProps) => {
   /**
-   * Translation
-   */
-  const { t } = useTranslation(['common', 'routine']);
-  const nameLabel = useMemo(() => t('name', { ns: 'routine' }), [t]);
-  const dateLabel = useMemo(() => t('date', { ns: 'routine' }), [t]);
-  const timeLabel = useMemo(() => t('time', { ns: 'routine' }), [t]);
-  const buttonText = useMemo(() => t('save', { ns: 'routine' }), [t]);
-
-  /**
-   * Formating
-   */
-  const formatDate = useCallback(
-    (date: Date) =>
-      `${format(date, 'dd')} ${t(format(date, 'LLLL'), {
-        ns: 'common',
-      })} ${format(date, 'yyyy')}`,
-    [t],
-  );
-  const formatTime = useCallback((date: Date) => format(date, 'HH:mm'), []);
-
-  /**
-   * Redux
+   * Redux setup
    */
   const dispatch = useDispatch();
 
   /**
-   * Navigation
+   * Navigation setup
    */
   const navigation = useNavigation();
 
   /**
-   * Form
+   * Form setup
    */
   const form = useForm<CreateAppointmentSchema>({
     resolver: zodResolver(createAppointmentSchema),
@@ -75,13 +59,10 @@ export const useCreateAppointmentForm = ({
    */
   const handleCreate = useCallback(
     async (data: CreateAppointmentSchema) => {
-      const date = new Date(data.date);
-      date.setHours(data.time.getHours());
-      date.setMinutes(data.time.getMinutes());
       try {
         await dispatch(
           createAppointment({
-            date,
+            date: buildDate(data.date, data.time),
             name: data.name,
           }),
         ).unwrap();
@@ -101,13 +82,10 @@ export const useCreateAppointmentForm = ({
       if (!editingAppointment) {
         return;
       }
-      const date = new Date(data.date);
-      date.setHours(data.time.getHours());
-      date.setMinutes(data.time.getMinutes());
       try {
         await dispatch(
           updateAppointment({
-            date,
+            date: buildDate(data.date, data.time),
             name: data.name,
             id: editingAppointment.id,
             isCompleted: !!editingAppointment.isCompleted,
@@ -122,7 +100,7 @@ export const useCreateAppointmentForm = ({
   );
 
   /**
-   * Submit
+   * Update or create appointment
    */
   const onSubmit = useCallback<SubmitHandler<CreateAppointmentSchema>>(
     data => {
@@ -136,12 +114,6 @@ export const useCreateAppointmentForm = ({
   );
 
   return {
-    nameLabel,
-    dateLabel,
-    timeLabel,
-    buttonText,
-    formatDate,
-    formatTime,
     form,
     onSubmit,
   };

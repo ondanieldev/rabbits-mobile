@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { SelectableButton } from '../../../../shared/components/SelectableButton';
 import { calendarDayStyles } from './styles';
 import { useCalendarDay } from './use';
+import { useCalendarDayTranslation } from './useTranslation';
 
 export interface CalendarDayProps {
   referenceDate: Date;
@@ -11,7 +12,9 @@ export interface CalendarDayProps {
 }
 
 export const CalendarDay: React.FC<CalendarDayProps> = props => {
-  const { day, dayOfWeek, isSelected, styles } = useCalendarDay(props);
+  const { day, dayOfWeek } = useCalendarDayTranslation(props);
+
+  const { isSelected, styles } = useCalendarDay(props);
 
   return (
     <SelectableButton

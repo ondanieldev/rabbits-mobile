@@ -5,6 +5,7 @@ import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
 import { Appointment } from '../../interfaces/Appointment';
 import { useCreateAppointmentForm } from './use';
+import { useCreateAppointmentFormTranslation } from './useTranslation';
 
 export interface CreateAppointmentFormProps {
   editingAppointment?: Appointment;
@@ -20,9 +21,9 @@ export const CreateAppointmentForm: React.FC<
     formatTime,
     nameLabel,
     timeLabel,
-    form,
-    onSubmit,
-  } = useCreateAppointmentForm(props);
+  } = useCreateAppointmentFormTranslation();
+
+  const { form, onSubmit } = useCreateAppointmentForm(props);
 
   return (
     <Form form={form}>

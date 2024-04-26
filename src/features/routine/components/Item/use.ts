@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { StyleProp, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
-import { format } from 'date-fns';
-
 import { ItemProps } from '.';
 import { itemStyles } from './styles';
 
@@ -13,24 +11,10 @@ type Styles = {
 };
 
 export type ItemHook = (props: ItemProps) => {
-  dateText: string;
   styles: Styles;
 };
 
 export const useItem: ItemHook = ({ data, isEditing, styles: propStyles }) => {
-  const dateText = useMemo(() => {
-    if (!data.date) {
-      return '';
-    }
-    if (data.objectType === 'appointment' && isEditing) {
-      return format(data.date, 'dd/MM/yyyy - HH:mm');
-    }
-    if (data.kind !== 'reminder') {
-      return format(data.date, 'HH:mm');
-    }
-    return '';
-  }, [data, isEditing]);
-
   const styles = useMemo<Styles>(() => {
     const applyHighlight = data.objectType === 'appointment' && !isEditing;
 
@@ -47,7 +31,6 @@ export const useItem: ItemHook = ({ data, isEditing, styles: propStyles }) => {
   }, [data, isEditing, propStyles]);
 
   return {
-    dateText,
     styles,
   };
 };

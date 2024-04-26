@@ -1,14 +1,13 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
-import { format } from 'date-fns';
 
 import { CreateHabitFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
+import { DateUtils } from '../../../../shared/utils/DateUtils';
 import {
   CreateHabitSchema,
   createHabitSchema,
@@ -17,31 +16,17 @@ import { createTask, updateTask } from '../../stores/taskStore';
 
 export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   /**
-   * Translation
-   */
-  const { t } = useTranslation('routine');
-  const nameLabel = useMemo(() => t('name'), [t]);
-  const timeLabel = useMemo(() => t('time'), [t]);
-  const daysOfWeekLabel = useMemo(() => t('daysOfWeek'), [t]);
-  const buttonText = useMemo(() => t('save'), [t]);
-
-  /**
-   * Navigation
+   * Navigation setup
    */
   const navigation = useNavigation<StackNavigationProp>();
 
   /**
-   * Redux dispatch
+   * Redux setup
    */
   const dispatch = useDispatch();
 
   /**
-   * Formating
-   */
-  const formatTime = useCallback((date: Date) => format(date, 'HH:mm'), []);
-
-  /**
-   * Form
+   * Form setup
    */
   const form = useForm<CreateHabitSchema>({
     resolver: zodResolver(createHabitSchema),
@@ -49,9 +34,10 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
       ? {
           name: editingHabit.name,
           daysOfWeek: editingHabit.daysOfWeek,
-          time: new Date(
-            new Date().setHours(editingHabit.hours, editingHabit.minutes),
-          ),
+          time: DateUtils.buildDate({
+            hour: editingHabit.hours,
+            minute: editingHabit.minutes,
+          }),
         }
       : {
           name: '',
@@ -62,7 +48,7 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   });
 
   /**
-   * Create habit callback
+   * Create habit
    */
   const handleCreate = useCallback(
     async (data: CreateHabitSchema) => {
@@ -85,7 +71,7 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   );
 
   /**
-   * Update habit callback
+   * Update habit
    */
   const handleUpdate = useCallback(
     async (data: CreateHabitSchema) => {
@@ -112,7 +98,7 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   );
 
   /**
-   * Submit form
+   * Create or update habit
    */
   const onSubmit = useCallback<SubmitHandler<CreateHabitSchema>>(
     data => {
@@ -126,11 +112,6 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   );
 
   return {
-    nameLabel,
-    timeLabel,
-    daysOfWeekLabel,
-    buttonText,
-    formatTime,
     form,
     onSubmit,
   };

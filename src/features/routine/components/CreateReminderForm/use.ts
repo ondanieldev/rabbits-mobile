@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
@@ -18,22 +17,19 @@ import { createTask, updateTask } from '../../stores/taskStore';
 export const useCreateReminderForm = ({
   ediditingReminder,
 }: CreateReminderFormProps) => {
-  const { t } = useTranslation('routine');
-  const nameLabel = useMemo(() => t('name'), [t]);
-  const daysOfWeekLabel = useMemo(() => t('daysOfWeek'), [t]);
-  const buttonText = useMemo(() => t('save'), [t]);
-
+  /**
+   * Navigation setup
+   */
   const navigation = useNavigation<StackNavigationProp>();
 
+  /**
+   * Redux setup
+   */
   const dispatch = useDispatch();
-  const createTaskStatus = useSelector(state => state.task.createTaskStatus);
-  const updateTaskStatus = useSelector(state => state.task.updateTaskStatus);
 
-  const isLoading = useMemo(
-    () => createTaskStatus === 'pending' || updateTaskStatus === 'pending',
-    [createTaskStatus, updateTaskStatus],
-  );
-
+  /**
+   * Form setup
+   */
   const form = useForm<CreateReminderSchema>({
     resolver: zodResolver(createReminderSchema),
     defaultValues: ediditingReminder
@@ -47,6 +43,11 @@ export const useCreateReminderForm = ({
         },
     mode: 'onSubmit',
   });
+
+  /**
+   * Create reminder
+   */
+  const createTaskStatus = useSelector(state => state.task.createTaskStatus);
 
   const handleCreate = useCallback(
     async (data: CreateReminderSchema) => {
@@ -67,6 +68,11 @@ export const useCreateReminderForm = ({
     },
     [dispatch, form],
   );
+
+  /**
+   * Update reminder
+   */
+  const updateTaskStatus = useSelector(state => state.task.updateTaskStatus);
 
   const handleUpdate = useCallback(
     async (data: CreateReminderSchema) => {
@@ -92,6 +98,14 @@ export const useCreateReminderForm = ({
     [dispatch, navigation, ediditingReminder],
   );
 
+  /**
+   * Update or create reminder
+   */
+  const isLoading = useMemo(
+    () => createTaskStatus === 'pending' || updateTaskStatus === 'pending',
+    [createTaskStatus, updateTaskStatus],
+  );
+
   const onSubmit = useCallback<SubmitHandler<CreateReminderSchema>>(
     async data => {
       if (ediditingReminder) {
@@ -104,9 +118,6 @@ export const useCreateReminderForm = ({
   );
 
   return {
-    nameLabel,
-    daysOfWeekLabel,
-    buttonText,
     form,
     onSubmit,
     createTaskStatus,

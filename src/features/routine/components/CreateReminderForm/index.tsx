@@ -5,14 +5,17 @@ import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
 import { Task } from '../../interfaces/Task';
 import { useCreateReminderForm } from './use';
+import { useCreateReminderFormTranslation } from './useTranslation';
 
 export interface CreateReminderFormProps {
   ediditingReminder?: Task;
 }
 
 export const CreateReminderForm: React.FC<CreateReminderFormProps> = props => {
-  const { buttonText, daysOfWeekLabel, nameLabel, form, onSubmit } =
-    useCreateReminderForm(props);
+  const { buttonText, daysOfWeekLabel, nameLabel } =
+    useCreateReminderFormTranslation();
+
+  const { form, onSubmit } = useCreateReminderForm(props);
 
   return (
     <Form form={form}>
