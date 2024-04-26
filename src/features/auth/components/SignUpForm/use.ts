@@ -1,6 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
@@ -12,12 +11,6 @@ import { SignUpSchema, signUpSchema } from '../../schemas/signUpSchema';
 import { signUp } from '../../stores/authStore';
 
 export const useSignUpForm = () => {
-  const { t } = useTranslation('auth');
-  const emailLabel = useMemo(() => t('email'), [t]);
-  const passwordLabel = useMemo(() => t('password'), [t]);
-  const confirmPasswordLabel = useMemo(() => t('confirmPassword'), [t]);
-  const buttonText = useMemo(() => t('signUp'), [t]);
-
   const dispatch = useDispatch();
   const signUpStatus = useSelector(state => state.auth.signUpStatus);
 
@@ -45,10 +38,6 @@ export const useSignUpForm = () => {
   );
 
   return {
-    emailLabel,
-    passwordLabel,
-    confirmPasswordLabel,
-    buttonText,
     form,
     signUpStatus,
     onSubmit,

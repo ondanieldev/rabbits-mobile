@@ -1,6 +1,5 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -11,11 +10,6 @@ import { AuthTokenStorage } from '../../storages/AuthTokenStorage';
 import { signIn } from '../../stores/authStore';
 
 export const useSignInForm = () => {
-  const { t } = useTranslation('auth');
-  const emailLabel = useMemo(() => t('email'), [t]);
-  const passwordLabel = useMemo(() => t('password'), [t]);
-  const buttonText = useMemo(() => t('signIn'), [t]);
-
   const dispatch = useDispatch();
   const signInStatus = useSelector(state => state.auth.signInStatus);
 
@@ -41,9 +35,6 @@ export const useSignInForm = () => {
   );
 
   return {
-    emailLabel,
-    passwordLabel,
-    buttonText,
     form,
     signInStatus,
     onSubmit,

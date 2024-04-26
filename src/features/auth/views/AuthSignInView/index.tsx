@@ -7,6 +7,7 @@ import { AuthTitle } from '../../components/AuthTitle';
 import { AuthView } from '../../components/AuthView';
 import { SignInForm } from '../../components/SignInForm';
 import { useAuthSignInView } from './use';
+import { useAuthSignInViewTranslation } from './useTranslation';
 
 export interface AuthSignInViewProps
   extends NativeStackScreenProps<
@@ -15,8 +16,10 @@ export interface AuthSignInViewProps
   > {}
 
 export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
-  const { titleBase, titleHighlight, ctaBase, ctaHighlight, ctaOnPress } =
-    useAuthSignInView();
+  const { ctaBase, ctaHighlight, titleBase, titleHighlight } =
+    useAuthSignInViewTranslation();
+
+  const { ctaOnPress } = useAuthSignInView();
 
   return (
     <AuthView>

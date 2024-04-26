@@ -3,16 +3,12 @@ import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
 import { useSignInForm } from './use';
+import { useSignInFormTranslation } from './useTranslation';
 
 export const SignInForm: React.FC = () => {
-  const {
-    emailLabel,
-    passwordLabel,
-    buttonText,
-    form,
-    onSubmit,
-    signInStatus,
-  } = useSignInForm();
+  const { form, onSubmit, signInStatus } = useSignInForm();
+
+  const { buttonText, emailLabel, passwordLabel } = useSignInFormTranslation();
 
   return (
     <Form form={form}>
