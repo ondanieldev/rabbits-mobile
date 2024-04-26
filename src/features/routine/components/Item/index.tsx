@@ -5,8 +5,8 @@ import { CircleCheckBox } from '../../../../shared/components/CircleCheckBox';
 import { IconButton } from '../../../../shared/components/IconButton';
 import { Overlay } from '../../../../shared/components/Overlay';
 import { Text } from '../../../../shared/components/Text';
-import { colors } from '../../../../shared/styles/globalStyles';
 import { ItemData } from '../../interfaces/ItemData';
+import { itemTextProps, itemTrashIconProps } from './data';
 import { itemStyles } from './styles';
 import { ItemHook, useItem } from './use';
 import { ItemTranslationHook, useItemTranslation } from './useTranslation';
@@ -65,11 +65,7 @@ const DeleteIcon = ({ props }: { props: ItemProps }) => {
         onPress: () => props.onDelete?.(props.data),
         disabled: props.isDeleting,
       }}
-      iconProps={{
-        name: 'trash',
-        color: colors.danger,
-        disabledColor: colors.selectable,
-      }}
+      iconProps={itemTrashIconProps}
     />
   );
 };
@@ -85,7 +81,7 @@ const Texts = ({
 }) => {
   return (
     <View style={itemStyles.textContainer}>
-      <Text numberOfLines={1} ellipsizeMode="tail" style={hook.styles.name}>
+      <Text {...itemTextProps} style={hook.styles.name}>
         {props.data.name}
       </Text>
 
