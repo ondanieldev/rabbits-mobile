@@ -1,36 +1,22 @@
-import { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
-
-import { useDispatch } from '../../../../shared/hooks/useDispatch';
-import { useSelector } from '../../../../shared/hooks/useSelector';
-import { StackNavigationProp } from '../../../../shared/navigation/stack';
-import { SearchUtils } from '../../../../shared/utils/SearchUtils';
 import { useAppointment } from '../../contexts/appointmentContext';
 import { useTask } from '../../contexts/taskContext';
 import { ItemCreatableType } from '../../enums/ItemCreatableType';
-import { ItemData } from '../../interfaces/ItemData';
-import { deleteAppointment } from '../../stores/appointmentStore';
-import { deleteTask } from '../../stores/taskStore';
-import { ItemDataUtils } from '../../utils/ItemDataUtils';
+import { useRoutineEditViewDeleteItem } from './useDeleteItem';
+import { useRoutineEditViewItemList } from './useItemList';
+import { useRoutineEditViewSelectItem } from './useSelectItem';
 
 export const useRoutineEditView = () => {
   /**
-   * Translation
+   * Task setup
    */
-  const { t } = useTranslation('routine');
-  const searchLabel = useMemo(() => t('searchByName'), [t]);
+  const { taskList } = useTask();
 
   /**
-   * Navigation setup
+   * Appointment setup
    */
-  const navigation = useNavigation<StackNavigationProp>();
-
-  /**
-   * Redux setup
-   */
-  const dispatch = useDispatch();
+  const { appointmentList } = useAppointment();
 
   /**
    * Select form
@@ -39,114 +25,42 @@ export const useRoutineEditView = () => {
     useState<ItemCreatableType>('habit');
 
   /**
-   * Load list
+   * Search
    */
   const [search, setSearch] = useState('');
 
-  const { taskList } = useTask();
-  const { appointmentList } = useAppointment();
-
-  const taskListStatus = useSelector(state => state.task.taskListStatus);
-  const appointmentListStatus = useSelector(
-    state => state.appointment.appointmentListStatus,
-  );
-  const isLoading = useMemo(
-    () => taskListStatus === 'pending' || appointmentListStatus === 'pending',
-    [taskListStatus, appointmentListStatus],
-  );
-
-  const itemDataList = useMemo<ItemData[]>(() => {
-    // Habit list
-    if (selectedCreatableType === 'habit') {
-      return taskList
-        .filter(
-          task =>
-            task.kind === 'habit' &&
-            SearchUtils.matchesInsensitve(search, task.name),
-        )
-        .map(task => ItemDataUtils.fromTaskToItemData(task));
-    }
-
-    // Reminder list
-    if (selectedCreatableType === 'reminder') {
-      return taskList
-        .filter(
-          task =>
-            task.kind === 'reminder' &&
-            SearchUtils.matchesInsensitve(search, task.name),
-        )
-        .map(task => ItemDataUtils.fromTaskToItemData(task));
-    }
-
-    // Appointment list
-    if (selectedCreatableType === 'event') {
-      return appointmentList
-        .filter(appointment =>
-          SearchUtils.matchesInsensitve(search, appointment.name),
-        )
-        .map(ItemDataUtils.fromAppointmentToItemData);
-    }
-
-    return [];
-  }, [selectedCreatableType, taskList, search, appointmentList]);
+  /**
+   * Item list
+   */
+  const { isLoading, itemDataList } = useRoutineEditViewItemList({
+    appointmentList,
+    search,
+    selectedCreatableType,
+    taskList,
+  });
 
   /**
    * Select item
    */
-  const onSelect = useCallback(
-    (data: ItemData) => {
-      if (data.objectType === 'task') {
-        navigation.navigate('RoutineUpsertScreen', { taskId: data.id });
-      } else if (data.objectType === 'appointment') {
-        navigation.navigate('RoutineUpsertScreen', {
-          appointmentId: data.id,
-        });
-      }
-    },
-    [navigation],
-  );
+  const { onSelect } = useRoutineEditViewSelectItem();
 
   /**
    * Delete item
    */
-  const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
-  const deleteAppointmentStatus = useSelector(
-    state => state.appointment.deleteAppointmentStatus,
-  );
-  const isDeleting = useMemo(
-    () =>
-      deleteTaskStatus === 'pending' || deleteAppointmentStatus === 'pending',
-    [deleteTaskStatus, deleteAppointmentStatus],
-  );
-
-  const onDelete = useCallback(
-    async (data: ItemData) => {
-      try {
-        if (data.objectType === 'task') {
-          dispatch(deleteTask(data.id));
-        } else if (data.objectType === 'appointment') {
-          dispatch(deleteAppointment(data.id));
-        }
-      } catch {
-        //
-      }
-    },
-    [dispatch],
-  );
+  const { isDeleting, onDelete } = useRoutineEditViewDeleteItem();
 
   /**
    * Return
    */
   return {
-    searchLabel,
     selectedCreatableType,
     setSelectedCreatableType,
-    itemDataList,
-    isLoading,
     search,
     setSearch,
+    isLoading,
+    itemDataList,
     onSelect,
-    onDelete,
     isDeleting,
+    onDelete,
   };
 };

@@ -10,6 +10,7 @@ import { ItemCreatableTypeSelector } from '../../components/ItemCreatableTypeSel
 import { ItemList } from '../../components/ItemList';
 import { routineEditViewStyles } from './styles';
 import { useRoutineEditView } from './use';
+import { useRoutineEditViewTranslation } from './useTranslation';
 
 export interface RoutineEditViewProps
   extends NativeStackScreenProps<
@@ -18,8 +19,9 @@ export interface RoutineEditViewProps
   > {}
 
 export const RoutineEditView: React.FC<RoutineEditViewProps> = ({}) => {
+  const { searchLabel } = useRoutineEditViewTranslation();
+
   const {
-    searchLabel,
     selectedCreatableType,
     setSelectedCreatableType,
     itemDataList,

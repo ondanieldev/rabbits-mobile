@@ -48,4 +48,24 @@ export class ItemDataUtils {
       completedRefId: appointment.id,
     };
   };
+
+  static sortComparer = (a: ItemData, b: ItemData): number => {
+    if (!a.date && !b.date) {
+      return 0;
+    }
+    if (!a.date) {
+      return -1;
+    }
+    if (!b.date) {
+      return 1;
+    }
+
+    const aTime = a.date.getHours() * 60 + a.date.getMinutes();
+    const bTime = b.date.getHours() * 60 + b.date.getMinutes();
+    if (aTime !== bTime) {
+      return aTime - bTime;
+    }
+
+    return a.name.localeCompare(b.name);
+  };
 }
