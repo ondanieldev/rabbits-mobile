@@ -2,8 +2,6 @@
 
 ## TODO
 
-- Highlight today
-- Implement go to "Today"
 - Implement in-app notifications
 - Implement notifications
 - Improve error handling
@@ -16,9 +14,9 @@
 - Deploy on Google Play
 - Mesure performance
 - Translate validating errors
-- Improve selecting/toggling
+- Implement tests
+- Implement Storybook
 
 ## Bugs
 
-- Day of week
 - Toggle/select loading
