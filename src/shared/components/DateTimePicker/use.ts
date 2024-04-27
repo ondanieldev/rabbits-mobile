@@ -1,15 +1,28 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-export type DateTimePickerHook = () => {
-  show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { DateTimePickerProps } from '.';
 
-export const useDateTimePicker: DateTimePickerHook = () => {
+export const useDateTimePicker = ({
+  formatDisplayedValue,
+}: Pick<DateTimePickerProps<any>, 'formatDisplayedValue'>) => {
   const [show, setShow] = useState(false);
+
+  const onPress = useCallback(() => {
+    setShow(true);
+  }, []);
+
+  const getValue = useCallback(
+    (fieldValue: Date) =>
+      formatDisplayedValue
+        ? formatDisplayedValue(fieldValue)
+        : String(fieldValue),
+    [formatDisplayedValue],
+  );
 
   return {
     show,
     setShow,
+    onPress,
+    getValue,
   };
 };

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import FeIcon from 'react-native-vector-icons/Feather';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
@@ -21,14 +22,14 @@ export const IconButton: React.FC<IconButtonProps> = ({
     ...iconProps
   },
 }) => {
+  const iconColor = useMemo(
+    () => (buttonProps?.disabled ? disabledColor : color),
+    [buttonProps?.disabled, color, disabledColor],
+  );
+
   return (
     <Button {...buttonProps}>
-      <FeIcon
-        name={name}
-        size={size}
-        color={buttonProps?.disabled ? disabledColor : color}
-        {...iconProps}
-      />
+      <FeIcon name={name} size={size} color={iconColor} {...iconProps} />
     </Button>
   );
 };

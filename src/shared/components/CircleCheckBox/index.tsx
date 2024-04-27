@@ -11,7 +11,7 @@ export interface CircleCheckBoxProps {
 }
 
 export const CircleCheckBox: React.FC<CircleCheckBoxProps> = props => {
-  const { styles, onPress } = useCircleCheckBox(props);
+  const { activityIndicatorColor, styles, onPress } = useCircleCheckBox(props);
 
   return (
     <TouchableHighlight
@@ -20,10 +20,7 @@ export const CircleCheckBox: React.FC<CircleCheckBoxProps> = props => {
       disabled={props.isLoading}>
       <View>
         {props.isLoading && (
-          <ActivityIndicator
-            size="small"
-            color={props.isChecked ? colors.background : colors.primary}
-          />
+          <ActivityIndicator size="small" color={activityIndicatorColor} />
         )}
 
         {!props.isLoading && props.isChecked && (

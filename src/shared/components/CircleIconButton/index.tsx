@@ -1,20 +1,17 @@
-import { StyleSheet } from 'react-native';
-
 import { IconButton, IconButtonProps } from '../IconButton';
-import { circleIconButtonStyles } from './styles';
+import { useCircleIconButton } from './use';
 
 export const CircleIconButton: React.FC<IconButtonProps> = ({
   iconProps,
   buttonProps: { style: buttonStyle, ...buttonProps } = {},
 }) => {
+  const { styles } = useCircleIconButton({ style: buttonStyle });
+
   return (
     <IconButton
       iconProps={iconProps}
       buttonProps={{
-        style: StyleSheet.compose(
-          circleIconButtonStyles.touchable,
-          buttonStyle,
-        ),
+        style: styles.button,
         ...buttonProps,
       }}
     />

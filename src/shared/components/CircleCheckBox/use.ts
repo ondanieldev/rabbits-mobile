@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 import { CircleCheckBoxProps } from '.';
+import { colors } from '../../styles/globalStyles';
 import { circleCheckBoxStyles } from './styles';
 
 type Styles = {
@@ -9,6 +10,7 @@ type Styles = {
 };
 
 export type CircleCheckBoxHook = (props: CircleCheckBoxProps) => {
+  activityIndicatorColor: string;
   styles: Styles;
   onPress: () => void;
 };
@@ -40,6 +42,11 @@ export const useCircleCheckBox: CircleCheckBoxHook = ({
     };
   }, [isChecked, isLoading]);
 
+  const activityIndicatorColor = useMemo(
+    () => (isChecked ? colors.background : colors.primary),
+    [isChecked],
+  );
+
   const onPress = useCallback(() => {
     onToggle?.(!isChecked);
   }, [onToggle, isChecked]);
@@ -47,5 +54,6 @@ export const useCircleCheckBox: CircleCheckBoxHook = ({
   return {
     styles,
     onPress,
+    activityIndicatorColor,
   };
 };

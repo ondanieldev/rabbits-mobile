@@ -16,7 +16,6 @@ export interface DateTimePickerProps<T extends FieldValues> {
   formatDisplayedValue?: (value: Date) => string;
 }
 
-// TODO: move logic to a hook and check regulatedDate
 export const DateTimePicker: React.FC<DateTimePickerProps<any>> = ({
   mode,
   name,
@@ -24,7 +23,9 @@ export const DateTimePicker: React.FC<DateTimePickerProps<any>> = ({
   baseTextInputProps,
   formatDisplayedValue,
 }) => {
-  const { setShow, show } = useDateTimePicker();
+  const { setShow, show, onPress, getValue } = useDateTimePicker({
+    formatDisplayedValue,
+  });
 
   return (
     <Controller
@@ -32,14 +33,10 @@ export const DateTimePicker: React.FC<DateTimePickerProps<any>> = ({
       name={name}
       render={({ field, fieldState: { error } }) => (
         <View>
-          <Pressable onPress={() => setShow(true)}>
+          <Pressable onPress={onPress}>
             <BaseTextInput
               {...baseTextInputProps}
-              value={
-                formatDisplayedValue
-                  ? formatDisplayedValue(field.value)
-                  : String(field.value)
-              }
+              value={getValue(field.value)}
               errorMsg={error?.message}
               editable={false}
             />
