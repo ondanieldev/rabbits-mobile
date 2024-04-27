@@ -2,11 +2,6 @@
 
 ## TODO
 
-- Refactor general
-  - activity indicators
-  - ensure nothing is loading when hitting api
-  - Text transforms
-  - others
 - Highlight today
 - Implement go to "Today"
 - Implement in-app notifications
@@ -22,3 +17,8 @@
 - Mesure performance
 - Translate validating errors
 - Improve selecting/toggling
+
+## Bugs
+
+- Day of week
+- Toggle/select loading

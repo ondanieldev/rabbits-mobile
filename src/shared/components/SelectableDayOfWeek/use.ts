@@ -19,11 +19,19 @@ export type SelectableDayOfWeekHook = (props: SelectableDayOfWeekProps) => {
 export const useSelectableDayOfWeek: SelectableDayOfWeekHook = props => {
   const { t } = useTranslation('common');
 
-  const [isSelected, setIsSelected] = useState(props.defaultSelected);
+  const [internalIsSelected, setInternalIsSelected] = useState(
+    props.defaultSelected,
+  );
+
+  const isSelected = useMemo(
+    () =>
+      props.isSelected !== undefined ? props.isSelected : internalIsSelected,
+    [props.isSelected, internalIsSelected],
+  );
 
   const onPress = useCallback(() => {
     const newState = !isSelected;
-    setIsSelected(newState);
+    setInternalIsSelected(newState);
     props.onPress?.(newState);
   }, [isSelected, props]);
 

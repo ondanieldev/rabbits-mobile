@@ -1,14 +1,26 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { DayOfWeekInputProps } from '.';
+import { SelectableDayOfWeek } from '../SelectableDayOfWeek';
+import { selectableDayOfWeekDataList } from './data';
 
 export const useDayOfWeekInput = ({
   form: { watch, setValue, register, formState },
   name,
 }: DayOfWeekInputProps<any>) => {
-  const [error, setError] = useState<string | undefined>(undefined);
+  /**
+   * Form value
+   */
   const totalValue = watch(name);
 
+  /**
+   * Error state
+   */
+  const [error, setError] = useState<string | undefined>(undefined);
+
+  /**
+   * On item press handler
+   */
   const onPress = useCallback(
     (value: number, isSelected: boolean) => {
       let result: number[] = [];
@@ -28,10 +40,35 @@ export const useDayOfWeekInput = ({
     [setValue, name, totalValue],
   );
 
+  /**
+   * List of selectable items
+   */
+  const selectableList = useMemo(() => {
+    return selectableDayOfWeekDataList.map(data => {
+      const isSelected = totalValue.includes(data.value);
+      return (
+        <SelectableDayOfWeek
+          key={data.value}
+          label={data.label}
+          onPress={newValue => {
+            onPress(data.value, newValue);
+          }}
+          isSelected={isSelected}
+        />
+      );
+    });
+  }, [onPress, totalValue]);
+
+  /**
+   * Register input on form when mounting
+   */
   useEffect(() => {
     register(name);
   }, [register, name]);
 
+  /**
+   * Update error state when form error changes
+   */
   useEffect(() => {
     const fieldError = formState.errors[name];
     if (fieldError?.message) {
@@ -42,8 +79,9 @@ export const useDayOfWeekInput = ({
   }, [name, formState.errors]);
 
   return {
-    totalValue,
-    onPress,
     error,
+    onPress,
+    selectableList,
+    totalValue,
   };
 };

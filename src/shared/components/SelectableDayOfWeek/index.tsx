@@ -15,6 +15,7 @@ export interface SelectableDayOfWeekProps {
   defaultSelected?: boolean;
   label: SelectableDayOfWeekLabel;
   onPress?: (isSelected: boolean) => void;
+  isSelected?: boolean;
 }
 
 export const SelectableDayOfWeek: React.FC<

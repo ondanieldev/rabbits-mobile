@@ -3,8 +3,6 @@ import { ScrollView, View } from 'react-native';
 
 import { InputError } from '../InputError';
 import { InputLabel } from '../InputLabel';
-import { SelectableDayOfWeek } from '../SelectableDayOfWeek';
-import { selectableDayOfWeekDataList } from './data';
 import { dayOfWeekInputStyles } from './styles';
 import { useDayOfWeekInput } from './use';
 
@@ -21,7 +19,7 @@ export const DayOfWeekInput: React.FC<DayOfWeekInputProps<any>> = ({
   label,
   name,
 }) => {
-  const { onPress, totalValue, error } = useDayOfWeekInput({
+  const { error, selectableList } = useDayOfWeekInput({
     form,
     name,
   });
@@ -33,16 +31,7 @@ export const DayOfWeekInput: React.FC<DayOfWeekInputProps<any>> = ({
       <ScrollView
         horizontal={true}
         contentContainerStyle={dayOfWeekInputStyles.listContainer}>
-        {selectableDayOfWeekDataList.map(data => (
-          <SelectableDayOfWeek
-            key={data.value}
-            label={data.label}
-            onPress={isSelected => {
-              onPress(data.value, isSelected);
-            }}
-            defaultSelected={totalValue.includes(data.value)}
-          />
-        ))}
+        {selectableList}
       </ScrollView>
 
       {error && <InputError>{error}</InputError>}
