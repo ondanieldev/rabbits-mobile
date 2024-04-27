@@ -24,5 +24,6 @@
   "wednesdayInitial": "W",
   "thursdayInitial": "T",
   "fridayInitial": "F",
-  "saturdayInitial": "S"
+  "saturdayInitial": "S",
+  "today": "today"
 }

@@ -1,22 +1,22 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { ScrollView } from 'react-native';
 
-import { addWeeks, endOfWeek, startOfWeek, subWeeks } from 'date-fns';
+import {
+  addWeeks,
+  endOfWeek,
+  isSameWeek,
+  startOfWeek,
+  subWeeks,
+} from 'date-fns';
 
 import { CalendarPops } from '.';
 
 export const calendarDayOffset = 1;
 
-export type CalendarHook = (props: CalendarPops) => {
-  handleNextWeek: () => void;
-  handlePrevWeek: () => void;
-  scrollViewRef: React.RefObject<ScrollView>;
-};
-
-export const useCalendar: CalendarHook = ({
+export const useCalendar = ({
   referenceDate,
   setReferenceDate,
-}) => {
+}: CalendarPops) => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const handleNextWeek = useCallback(() => {
@@ -29,9 +29,17 @@ export const useCalendar: CalendarHook = ({
     scrollViewRef.current?.scrollToEnd({ animated: false });
   }, [referenceDate, setReferenceDate]);
 
+  const showGoToToday = useMemo<'never' | 'before' | 'after'>(() => {
+    if (isSameWeek(referenceDate, new Date())) {
+      return 'never';
+    }
+    return new Date().getTime() > referenceDate.getTime() ? 'after' : 'before';
+  }, [referenceDate]);
+
   return {
     handleNextWeek,
     handlePrevWeek,
     scrollViewRef,
+    showGoToToday,
   };
 };
