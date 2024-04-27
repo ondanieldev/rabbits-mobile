@@ -1,44 +1,48 @@
 import { useCallback, useMemo } from 'react';
-import { StyleProp, StyleSheet, TextStyle } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { isSameDay } from 'date-fns';
 
-import { CalendarDayProps } from '.';
+import { CalendarDayProps, CalendarDayStyles } from '.';
 import { calendarDayStyles } from './styles';
-
-type Styles = {
-  dayOfWeek: StyleProp<TextStyle>;
-  day: StyleProp<TextStyle>;
-};
 
 export const useCalendarDay = ({
   date,
   referenceDate,
   setReferenceDate,
+  styles: propStyles,
 }: CalendarDayProps) => {
   const isSelected = useMemo(
     () => isSameDay(date, referenceDate),
     [date, referenceDate],
   );
 
-  const styles = useMemo<Styles>(() => {
+  const styles = useMemo<CalendarDayStyles>(() => {
+    const baseStyles: CalendarDayStyles = {
+      container: StyleSheet.compose(
+        calendarDayStyles.container,
+        propStyles?.container,
+      ),
+      dayOfWeek: StyleSheet.compose(
+        calendarDayStyles.dayOfWeek,
+        propStyles?.dayOfWeek,
+      ),
+      day: StyleSheet.compose(calendarDayStyles.day, propStyles?.day),
+    };
+
     if (isSelected) {
       return {
+        container: baseStyles.container,
         dayOfWeek: StyleSheet.compose(
-          calendarDayStyles.dayOfWeek,
+          baseStyles.dayOfWeek,
           calendarDayStyles.textSelected,
         ),
-        day: StyleSheet.compose(
-          calendarDayStyles.day,
-          calendarDayStyles.textSelected,
-        ),
+        day: StyleSheet.compose(baseStyles.day, calendarDayStyles.textSelected),
       };
     }
-    return {
-      dayOfWeek: calendarDayStyles.dayOfWeek,
-      day: calendarDayStyles.day,
-    };
-  }, [isSelected]);
+
+    return baseStyles;
+  }, [isSelected, propStyles]);
 
   const onPress = useCallback(() => {
     setReferenceDate(date);
