@@ -30,27 +30,27 @@ export class DateUtils {
   }) {
     const newDate = new Date();
 
-    if (year) {
+    if (year !== undefined) {
       newDate.setFullYear(year);
     }
 
-    if (month) {
+    if (month !== undefined) {
       newDate.setMonth(month - 1);
     }
 
-    if (day) {
+    if (day !== undefined) {
       newDate.setDate(day);
     }
 
-    if (hour) {
+    if (hour !== undefined) {
       newDate.setHours(hour);
     }
 
-    if (minute) {
+    if (minute !== undefined) {
       newDate.setMinutes(minute);
     }
 
-    if (second) {
+    if (second !== undefined) {
       newDate.setSeconds(second);
     }
 
