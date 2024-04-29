@@ -5,7 +5,7 @@ import { spacings } from '../../../../shared/styles/globalStyles';
 export const notificationContainerStyles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    top: spacings.md,
+    bottom: spacings.md * 6,
     right: 0,
     zIndex: 1000,
     padding: spacings.md,
