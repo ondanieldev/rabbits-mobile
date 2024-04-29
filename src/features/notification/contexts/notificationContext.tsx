@@ -1,4 +1,12 @@
-import { createContext, useContext, useEffect, useMemo } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react';
+import { useTranslation } from 'react-i18next';
+import uuid from 'react-native-uuid';
 
 import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
@@ -6,21 +14,29 @@ import { Notification as INotification } from '../../routine/interfaces/Notifica
 import { Notification } from '../components/Notification';
 import { NotificationContainer } from '../components/NotificationContainer';
 import {
+  addNotification,
   removeNotification,
   selectNotificationList,
 } from '../stores/notificationStore';
 
 export interface NotificationContext {
   notificationList: INotification[];
+  notify: (data: Omit<INotification, 'id' | 'timestamp'>) => void;
 }
 
 export const notificationContext = createContext<NotificationContext>({
   notificationList: [],
+  notify: () => {},
 });
 
 export const NotificationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  /**
+   * Translation setup
+   */
+  const { t } = useTranslation('notification');
+
   /**
    * Redux setup
    */
@@ -49,6 +65,27 @@ export const NotificationProvider: React.FC<{
   );
 
   /**
+   * Create notification
+   */
+  const notify = useCallback(
+    (
+      { title, message, ...data }: Omit<INotification, 'id' | 'timestamp'>,
+      translate = true,
+    ) => {
+      dispatch(
+        addNotification({
+          id: uuid.v4().toString(),
+          title: translate ? t(title) : title,
+          message: translate && message ? t(message) : message,
+          timestamp: new Date().getTime(),
+          ...data,
+        }),
+      );
+    },
+    [dispatch, t],
+  );
+
+  /**
    * Remove newest notification after 5 seconds
    */
   useEffect(() => {
@@ -66,7 +103,10 @@ export const NotificationProvider: React.FC<{
   /**
    * Return
    */
-  const value = useMemo(() => ({ notificationList }), [notificationList]);
+  const value = useMemo(
+    () => ({ notificationList, notify }),
+    [notificationList, notify],
+  );
 
   return (
     <notificationContext.Provider value={value}>
