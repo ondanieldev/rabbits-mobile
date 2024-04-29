@@ -13,6 +13,12 @@ export const notificationStyles = StyleSheet.create({
     padding: spacings.sm,
     borderRadius: radius.sm,
     backgroundColor: colors.foreground,
+    opacity: 0.95,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   success: {
     backgroundColor: colors.success,

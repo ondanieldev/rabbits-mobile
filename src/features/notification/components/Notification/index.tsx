@@ -1,6 +1,8 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import FeIcon from 'react-native-vector-icons/Feather';
 
 import { Text } from '../../../../shared/components/Text';
+import { colors, iconSizes } from '../../../../shared/styles/globalStyles';
 import { Notification as INotification } from '../../../routine/interfaces/Notification';
 import { notificationStyles } from './styles';
 
@@ -20,9 +22,12 @@ export const Notification: React.FC<NotificationProps> = ({
         notificationStyles.container,
         notificationStyles[type],
       )}>
-      <Text style={notificationStyles.title}>{title}</Text>
+      <View style={notificationStyles.header}>
+        <Text style={notificationStyles.title}>{title}</Text>
+        <FeIcon name="x" color={colors.primaryText} size={iconSizes.sm} />
+      </View>
 
-      <Text style={notificationStyles.message}>{message}</Text>
+      {message && <Text style={notificationStyles.message}>{message}</Text>}
     </TouchableOpacity>
   );
 };
