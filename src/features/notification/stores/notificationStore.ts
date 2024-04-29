@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 
 import { ReduxStoreRootState } from '../../../shared/stores/reduxStore';
-import { Notification } from '../../routine/interfaces/Notification';
+import { Notification } from '../interfaces/Notification';
 
 /**
  * State

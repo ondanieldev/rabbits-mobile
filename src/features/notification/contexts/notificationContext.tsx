@@ -10,9 +10,10 @@ import uuid from 'react-native-uuid';
 
 import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
-import { Notification as INotification } from '../../routine/interfaces/Notification';
 import { Notification as BaseNotification } from '../components/Notification';
 import { NotificationContainer } from '../components/NotificationContainer';
+import { CreateNotification } from '../interfaces/CreateNotification';
+import { Notification as INotification } from '../interfaces/Notification';
 import {
   addNotification,
   removeNotification,
@@ -21,7 +22,7 @@ import {
 
 export interface NotificationContext {
   notificationList: INotification[];
-  notify: (data: Omit<INotification, 'id' | 'timestamp'>) => void;
+  notify: (data: CreateNotification) => void;
 }
 
 export const notificationContext = createContext<NotificationContext>({
@@ -54,12 +55,12 @@ export const NotificationProvider: React.FC<{
     if (!notificationList.length) {
       return null;
     }
-    const { id, ...data } = notificationList[0];
+    const notification = notificationList[0];
     return (
       <BaseNotification
-        data={data}
+        data={notification}
         onPress={() => {
-          dispatch(removeNotification(id));
+          dispatch(removeNotification(notification.id));
         }}
       />
     );
@@ -69,10 +70,7 @@ export const NotificationProvider: React.FC<{
    * Create notification
    */
   const notify = useCallback(
-    (
-      { title, message, ...data }: Omit<INotification, 'id' | 'timestamp'>,
-      translate = true,
-    ) => {
+    ({ title, message, ...data }: CreateNotification, translate = true) => {
       dispatch(
         addNotification({
           id: uuid.v4().toString(),

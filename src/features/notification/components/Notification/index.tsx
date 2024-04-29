@@ -3,11 +3,11 @@ import FeIcon from 'react-native-vector-icons/Feather';
 
 import { Text } from '../../../../shared/components/Text';
 import { colors, iconSizes } from '../../../../shared/styles/globalStyles';
-import { Notification as INotification } from '../../../routine/interfaces/Notification';
+import { Notification as INotification } from '../../interfaces/Notification';
 import { notificationStyles } from './styles';
 
 export interface NotificationProps {
-  data: Omit<INotification, 'id'>;
+  data: INotification;
   onPress?: () => void;
 }
 
