@@ -19,8 +19,9 @@ export interface NotificationState {
  * Adapaters
  */
 export const notificationAdapter = createEntityAdapter<Notification>({
+  // Order notifications by timestamp in descending order (newest firts)
   sortComparer: (a, b) => {
-    return a.timestamp - b.timestamp;
+    return b.timestamp - a.timestamp;
   },
 });
 
