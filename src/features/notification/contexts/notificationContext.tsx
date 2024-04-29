@@ -11,7 +11,7 @@ import uuid from 'react-native-uuid';
 import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
 import { Notification as INotification } from '../../routine/interfaces/Notification';
-import { Notification } from '../components/Notification';
+import { Notification as BaseNotification } from '../components/Notification';
 import { NotificationContainer } from '../components/NotificationContainer';
 import {
   addNotification,
@@ -50,19 +50,20 @@ export const NotificationProvider: React.FC<{
   /**
    * Notification component list
    */
-  const Notifications = useMemo(
-    () =>
-      notificationList.map(({ id, ...data }) => (
-        <Notification
-          key={id}
-          data={data}
-          onPress={() => {
-            dispatch(removeNotification(id));
-          }}
-        />
-      )),
-    [notificationList, dispatch],
-  );
+  const Notification = useMemo<JSX.Element | null>(() => {
+    if (!notificationList.length) {
+      return null;
+    }
+    const { id, ...data } = notificationList[0];
+    return (
+      <BaseNotification
+        data={data}
+        onPress={() => {
+          dispatch(removeNotification(id));
+        }}
+      />
+    );
+  }, [notificationList, dispatch]);
 
   /**
    * Create notification
@@ -113,7 +114,9 @@ export const NotificationProvider: React.FC<{
       <>
         {children}
 
-        <NotificationContainer>{Notifications}</NotificationContainer>
+        {Notification && (
+          <NotificationContainer>{Notification}</NotificationContainer>
+        )}
       </>
     </notificationContext.Provider>
   );
