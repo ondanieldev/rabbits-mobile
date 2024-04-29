@@ -1,19 +1,16 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text } from '../../../../shared/components/Text';
+import { Notification as INotification } from '../../../routine/interfaces/Notification';
 import { notificationStyles } from './styles';
 
 export interface NotificationProps {
-  title: string;
-  message: string;
-  type: 'success' | 'error';
+  data: Omit<INotification, 'id'>;
   onPress?: () => void;
 }
 
 export const Notification: React.FC<NotificationProps> = ({
-  message,
-  title,
-  type,
+  data: { message, title, type },
   onPress,
 }) => {
   return (
