@@ -1,6 +1,3 @@
 {
-  "0": "An unknown error has occurred. Please try again later.",
-  "signInError": "Error signing in",
-  "signUpError": "Error signing up",
-  "error": "error"
+  "UNKNOWN": "An unknown error has occurred. Please try again later."
 }
