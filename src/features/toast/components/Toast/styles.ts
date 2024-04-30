@@ -6,7 +6,7 @@ import {
   spacings,
 } from '../../../../shared/styles/globalStyles';
 
-export const notificationStyles = StyleSheet.create({
+export const toastStyles = StyleSheet.create({
   container: {
     width: '100%',
     position: 'absolute',

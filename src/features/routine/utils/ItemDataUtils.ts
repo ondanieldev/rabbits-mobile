@@ -17,11 +17,15 @@ export class ItemDataUtils {
         year: completedTask.year,
         hour: task.hours,
         minute: task.minutes,
+        second: 0,
+        millisecond: 0,
       });
     } else {
       date = DateUtils.buildDate({
         hour: task.hours,
         minute: task.minutes,
+        second: 0,
+        millisecond: 0,
       });
     }
     return {

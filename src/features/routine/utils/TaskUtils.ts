@@ -37,7 +37,7 @@ export class TaskUtils {
       return a.hours - b.hours;
     }
     if (a.minutes !== b.minutes) {
-      return b.minutes - b.minutes;
+      return a.minutes - b.minutes;
     }
     return a.name.localeCompare(b.name);
   };

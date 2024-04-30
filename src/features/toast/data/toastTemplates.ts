@@ -1,109 +1,109 @@
-import { CreateNotification } from '../interfaces/CreateNotification';
+import { CreateToast } from '../interfaces/CreateToast';
 
-type Obj = CreateNotification;
+type Obj = CreateToast;
 type Fn = (message: string) => Obj;
 
-export const notificationSuccessSignIn: Obj = {
+export const toastSuccessSignIn: Obj = {
   title: 'TITLE_SUCCESS_SIGN_IN',
   type: 'success',
 };
 
-export const notificationErrorSignIn: Fn = message => ({
+export const toastErrorSignIn: Fn = message => ({
   message,
   title: 'TITLE_ERROR_SIGN_IN',
   type: 'error',
 });
 
-export const notificationSuccessSignUp: Obj = {
+export const toastSuccessSignUp: Obj = {
   message: 'MESSAGE_SUCCESS_SIGN_UP',
   title: 'TITLE_SUCCESS_SIGN_UP',
   type: 'success',
 };
 
-export const notificationErrorSignUp: Fn = message => ({
+export const toastErrorSignUp: Fn = message => ({
   message,
   title: 'TITLE_ERROR_SIGN_UP',
   type: 'error',
 });
 
-export const notificationSuccessCreateAppointment: Obj = {
+export const toastSuccessCreateAppointment: Obj = {
   title: 'TITLE_SUCCESS_CREATE_APPOINTMENT',
   type: 'success',
 };
 
-export const notificationErrorCreateAppointment: Fn = message => ({
+export const toastErrorCreateAppointment: Fn = message => ({
   message,
   title: 'TITLE_ERROR_CREATE_APPOINTMENT',
   type: 'error',
 });
 
-export const notificationSuccessUpdateAppointment: Obj = {
+export const toastSuccessUpdateAppointment: Obj = {
   title: 'TITLE_SUCCESS_UPDATE_APPOINTMENT',
   type: 'success',
 };
 
-export const notificationErrorUpdateAppointment: Fn = message => ({
+export const toastErrorUpdateAppointment: Fn = message => ({
   message,
   title: 'TITLE_ERROR_UPDATE_APPOINTMENT',
   type: 'error',
 });
 
-export const notificationSuccessCreateHabit: Obj = {
+export const toastSuccessCreateHabit: Obj = {
   title: 'TITLE_SUCCESS_CREATE_HABIT',
   type: 'success',
 };
 
-export const notificationErrorCreateHabit: Fn = message => ({
+export const toastErrorCreateHabit: Fn = message => ({
   message,
   title: 'TITLE_ERROR_CREATE_HABIT',
   type: 'error',
 });
 
-export const notificationSuccessUpdateHabit: Obj = {
+export const toastSuccessUpdateHabit: Obj = {
   title: 'TITLE_SUCCESS_UPDATE_HABIT',
   type: 'success',
 };
 
-export const notificationErrorUpdateHabit: Fn = message => ({
+export const toastErrorUpdateHabit: Fn = message => ({
   message,
   title: 'TITLE_ERROR_UPDATE_HABIT',
   type: 'error',
 });
 
-export const notificationSuccessCreateReminder: Obj = {
+export const toastSuccessCreateReminder: Obj = {
   title: 'TITLE_SUCCESS_CREATE_REMINDER',
   type: 'success',
 };
 
-export const notificationErrorCreateReminder: Fn = message => ({
+export const toastErrorCreateReminder: Fn = message => ({
   message,
   title: 'TITLE_ERROR_CREATE_REMINDER',
   type: 'error',
 });
 
-export const notificationSuccessUpdateReminder: Obj = {
+export const toastSuccessUpdateReminder: Obj = {
   title: 'TITLE_SUCCESS_UPDATE_REMINDER',
   type: 'success',
 };
 
-export const notificationErrorUpdateReminder: Fn = message => ({
+export const toastErrorUpdateReminder: Fn = message => ({
   message,
   title: 'TITLE_ERROR_UPDATE_REMINDER',
   type: 'error',
 });
 
-export const notificationErrorSignOut: Fn = message => ({
+export const toastErrorSignOut: Fn = message => ({
   message,
   title: 'TITLE_ERROR_SIGN_OUT',
   type: 'error',
 });
 
-export const notificationSuccessDeleteItem: Obj = {
+export const toastSuccessDeleteItem: Obj = {
   title: 'TITLE_SUCCESS_DELETE_ITEM',
   type: 'success',
 };
 
-export const notificationErrorDeleteItem: Fn = message => ({
+export const toastErrorDeleteItem: Fn = message => ({
   message,
   title: 'TITLE_ERROR_DELETE_ITEM',
   type: 'error',

@@ -8,14 +8,14 @@ import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { AuthTokenStorage } from '../../../auth/storages/AuthTokenStorage';
 import { signOut } from '../../../auth/stores/authStore';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useNotification } from '../../../notification/contexts/notificationContext';
-import { notificationErrorSignOut } from '../../../notification/data/notificationTemplates';
+import { useToast } from '../../../toast/contexts/toastContext';
+import { toastErrorSignOut } from '../../../toast/data/toastTemplates';
 
 export const useRoutineManagerButtons = () => {
   /**
-   * Notification setup
+   * Toast setup
    */
-  const { notify } = useNotification();
+  const { toastify } = useToast();
 
   /**
    * Navigation setup
@@ -52,9 +52,9 @@ export const useRoutineManagerButtons = () => {
       AuthTokenStorage.delete();
     } catch (err) {
       const message = ErrorHandler.handle(err);
-      notify(notificationErrorSignOut(message));
+      toastify(toastErrorSignOut(message));
     }
-  }, [dispatch, notify]);
+  }, [dispatch, toastify]);
 
   return {
     handleAdd,

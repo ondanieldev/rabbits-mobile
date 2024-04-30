@@ -6,20 +6,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useNotification } from '../../../notification/contexts/notificationContext';
+import { useToast } from '../../../toast/contexts/toastContext';
 import {
-  notificationErrorSignIn,
-  notificationSuccessSignIn,
-} from '../../../notification/data/notificationTemplates';
+  toastErrorSignIn,
+  toastSuccessSignIn,
+} from '../../../toast/data/toastTemplates';
 import { SignInSchema, signInSchema } from '../../schemas/signInSchema';
 import { AuthTokenStorage } from '../../storages/AuthTokenStorage';
 import { signIn } from '../../stores/authStore';
 
 export const useSignInForm = () => {
   /**
-   * Notification setup
+   * Toast setup
    */
-  const { notify } = useNotification();
+  const { toastify } = useToast();
 
   /**
    * Redux setup
@@ -48,13 +48,13 @@ export const useSignInForm = () => {
       try {
         const response = await dispatch(signIn(data)).unwrap();
         AuthTokenStorage.set(response);
-        notify(notificationSuccessSignIn);
+        toastify(toastSuccessSignIn);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorSignIn(message));
+        toastify(toastErrorSignIn(message));
       }
     },
-    [dispatch, notify],
+    [dispatch, toastify],
   );
 
   /**

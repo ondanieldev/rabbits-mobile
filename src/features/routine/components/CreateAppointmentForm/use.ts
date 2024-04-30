@@ -7,13 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 import { CreateAppointmentFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useNotification } from '../../../notification/contexts/notificationContext';
+import { useToast } from '../../../toast/contexts/toastContext';
 import {
-  notificationErrorCreateAppointment,
-  notificationErrorUpdateAppointment,
-  notificationSuccessCreateAppointment,
-  notificationSuccessUpdateAppointment,
-} from '../../../notification/data/notificationTemplates';
+  toastErrorCreateAppointment,
+  toastErrorUpdateAppointment,
+  toastSuccessCreateAppointment,
+  toastSuccessUpdateAppointment,
+} from '../../../toast/data/toastTemplates';
 import {
   CreateAppointmentSchema,
   createAppointmentSchema,
@@ -34,9 +34,9 @@ export const useCreateAppointmentForm = ({
   editingAppointment,
 }: CreateAppointmentFormProps) => {
   /**
-   * Notification setup
+   * Toast setup
    */
-  const { notify } = useNotification();
+  const { toastify } = useToast();
 
   /**
    * Redux setup
@@ -80,13 +80,13 @@ export const useCreateAppointmentForm = ({
           }),
         ).unwrap();
         form.reset();
-        notify(notificationSuccessCreateAppointment);
+        toastify(toastSuccessCreateAppointment);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorCreateAppointment(message));
+        toastify(toastErrorCreateAppointment(message));
       }
     },
-    [dispatch, form, notify],
+    [dispatch, form, toastify],
   );
 
   /**
@@ -107,13 +107,13 @@ export const useCreateAppointmentForm = ({
           }),
         ).unwrap();
         navigation.goBack();
-        notify(notificationSuccessUpdateAppointment);
+        toastify(toastSuccessUpdateAppointment);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorUpdateAppointment(message));
+        toastify(toastErrorUpdateAppointment(message));
       }
     },
-    [dispatch, editingAppointment, navigation, notify],
+    [dispatch, editingAppointment, navigation, toastify],
   );
 
   /**

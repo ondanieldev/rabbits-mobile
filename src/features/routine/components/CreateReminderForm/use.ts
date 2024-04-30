@@ -9,13 +9,13 @@ import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useNotification } from '../../../notification/contexts/notificationContext';
+import { useToast } from '../../../toast/contexts/toastContext';
 import {
-  notificationErrorCreateReminder,
-  notificationErrorUpdateReminder,
-  notificationSuccessCreateReminder,
-  notificationSuccessUpdateReminder,
-} from '../../../notification/data/notificationTemplates';
+  toastErrorCreateReminder,
+  toastErrorUpdateReminder,
+  toastSuccessCreateReminder,
+  toastSuccessUpdateReminder,
+} from '../../../toast/data/toastTemplates';
 import {
   CreateReminderSchema,
   createReminderSchema,
@@ -26,9 +26,9 @@ export const useCreateReminderForm = ({
   ediditingReminder,
 }: CreateReminderFormProps) => {
   /**
-   * Notification setup
+   * Toast setup
    */
-  const { notify } = useNotification();
+  const { toastify } = useToast();
 
   /**
    * Navigation setup
@@ -75,13 +75,13 @@ export const useCreateReminderForm = ({
           }),
         ).unwrap();
         form.reset();
-        notify(notificationSuccessCreateReminder);
+        toastify(toastSuccessCreateReminder);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorCreateReminder(message));
+        toastify(toastErrorCreateReminder(message));
       }
     },
-    [dispatch, form, notify],
+    [dispatch, form, toastify],
   );
 
   /**
@@ -106,13 +106,13 @@ export const useCreateReminderForm = ({
           }),
         ).unwrap();
         navigation.goBack();
-        notify(notificationSuccessUpdateReminder);
+        toastify(toastSuccessUpdateReminder);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorUpdateReminder(message));
+        toastify(toastErrorUpdateReminder(message));
       }
     },
-    [dispatch, navigation, ediditingReminder, notify],
+    [dispatch, navigation, ediditingReminder, toastify],
   );
 
   /**
