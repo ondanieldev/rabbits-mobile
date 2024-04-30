@@ -10,6 +10,7 @@ export class DateUtils {
       hour: newDate.getHours(),
       minute: newDate.getMinutes(),
       second: newDate.getSeconds(),
+      millisecond: newDate.getMilliseconds(),
     };
   }
 
@@ -20,6 +21,7 @@ export class DateUtils {
     hour,
     minute,
     second,
+    millisecond,
   }: {
     year?: number;
     month?: number;
@@ -27,6 +29,7 @@ export class DateUtils {
     hour?: number;
     minute?: number;
     second?: number;
+    millisecond?: number;
   }) {
     const newDate = new Date();
 
@@ -52,6 +55,10 @@ export class DateUtils {
 
     if (second !== undefined) {
       newDate.setSeconds(second);
+    }
+
+    if (millisecond !== undefined) {
+      newDate.setMilliseconds(millisecond);
     }
 
     return newDate;
