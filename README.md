@@ -2,9 +2,7 @@
 
 ## TODO
 
-- Implement in-app notifications
 - Implement notifications
-- Improve error handling
 - Implement alarm
 - Implement light/dark mode
 - Implement language
