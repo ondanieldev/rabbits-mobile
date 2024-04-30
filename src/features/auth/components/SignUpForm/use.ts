@@ -7,10 +7,21 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
+import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useNotification } from '../../../notification/contexts/notificationContext';
+import {
+  notificationErrorSignUp,
+  notificationSuccessSignUp,
+} from '../../../notification/data/notificationTemplates';
 import { SignUpSchema, signUpSchema } from '../../schemas/signUpSchema';
 import { signUp } from '../../stores/authStore';
 
 export const useSignUpForm = () => {
+  /**
+   * Notification setup
+   */
+  const { notify } = useNotification();
+
   /**
    * Navigation setup
    */
@@ -43,11 +54,13 @@ export const useSignUpForm = () => {
       try {
         await dispatch(signUp(data)).unwrap();
         navigation.navigate('AuthSignInScreen', {});
-      } catch {
-        //
+        notify(notificationSuccessSignUp);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorSignUp(message));
       }
     },
-    [dispatch, navigation],
+    [dispatch, navigation, notify],
   );
 
   /**

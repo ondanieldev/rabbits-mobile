@@ -13,6 +13,8 @@ export const colors = {
   selectable: '#424242',
   danger: '#FF6B6B',
   disabled: '#141414',
+  success: '#2B8A3E',
+  error: '#C92A2A',
 };
 
 export const fontSizes = {

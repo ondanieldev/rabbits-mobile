@@ -5,11 +5,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
+import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useNotification } from '../../../notification/contexts/notificationContext';
+import {
+  notificationErrorSignIn,
+  notificationSuccessSignIn,
+} from '../../../notification/data/notificationTemplates';
 import { SignInSchema, signInSchema } from '../../schemas/signInSchema';
 import { AuthTokenStorage } from '../../storages/AuthTokenStorage';
 import { signIn } from '../../stores/authStore';
 
 export const useSignInForm = () => {
+  /**
+   * Notification setup
+   */
+  const { notify } = useNotification();
+
   /**
    * Redux setup
    */
@@ -37,11 +48,13 @@ export const useSignInForm = () => {
       try {
         const response = await dispatch(signIn(data)).unwrap();
         AuthTokenStorage.set(response);
-      } catch {
-        //
+        notify(notificationSuccessSignIn);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorSignIn(message));
       }
     },
-    [dispatch],
+    [dispatch, notify],
   );
 
   /**

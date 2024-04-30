@@ -6,6 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 
 import { CreateAppointmentFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
+import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useNotification } from '../../../notification/contexts/notificationContext';
+import {
+  notificationErrorCreateAppointment,
+  notificationErrorUpdateAppointment,
+  notificationSuccessCreateAppointment,
+  notificationSuccessUpdateAppointment,
+} from '../../../notification/data/notificationTemplates';
 import {
   CreateAppointmentSchema,
   createAppointmentSchema,
@@ -25,6 +33,11 @@ const buildDate = (date: Date, time: Date) => {
 export const useCreateAppointmentForm = ({
   editingAppointment,
 }: CreateAppointmentFormProps) => {
+  /**
+   * Notification setup
+   */
+  const { notify } = useNotification();
+
   /**
    * Redux setup
    */
@@ -67,11 +80,13 @@ export const useCreateAppointmentForm = ({
           }),
         ).unwrap();
         form.reset();
-      } catch {
-        //
+        notify(notificationSuccessCreateAppointment);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorCreateAppointment(message));
       }
     },
-    [dispatch, form],
+    [dispatch, form, notify],
   );
 
   /**
@@ -92,11 +107,13 @@ export const useCreateAppointmentForm = ({
           }),
         ).unwrap();
         navigation.goBack();
-      } catch {
-        //
+        notify(notificationSuccessUpdateAppointment);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorUpdateAppointment(message));
       }
     },
-    [dispatch, editingAppointment, navigation],
+    [dispatch, editingAppointment, navigation, notify],
   );
 
   /**

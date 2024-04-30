@@ -8,6 +8,14 @@ import { CreateReminderFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
+import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useNotification } from '../../../notification/contexts/notificationContext';
+import {
+  notificationErrorCreateReminder,
+  notificationErrorUpdateReminder,
+  notificationSuccessCreateReminder,
+  notificationSuccessUpdateReminder,
+} from '../../../notification/data/notificationTemplates';
 import {
   CreateReminderSchema,
   createReminderSchema,
@@ -17,6 +25,11 @@ import { createTask, updateTask } from '../../stores/taskStore';
 export const useCreateReminderForm = ({
   ediditingReminder,
 }: CreateReminderFormProps) => {
+  /**
+   * Notification setup
+   */
+  const { notify } = useNotification();
+
   /**
    * Navigation setup
    */
@@ -62,11 +75,13 @@ export const useCreateReminderForm = ({
           }),
         ).unwrap();
         form.reset();
-      } catch {
-        //
+        notify(notificationSuccessCreateReminder);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorCreateReminder(message));
       }
     },
-    [dispatch, form],
+    [dispatch, form, notify],
   );
 
   /**
@@ -91,11 +106,13 @@ export const useCreateReminderForm = ({
           }),
         ).unwrap();
         navigation.goBack();
-      } catch {
-        //
+        notify(notificationSuccessUpdateReminder);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorUpdateReminder(message));
       }
     },
-    [dispatch, navigation, ediditingReminder],
+    [dispatch, navigation, ediditingReminder, notify],
   );
 
   /**

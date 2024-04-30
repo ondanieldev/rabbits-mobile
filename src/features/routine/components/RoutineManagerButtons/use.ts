@@ -7,8 +7,16 @@ import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { AuthTokenStorage } from '../../../auth/storages/AuthTokenStorage';
 import { signOut } from '../../../auth/stores/authStore';
+import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useNotification } from '../../../notification/contexts/notificationContext';
+import { notificationErrorSignOut } from '../../../notification/data/notificationTemplates';
 
 export const useRoutineManagerButtons = () => {
+  /**
+   * Notification setup
+   */
+  const { notify } = useNotification();
+
   /**
    * Navigation setup
    */
@@ -42,10 +50,11 @@ export const useRoutineManagerButtons = () => {
     try {
       await dispatch(signOut()).unwrap();
       AuthTokenStorage.delete();
-    } catch {
-      //
+    } catch (err) {
+      const message = ErrorHandler.handle(err);
+      notify(notificationErrorSignOut(message));
     }
-  }, [dispatch]);
+  }, [dispatch, notify]);
 
   return {
     handleAdd,
