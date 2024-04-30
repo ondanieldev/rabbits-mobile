@@ -27,12 +27,6 @@ export const AppointmentNotificationProvider: React.FC<{
       const newIdList = await AppointmentNotificationService.upsertList(
         appointmentList,
       );
-      console.log(newIdList);
-      console.log(
-        appointmentList.filter(x =>
-          newIdList.map(id => id.split(':')[1]).includes(x.id),
-        ),
-      );
       await AppointmentNotificationService.deleteDanglingList(newIdList);
     }
 
