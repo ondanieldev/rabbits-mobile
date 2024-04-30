@@ -9,13 +9,13 @@ import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { DateUtils } from '../../../../shared/utils/DateUtils';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useNotification } from '../../../notification/contexts/notificationContext';
+import { useToast } from '../../../toast/contexts/toastContext';
 import {
-  notificationErrorCreateHabit,
-  notificationErrorUpdateHabit,
-  notificationSuccessCreateHabit,
-  notificationSuccessUpdateHabit,
-} from '../../../notification/data/notificationTemplates';
+  toastErrorCreateHabit,
+  toastErrorUpdateHabit,
+  toastSuccessCreateHabit,
+  toastSuccessUpdateHabit,
+} from '../../../toast/data/toastTemplates';
 import {
   CreateHabitSchema,
   createHabitSchema,
@@ -24,9 +24,9 @@ import { createTask, updateTask } from '../../stores/taskStore';
 
 export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   /**
-   * Notification setup
+   * Toast setup
    */
-  const { notify } = useNotification();
+  const { toastify } = useToast();
 
   /**
    * Navigation setup
@@ -76,13 +76,13 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
           }),
         ).unwrap();
         form.reset();
-        notify(notificationSuccessCreateHabit);
+        toastify(toastSuccessCreateHabit);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorCreateHabit(message));
+        toastify(toastErrorCreateHabit(message));
       }
     },
-    [dispatch, form, notify],
+    [dispatch, form, toastify],
   );
 
   /**
@@ -105,13 +105,13 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
           }),
         ).unwrap();
         navigation.goBack();
-        notify(notificationSuccessUpdateHabit);
+        toastify(toastSuccessUpdateHabit);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorUpdateHabit(message));
+        toastify(toastErrorUpdateHabit(message));
       }
     },
-    [dispatch, editingHabit, navigation, notify],
+    [dispatch, editingHabit, navigation, toastify],
   );
 
   /**

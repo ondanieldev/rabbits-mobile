@@ -1,14 +1,14 @@
 import { AuthProvider } from '../../features/auth/contexts/authContext';
-import { NotificationProvider } from '../../features/notification/contexts/notificationContext';
 import { AppointmentProvider } from '../../features/routine/contexts/appointmentContext';
 import { DayProvider } from '../../features/routine/contexts/dayContext';
 import { TaskProvider } from '../../features/routine/contexts/taskContext';
+import { ToastProvider } from '../../features/toast/contexts/toastContext';
 
 export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <NotificationProvider>
+    <ToastProvider>
       <AuthProvider>
         <TaskProvider>
           <AppointmentProvider>
@@ -16,6 +16,6 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
           </AppointmentProvider>
         </TaskProvider>
       </AuthProvider>
-    </NotificationProvider>
+    </ToastProvider>
   );
 };

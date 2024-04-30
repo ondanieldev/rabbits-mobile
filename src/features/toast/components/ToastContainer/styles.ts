@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { spacings } from '../../../../shared/styles/globalStyles';
 
-export const notificationContainerStyles = StyleSheet.create({
+export const toastContainerStyles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
     bottom: spacings.md * 6,

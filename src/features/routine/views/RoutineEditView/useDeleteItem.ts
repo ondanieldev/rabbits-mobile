@@ -3,20 +3,20 @@ import { useCallback, useMemo } from 'react';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useNotification } from '../../../notification/contexts/notificationContext';
+import { useToast } from '../../../toast/contexts/toastContext';
 import {
-  notificationErrorDeleteItem,
-  notificationSuccessDeleteItem,
-} from '../../../notification/data/notificationTemplates';
+  toastErrorDeleteItem,
+  toastSuccessDeleteItem,
+} from '../../../toast/data/toastTemplates';
 import { ItemData } from '../../interfaces/ItemData';
 import { deleteAppointment } from '../../stores/appointmentStore';
 import { deleteTask } from '../../stores/taskStore';
 
 export const useRoutineEditViewDeleteItem = () => {
   /**
-   * Notification setup
+   * Toast setup
    */
-  const { notify } = useNotification();
+  const { toastify } = useToast();
 
   /**
    * Redux setup
@@ -51,13 +51,13 @@ export const useRoutineEditViewDeleteItem = () => {
         } else if (data.objectType === 'appointment') {
           dispatch(deleteAppointment(data.id));
         }
-        notify(notificationSuccessDeleteItem);
+        toastify(toastSuccessDeleteItem);
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        notify(notificationErrorDeleteItem(message));
+        toastify(toastErrorDeleteItem(message));
       }
     },
-    [dispatch, notify],
+    [dispatch, toastify],
   );
 
   /**
