@@ -1,4 +1,24 @@
 {
-  "signInTitleSuccess": "Success while signing in",
-  "signInTitleError": "Error while signing in"
+  "TITLE_ERROR_SIGNUP": "Error signing up",
+  "TITLE_ERROR_APPOINTMENT": "Error creating event",
+  "TITLE_SUCCESS_SIGN_IN": "Success signing in",
+  "TITLE_ERROR_SIGN_IN": "Error signing in",
+  "TITLE_SUCCESS_SIGN_UP": "Success signing up",
+  "TITLE_ERROR_SIGN_UP": "Error signing up",
+  "MESSAGE_SUCCESS_SIGNUP": "You was redirected to the sign in page. Please sign in to continue.",
+  "TITLE_SUCCESS_CREATE_APPOINTMENT": "Success creating event",
+  "TITLE_ERROR_CREATE_APPOINTMENT": "Error creating event",
+  "TITLE_SUCCESS_UPDATE_APPOINTMENT": "Success updating event",
+  "TITLE_ERROR_UPDATE_APPOINTMENT": "Error updating event",
+  "TITLE_SUCCESS_CREATE_HABIT": "Success creating habit",
+  "TITLE_ERROR_CREATE_HABIT": "Error creating habit",
+  "TITLE_SUCCESS_UPDATE_HABIT": "Success updating habit",
+  "TITLE_ERROR_UPDATE_HABIT": "Error updating habit",
+  "TITLE_SUCCESS_CREATE_REMINDER": "Success creating reminder",
+  "TITLE_ERROR_CREATE_REMINDER": "Error creating reminder",
+  "TITLE_SUCCESS_UPDATE_REMINDER": "Success updating reminder",
+  "TITLE_ERROR_UPDATE_REMINDER": "Error updating reminder",
+  "TITLE_ERROR_SIGN_OUT": "Error signing out",
+  "TITLE_SUCCESS_DELETE_ITEM": "Success deleting item",
+  "TITLE_ERROR_DELETE_ITEM": "Error deleting item"
 }
