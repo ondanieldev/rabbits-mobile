@@ -8,6 +8,14 @@ import { CreateHabitFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { DateUtils } from '../../../../shared/utils/DateUtils';
+import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useNotification } from '../../../notification/contexts/notificationContext';
+import {
+  notificationErrorCreateHabit,
+  notificationErrorUpdateHabit,
+  notificationSuccessCreateHabit,
+  notificationSuccessUpdateHabit,
+} from '../../../notification/data/notificationTemplates';
 import {
   CreateHabitSchema,
   createHabitSchema,
@@ -15,6 +23,11 @@ import {
 import { createTask, updateTask } from '../../stores/taskStore';
 
 export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
+  /**
+   * Notification setup
+   */
+  const { notify } = useNotification();
+
   /**
    * Navigation setup
    */
@@ -63,11 +76,13 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
           }),
         ).unwrap();
         form.reset();
-      } catch {
-        //
+        notify(notificationSuccessCreateHabit);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorCreateHabit(message));
       }
     },
-    [dispatch, form],
+    [dispatch, form, notify],
   );
 
   /**
@@ -90,11 +105,13 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
           }),
         ).unwrap();
         navigation.goBack();
-      } catch {
-        //
+        notify(notificationSuccessUpdateHabit);
+      } catch (err) {
+        const message = ErrorHandler.handle(err);
+        notify(notificationErrorUpdateHabit(message));
       }
     },
-    [dispatch, editingHabit, navigation],
+    [dispatch, editingHabit, navigation, notify],
   );
 
   /**
