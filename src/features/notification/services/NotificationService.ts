@@ -28,6 +28,8 @@ export class NotificationService {
     timestamp,
     title,
     body,
+    sound,
+    vibration,
   }: UpsertTriggerNotification) {
     const channelId = await notifee.createChannel(notifeeSoundChannel);
 
@@ -41,6 +43,15 @@ export class NotificationService {
         ...notifeeBaseNotificationAndroid,
       },
     };
+
+    if (!sound && notification.android) {
+      notification.android.channelId = 'default';
+      delete notification.android.sound;
+    }
+
+    if (!vibration && notification.android) {
+      delete notification.android.vibrationPattern;
+    }
 
     const trigger: Trigger = {
       type: TriggerType.TIMESTAMP,

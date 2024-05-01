@@ -3,4 +3,6 @@ export interface UpsertTriggerNotification {
   title: string;
   body?: string;
   timestamp: number;
+  sound?: boolean;
+  vibration?: boolean;
 }
