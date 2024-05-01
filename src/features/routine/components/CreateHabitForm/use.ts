@@ -8,6 +8,7 @@ import { CreateHabitFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useProfile } from '../../../profile/contexts/profileContext';
 import { useToast } from '../../../toast/contexts/toastContext';
 import {
   toastErrorCreateHabit,
@@ -20,9 +21,14 @@ import {
   createHabitSchema,
 } from '../../schemas/createHabitSchema';
 import { createTask, updateTask } from '../../stores/taskStore';
-import { getInitialValues, initialValues, transformData } from './data';
+import { getInitialValues, transformData } from './data';
 
 export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
+  /**
+   * Profile setup
+   */
+  const { profile } = useProfile();
+
   /**
    * Toast setup
    */
@@ -43,9 +49,7 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
    */
   const form = useForm<CreateHabitSchema>({
     resolver: zodResolver(createHabitSchema),
-    defaultValues: editingHabit
-      ? getInitialValues(editingHabit)
-      : initialValues,
+    defaultValues: getInitialValues({ profile, editingHabit }),
     mode: 'onSubmit',
   });
 

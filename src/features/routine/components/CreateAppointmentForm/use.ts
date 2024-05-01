@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CreateAppointmentFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
+import { useProfile } from '../../../profile/contexts/profileContext';
 import { useToast } from '../../../toast/contexts/toastContext';
 import {
   toastErrorCreateAppointment,
@@ -22,11 +23,16 @@ import {
   createAppointment,
   updateAppointment,
 } from '../../stores/appointmentStore';
-import { getInitialValues, initialValues, transformData } from './data';
+import { getInitialValues, transformData } from './data';
 
 export const useCreateAppointmentForm = ({
   editingAppointment,
 }: CreateAppointmentFormProps) => {
+  /**
+   * Profile setup
+   */
+  const { profile } = useProfile();
+
   /**
    * Toast setup
    */
@@ -47,9 +53,7 @@ export const useCreateAppointmentForm = ({
    */
   const form = useForm<CreateAppointmentSchema>({
     resolver: zodResolver(createAppointmentSchema),
-    defaultValues: editingAppointment
-      ? getInitialValues(editingAppointment)
-      : initialValues,
+    defaultValues: getInitialValues({ editingAppointment, profile }),
     mode: 'onSubmit',
   });
 
