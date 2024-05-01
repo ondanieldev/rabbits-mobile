@@ -22,8 +22,8 @@ export class AuthService {
     return response.data;
   }
 
-  public static async readProfile(): Promise<Profile> {
-    const response = await habitsApi.get<Profile>('/auth/profile');
+  public static async ping(): Promise<Profile> {
+    const response = await habitsApi.get<Profile>('/auth/ping');
     return response.data;
   }
 }
