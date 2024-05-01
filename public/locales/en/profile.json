@@ -1,3 +1,8 @@
 {
-  "preferenceScreenTitle": "Preferences"
+  "preferenceScreenTitle": "Preferences",
+  "save": "Save",
+  "notifications": "Notifications",
+  "isNotificationEnabledLabel": "Enabled",
+  "isSoundEnabledLabel": "Make sound",
+  "isVibrationEnabledLabel": "Vibrate"
 }
