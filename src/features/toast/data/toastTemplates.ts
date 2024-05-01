@@ -108,3 +108,14 @@ export const toastErrorDeleteItem: Fn = message => ({
   title: 'TITLE_ERROR_DELETE_ITEM',
   type: 'error',
 });
+
+export const toastSuccessUpsertPreference: Obj = {
+  title: 'TITLE_SUCCESS_UPSERT_PREFERENCE',
+  type: 'success',
+};
+
+export const toastErrorUpsertPreference: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_UPSERT_PREFERENCE',
+  type: 'error',
+});

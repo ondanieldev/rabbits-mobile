@@ -1,5 +1,8 @@
 import { Appointment } from './Appointment';
 
-export type CreateAppointment = Pick<Appointment, 'name'> & {
+export type CreateAppointment = Pick<
+  Appointment,
+  'name' | 'isNotificationEnabled' | 'isSoundEnabled'
+> & {
   date: Date;
 };

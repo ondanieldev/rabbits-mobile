@@ -21,6 +21,7 @@ import {
   createReminderSchema,
 } from '../../schemas/createReminderSchema';
 import { createTask, updateTask } from '../../stores/taskStore';
+import { getInitialValues, initialValues, transformData } from './data';
 
 export const useCreateReminderForm = ({
   ediditingReminder,
@@ -46,14 +47,8 @@ export const useCreateReminderForm = ({
   const form = useForm<CreateReminderSchema>({
     resolver: zodResolver(createReminderSchema),
     defaultValues: ediditingReminder
-      ? {
-          name: ediditingReminder.name,
-          daysOfWeek: ediditingReminder.daysOfWeek,
-        }
-      : {
-          name: '',
-          daysOfWeek: [],
-        },
+      ? getInitialValues(ediditingReminder)
+      : initialValues,
     mode: 'onSubmit',
   });
 
@@ -65,15 +60,7 @@ export const useCreateReminderForm = ({
   const handleCreate = useCallback(
     async (data: CreateReminderSchema) => {
       try {
-        await dispatch(
-          createTask({
-            daysOfWeek: data.daysOfWeek,
-            kind: 'reminder',
-            name: data.name,
-            hours: 0,
-            minutes: 0,
-          }),
-        ).unwrap();
+        await dispatch(createTask(transformData(data))).unwrap();
         form.reset();
         toastify(toastSuccessCreateReminder);
       } catch (err) {
@@ -98,11 +85,7 @@ export const useCreateReminderForm = ({
         await dispatch(
           updateTask({
             id: ediditingReminder.id,
-            daysOfWeek: data.daysOfWeek,
-            kind: 'reminder',
-            name: data.name,
-            hours: 0,
-            minutes: 0,
+            ...transformData(data),
           }),
         ).unwrap();
         navigation.goBack();

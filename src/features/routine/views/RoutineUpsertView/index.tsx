@@ -1,3 +1,5 @@
+import { ScrollView } from 'react-native';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { DefaultView } from '../../../../shared/components/DefaultView';
@@ -26,24 +28,26 @@ export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = props => {
 
   return (
     <DefaultView style={routineUpsertViewStyles.container}>
-      {!editingTask && !editingAppointment && (
-        <ItemCreatableTypeSelector
-          selectedCreatableType={selectedCreatableType}
-          setSelectedCreatableType={setSelectedCreatableType}
-        />
-      )}
+      <ScrollView>
+        {!editingTask && !editingAppointment && (
+          <ItemCreatableTypeSelector
+            selectedCreatableType={selectedCreatableType}
+            setSelectedCreatableType={setSelectedCreatableType}
+          />
+        )}
 
-      <Divider />
+        <Divider />
 
-      {selectedCreatableType === 'habit' && (
-        <CreateHabitForm editingHabit={editingTask} />
-      )}
-      {selectedCreatableType === 'reminder' && (
-        <CreateReminderForm ediditingReminder={editingTask} />
-      )}
-      {selectedCreatableType === 'event' && (
-        <CreateAppointmentForm editingAppointment={editingAppointment} />
-      )}
+        {selectedCreatableType === 'habit' && (
+          <CreateHabitForm editingHabit={editingTask} />
+        )}
+        {selectedCreatableType === 'reminder' && (
+          <CreateReminderForm ediditingReminder={editingTask} />
+        )}
+        {selectedCreatableType === 'event' && (
+          <CreateAppointmentForm editingAppointment={editingAppointment} />
+        )}
+      </ScrollView>
     </DefaultView>
   );
 };

@@ -5,14 +5,14 @@ import { useDispatch } from '../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../shared/hooks/useSelector';
 import { AuthToken } from '../interfaces/AuthToken';
 import { AuthTokenStorage } from '../storages/AuthTokenStorage';
-import { readProfile, setAuthToken } from '../stores/authStore';
+import { ping, setAuthToken } from '../stores/authStore';
 
 /**
  * Interface
  */
 export interface AuthContext {
   authToken: AuthToken | null;
-  readProfileStatus: AsyncStatus;
+  pingStatus: AsyncStatus;
 }
 
 /**
@@ -20,7 +20,7 @@ export interface AuthContext {
  */
 export const AuthContext = createContext<AuthContext>({
   authToken: null,
-  readProfileStatus: 'idle',
+  pingStatus: 'idle',
 });
 
 /**
@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<{
    * State to be distributed
    */
   const authToken = useSelector(state => state.auth.authToken);
-  const readProfileStatus = useSelector(state => state.auth.readProfileStatus);
+  const pingStatus = useSelector(state => state.auth.pingStatus);
 
   /**
    * Read profile on load
@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<{
   useEffect(() => {
     async function bootstrap() {
       try {
-        await dispatch(readProfile()).unwrap();
+        await dispatch(ping()).unwrap();
         dispatch(setAuthToken(AuthTokenStorage.get()));
       } catch (err) {
         AuthTokenStorage.delete();
@@ -56,10 +56,10 @@ export const AuthProvider: React.FC<{
       }
     }
 
-    if (readProfileStatus === 'idle') {
+    if (pingStatus === 'idle') {
       bootstrap();
     }
-  }, [dispatch, readProfileStatus]);
+  }, [dispatch, pingStatus]);
 
   /**
    * Return
@@ -67,9 +67,9 @@ export const AuthProvider: React.FC<{
   const value = useMemo(
     () => ({
       authToken,
-      readProfileStatus,
+      pingStatus,
     }),
-    [authToken, readProfileStatus],
+    [authToken, pingStatus],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

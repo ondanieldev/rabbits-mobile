@@ -4,6 +4,7 @@ import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
+import { NotificationSwitchGroup } from '../../../profile/components/NotificationSwitchGroup';
 import { Task } from '../../interfaces/Task';
 import { useCreateHabitForm } from './use';
 import { useCreateHabitFormTranslation } from './useTranslation';
@@ -35,6 +36,10 @@ export const CreateHabitForm: React.FC<CreateHabitFormProps> = props => {
       <Divider />
 
       <DayOfWeekInput form={form} label={daysOfWeekLabel} name="daysOfWeek" />
+
+      <Divider />
+
+      <NotificationSwitchGroup form={form} />
 
       <Divider />
 

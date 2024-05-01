@@ -28,8 +28,12 @@ export class NotificationService {
     timestamp,
     title,
     body,
+    sound,
   }: UpsertTriggerNotification) {
-    const channelId = await notifee.createChannel(notifeeSoundChannel);
+    let channelId = 'default';
+    if (sound) {
+      channelId = await notifee.createChannel(notifeeSoundChannel);
+    }
 
     const notification: Notification = {
       id,

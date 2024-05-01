@@ -1,5 +1,6 @@
 import { isPast } from 'date-fns';
 
+import { User } from '../../../shared/interfaces/User';
 import { DateUtils } from '../../../shared/utils/DateUtils';
 import { CompletedTask } from '../../routine/interfaces/CompletedTask';
 import { Task } from '../../routine/interfaces/Task';
@@ -31,6 +32,7 @@ export class TaskNotificationService {
   }
 
   static async upsert(
+    user: User,
     task: Task,
     completedTask?: CompletedTask,
   ): Promise<string | null> {
@@ -41,12 +43,15 @@ export class TaskNotificationService {
       !completedTask &&
       !isPast(date) &&
       task.kind === 'habit' &&
+      user.isNotificationEnabled &&
+      task.isNotificationEnabled &&
       TaskUtils.includesDayOfWeek(task, date)
     ) {
       await NotificationService.upsertTrigger({
         id,
         timestamp: date.getTime(),
         title: task.name,
+        sound: user.isSoundEnabled && task.isSoundEnabled,
       });
       return id;
     }
@@ -55,15 +60,24 @@ export class TaskNotificationService {
   }
 
   static async upsertList(
+    user: User,
     taskList: Task[],
     completedTaskList: CompletedTask[],
   ) {
+    if (!user.isNotificationEnabled) {
+      return [];
+    }
+
     const upsertedIdList = [];
 
     for (const task of taskList) {
       const completedTask = completedTaskList.find(x => x.taskId === task.id);
 
-      const id = await TaskNotificationService.upsert(task, completedTask);
+      const id = await TaskNotificationService.upsert(
+        user,
+        task,
+        completedTask,
+      );
 
       if (id) {
         upsertedIdList.push(id);

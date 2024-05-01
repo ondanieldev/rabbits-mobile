@@ -12,8 +12,8 @@ import { AuthService } from '../services/AuthService';
  */
 export interface AuthState {
   authToken: AuthToken | null;
-  readProfileStatus: AsyncStatus;
-  readProfileError: string | null;
+  pingStatus: AsyncStatus;
+  pingError: string | null;
   signInStatus: AsyncStatus;
   signInError: string | null;
   signUpStatus: AsyncStatus;
@@ -27,8 +27,8 @@ export interface AuthState {
  */
 const authInitialState: AuthState = {
   authToken: null,
-  readProfileStatus: 'idle',
-  readProfileError: null,
+  pingStatus: 'idle',
+  pingError: null,
   signInStatus: 'idle',
   signInError: null,
   signUpStatus: 'idle',
@@ -40,8 +40,8 @@ const authInitialState: AuthState = {
 /**
  * Thunks
  */
-export const readProfile = createAsyncThunk('auth/readProfile', async () =>
-  AuthService.readProfile(),
+export const ping = createAsyncThunk('auth/ping', async () =>
+  AuthService.ping(),
 );
 
 export const signIn = createAsyncThunk('auth/signIn', async (input: SignIn) =>
@@ -69,15 +69,15 @@ export const authStore = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(readProfile.pending, state => {
-        state.readProfileStatus = 'pending';
+      .addCase(ping.pending, state => {
+        state.pingStatus = 'pending';
       })
-      .addCase(readProfile.fulfilled, state => {
-        state.readProfileStatus = 'fulfilled';
+      .addCase(ping.fulfilled, state => {
+        state.pingStatus = 'fulfilled';
       })
-      .addCase(readProfile.rejected, (state, action) => {
-        state.readProfileStatus = 'rejected';
-        state.readProfileError = action.error.message || null;
+      .addCase(ping.rejected, (state, action) => {
+        state.pingStatus = 'rejected';
+        state.pingError = action.error.message || null;
       })
 
       .addCase(signIn.pending, state => {

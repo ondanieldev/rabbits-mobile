@@ -1,5 +1,6 @@
 import { isPast } from 'date-fns';
 
+import { User } from '../../../shared/interfaces/User';
 import { DateUtils } from '../../../shared/utils/DateUtils';
 import { Appointment } from '../../routine/interfaces/Appointment';
 import { NotificationService } from './NotificationService';
@@ -38,15 +39,23 @@ export class AppointmentNotificationService {
     );
   }
 
-  static async upsert(appointment: Appointment): Promise<string | null> {
+  static async upsert(
+    user: User,
+    appointment: Appointment,
+  ): Promise<string | null> {
     const date = AppointmentNotificationService.getDate(appointment);
     const id = AppointmentNotificationService.getId(appointment);
 
-    if (!isPast(date)) {
+    if (
+      !isPast(date) &&
+      user.isNotificationEnabled &&
+      appointment.isNotificationEnabled
+    ) {
       await NotificationService.upsertTrigger({
         id,
         timestamp: date.getTime(),
         title: appointment.name,
+        sound: user.isSoundEnabled && appointment.isSoundEnabled,
       });
       return id;
     }
@@ -54,11 +63,15 @@ export class AppointmentNotificationService {
     return null;
   }
 
-  static async upsertList(appointmentList: Appointment[]) {
+  static async upsertList(user: User, appointmentList: Appointment[]) {
+    if (!user.isNotificationEnabled) {
+      return [];
+    }
+
     const upsertedIdList = [];
 
     for (const appointment of appointmentList) {
-      const id = await AppointmentNotificationService.upsert(appointment);
+      const id = await AppointmentNotificationService.upsert(user, appointment);
 
       if (id) {
         upsertedIdList.push(id);

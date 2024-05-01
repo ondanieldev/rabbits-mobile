@@ -20,5 +20,7 @@
   "TITLE_ERROR_UPDATE_REMINDER": "Error updating reminder",
   "TITLE_ERROR_SIGN_OUT": "Error signing out",
   "TITLE_SUCCESS_DELETE_ITEM": "Success deleting item",
-  "TITLE_ERROR_DELETE_ITEM": "Error deleting item"
+  "TITLE_ERROR_DELETE_ITEM": "Error deleting item",
+  "TITLE_SUCCESS_UPSERT_PREFERENCE": "Success updating preference",
+  "TITLE_ERROR_UPSERT_PREFERENCE": "Error updating preference"
 }

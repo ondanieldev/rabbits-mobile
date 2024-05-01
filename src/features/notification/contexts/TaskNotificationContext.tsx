@@ -2,7 +2,9 @@ import { createContext, useContext, useEffect } from 'react';
 
 import { isToday } from 'date-fns';
 
+import { User } from '../../../shared/interfaces/User';
 import { TaskNotificationService } from '../../notification/services/TaskNotificationService';
+import { useProfile } from '../../profile/contexts/profileContext';
 import { useDay } from '../../routine/contexts/dayContext';
 import { useTask } from '../../routine/contexts/taskContext';
 
@@ -18,6 +20,11 @@ export const TaskNotificationProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   /**
+   * Profile setup
+   */
+  const { profile } = useProfile();
+
+  /**
    * Task setup
    */
   const { taskList } = useTask();
@@ -27,18 +34,19 @@ export const TaskNotificationProvider: React.FC<{
    * Whenever the list changes, update task notification list for today
    */
   useEffect(() => {
-    async function bootstrap() {
+    async function bootstrap(user: User) {
       const newIdList = await TaskNotificationService.upsertList(
+        user,
         taskList,
         completedTaskList,
       );
       await TaskNotificationService.deleteDanglingList(newIdList);
     }
 
-    if (isToday(referenceDate)) {
-      bootstrap();
+    if (profile && isToday(referenceDate)) {
+      bootstrap(profile);
     }
-  }, [referenceDate, taskList, completedTaskList]);
+  }, [profile, referenceDate, taskList, completedTaskList]);
 
   return (
     <TaskNotificationContext.Provider value={{}}>

@@ -42,6 +42,13 @@ export const useRoutineManagerButtons = () => {
   }, [navigation]);
 
   /**
+   * Preferences
+   */
+  const handlePreference = useCallback(() => {
+    navigation.navigate('PreferenceScreen', {});
+  }, [navigation]);
+
+  /**
    * Sign out
    */
   const signOutStatus = useSelector(state => state.auth.signOutStatus);
@@ -61,5 +68,6 @@ export const useRoutineManagerButtons = () => {
     handleEdit,
     handleSignOut,
     signOutStatus,
+    handlePreference,
   };
 };
