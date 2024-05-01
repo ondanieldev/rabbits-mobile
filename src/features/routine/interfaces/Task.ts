@@ -8,6 +8,9 @@ export interface Task {
   hours: number;
   minutes: number;
   daysOfWeek: number[];
+  isNotificationEnabled: boolean;
+  isSoundEnabled: boolean;
+  isVibrationEnabled: boolean;
   userId: string;
   user?: User;
 }

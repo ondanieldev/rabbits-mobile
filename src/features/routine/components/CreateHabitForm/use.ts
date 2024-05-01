@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { CreateHabitFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
-import { DateUtils } from '../../../../shared/utils/DateUtils';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
 import { useToast } from '../../../toast/contexts/toastContext';
 import {
@@ -21,6 +20,7 @@ import {
   createHabitSchema,
 } from '../../schemas/createHabitSchema';
 import { createTask, updateTask } from '../../stores/taskStore';
+import { getInitialValues, initialValues, transformData } from './data';
 
 export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   /**
@@ -44,19 +44,8 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   const form = useForm<CreateHabitSchema>({
     resolver: zodResolver(createHabitSchema),
     defaultValues: editingHabit
-      ? {
-          name: editingHabit.name,
-          daysOfWeek: editingHabit.daysOfWeek,
-          time: DateUtils.buildDate({
-            hour: editingHabit.hours,
-            minute: editingHabit.minutes,
-          }),
-        }
-      : {
-          name: '',
-          daysOfWeek: [],
-          time: new Date(),
-        },
+      ? getInitialValues(editingHabit)
+      : initialValues,
     mode: 'onSubmit',
   });
 
@@ -66,15 +55,7 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
   const handleCreate = useCallback(
     async (data: CreateHabitSchema) => {
       try {
-        await dispatch(
-          createTask({
-            daysOfWeek: data.daysOfWeek,
-            hours: data.time.getHours(),
-            minutes: data.time.getMinutes(),
-            name: data.name,
-            kind: 'habit',
-          }),
-        ).unwrap();
+        await dispatch(createTask(transformData(data))).unwrap();
         form.reset();
         toastify(toastSuccessCreateHabit);
       } catch (err) {
@@ -97,11 +78,7 @@ export const useCreateHabitForm = ({ editingHabit }: CreateHabitFormProps) => {
         await dispatch(
           updateTask({
             id: editingHabit.id,
-            daysOfWeek: data.daysOfWeek,
-            hours: data.time.getHours(),
-            minutes: data.time.getMinutes(),
-            name: data.name,
-            kind: 'habit',
+            ...transformData(data),
           }),
         ).unwrap();
         navigation.goBack();
