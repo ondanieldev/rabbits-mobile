@@ -2,12 +2,15 @@
 
 ## TODO
 
-- Implement preferences
+- Clear notifications on manual and forced sign out
+- Improve Toggle/select loading
+- Implement validate email
+- Implement change password
 - Create a good Readme
 - Update figma
-- Deploy on Google Play
 - Implement Storybook
 - Implement tests
+- Deploy on Google Play
 - Translate validating errors
 - Finish translation implementation
 - Implement light/dark mode
@@ -16,9 +19,3 @@
 ## Roadmap
 
 - Allow user to select alarm sound
-
-## Bugs
-
-- Toggle/select loading
-- Before sending a notification, check if the user is still logged in. If not, clear notifications
-- On sign out, clear notifications
