@@ -18,6 +18,7 @@ export const stackScreenNames = [
   'RoutineMainScreen',
   'RoutineUpsertScreen',
   'RoutineEditScreen',
+  'PreferenceScreen',
 ] as const;
 
 export type StackScreenName = (typeof stackScreenNames)[number];
@@ -45,6 +46,7 @@ export type StackNavigationParamList = {
   RoutineMainScreen: {};
   RoutineUpsertScreen: RoutineUpsertScreenParams;
   RoutineEditScreen: {};
+  PreferenceScreen: {};
 };
 
 export type StackNavigationProp = NavigationProp<StackNavigationParamList>;
