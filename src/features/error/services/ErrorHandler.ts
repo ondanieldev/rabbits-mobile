@@ -21,7 +21,10 @@ export class ErrorHandler {
     if (error.response?.data) {
       const errorData = error.response.data as HabitsApiError;
       const message = errorData.message;
-      return message ? message : errorCodeUnknown;
+      if (!message) {
+        return errorCodeUnknown;
+      }
+      return Array.isArray(message) ? message[0] : message;
     }
     return errorCodeUnknown;
   }

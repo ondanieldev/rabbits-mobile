@@ -1,4 +1,4 @@
 export type HabitsApiError = {
-  message?: string;
+  message?: string | string[];
   statusCode?: number;
 };
