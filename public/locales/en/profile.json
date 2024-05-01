@@ -3,6 +3,5 @@
   "save": "Save",
   "notifications": "Notifications",
   "isNotificationEnabledLabel": "Enabled",
-  "isSoundEnabledLabel": "Make sound",
-  "isVibrationEnabledLabel": "Vibrate"
+  "isSoundEnabledLabel": "Make sound"
 }

@@ -56,7 +56,6 @@ export class AppointmentNotificationService {
         timestamp: date.getTime(),
         title: appointment.name,
         sound: user.isSoundEnabled && appointment.isSoundEnabled,
-        vibration: user.isVibrationEnabled && appointment.isVibrationEnabled,
       });
       return id;
     }

@@ -12,15 +12,10 @@ export const useNotificationSwitchGroupTranslation = () => {
     [t],
   );
   const isSoundEnabledLabel = useMemo(() => t('isSoundEnabledLabel'), [t]);
-  const isVibrationEnabledLabel = useMemo(
-    () => t('isVibrationEnabledLabel'),
-    [t],
-  );
 
   return {
     groupLabel,
     isNotificationEnabledLabel,
     isSoundEnabledLabel,
-    isVibrationEnabledLabel,
   };
 };

@@ -11,12 +11,8 @@ interface NotificationSwitchGroupProps<T extends FieldValues> {
 export const NotificationSwitchGroup: React.FC<
   NotificationSwitchGroupProps<any>
 > = ({ form }) => {
-  const {
-    isNotificationEnabledLabel,
-    isSoundEnabledLabel,
-    isVibrationEnabledLabel,
-    groupLabel,
-  } = useNotificationSwitchGroupTranslation();
+  const { isNotificationEnabledLabel, isSoundEnabledLabel, groupLabel } =
+    useNotificationSwitchGroupTranslation();
 
   /**
    * Watch main field to show/hide other fields
@@ -34,19 +30,11 @@ export const NotificationSwitchGroup: React.FC<
       />
 
       {isNotificationEnabled && (
-        <>
-          <SwitchInput
-            form={form}
-            name="isSoundEnabled"
-            label={isSoundEnabledLabel}
-          />
-
-          <SwitchInput
-            form={form}
-            name="isVibrationEnabled"
-            label={isVibrationEnabledLabel}
-          />
-        </>
+        <SwitchInput
+          form={form}
+          name="isSoundEnabled"
+          label={isSoundEnabledLabel}
+        />
       )}
     </>
   );

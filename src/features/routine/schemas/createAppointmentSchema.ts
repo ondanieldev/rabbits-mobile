@@ -6,7 +6,6 @@ export const createAppointmentSchema = z.object({
   time: z.date(),
   isNotificationEnabled: z.boolean(),
   isSoundEnabled: z.boolean(),
-  isVibrationEnabled: z.boolean(),
 });
 
 export type CreateAppointmentSchema = z.infer<typeof createAppointmentSchema>;

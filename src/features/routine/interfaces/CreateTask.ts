@@ -9,5 +9,4 @@ export type CreateTask = Pick<
   | 'name'
   | 'isNotificationEnabled'
   | 'isSoundEnabled'
-  | 'isVibrationEnabled'
 >;

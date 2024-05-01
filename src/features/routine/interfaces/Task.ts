@@ -10,7 +10,6 @@ export interface Task {
   daysOfWeek: number[];
   isNotificationEnabled: boolean;
   isSoundEnabled: boolean;
-  isVibrationEnabled: boolean;
   userId: string;
   user?: User;
 }

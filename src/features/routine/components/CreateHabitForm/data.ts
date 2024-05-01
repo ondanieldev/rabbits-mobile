@@ -17,7 +17,6 @@ export const getInitialValues = ({
     time: new Date(),
     isNotificationEnabled: false,
     isSoundEnabled: false,
-    isVibrationEnabled: false,
   };
   if (editingHabit) {
     return {
@@ -29,7 +28,6 @@ export const getInitialValues = ({
       }),
       isNotificationEnabled: editingHabit.isNotificationEnabled,
       isSoundEnabled: editingHabit.isSoundEnabled,
-      isVibrationEnabled: editingHabit.isVibrationEnabled,
     };
   }
 
@@ -38,7 +36,6 @@ export const getInitialValues = ({
       ...baseValue,
       isNotificationEnabled: profile.isNotificationEnabled,
       isSoundEnabled: profile.isSoundEnabled,
-      isVibrationEnabled: profile.isVibrationEnabled,
     };
   }
 
@@ -49,7 +46,6 @@ export const transformData = ({
   time,
   isNotificationEnabled,
   isSoundEnabled,
-  isVibrationEnabled,
   ...data
 }: CreateHabitSchema): CreateTask => ({
   hours: time.getHours(),
@@ -57,6 +53,5 @@ export const transformData = ({
   kind: 'habit',
   isNotificationEnabled,
   isSoundEnabled: isNotificationEnabled && isSoundEnabled,
-  isVibrationEnabled: isNotificationEnabled && isVibrationEnabled,
   ...data,
 });

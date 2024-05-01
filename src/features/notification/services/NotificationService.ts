@@ -6,9 +6,7 @@ import notifee, {
 
 import {
   notifeeBaseNotificationAndroid,
-  notifeeSoundAndVibrationChannel,
   notifeeSoundChannel,
-  notifeeVibrationChannel,
 } from '../data/notifee';
 import { UpsertTriggerNotification } from '../interfaces/UpsertTriggerNotification';
 
@@ -31,15 +29,10 @@ export class NotificationService {
     title,
     body,
     sound,
-    vibration,
   }: UpsertTriggerNotification) {
     let channelId = 'default';
-    if (sound && vibration) {
-      channelId = await notifee.createChannel(notifeeSoundAndVibrationChannel);
-    } else if (sound) {
+    if (sound) {
       channelId = await notifee.createChannel(notifeeSoundChannel);
-    } else if (vibration) {
-      channelId = await notifee.createChannel(notifeeVibrationChannel);
     }
 
     const notification: Notification = {

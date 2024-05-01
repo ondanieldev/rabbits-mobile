@@ -52,7 +52,6 @@ export class TaskNotificationService {
         timestamp: date.getTime(),
         title: task.name,
         sound: user.isSoundEnabled && task.isSoundEnabled,
-        vibration: user.isVibrationEnabled && task.isVibrationEnabled,
       });
       return id;
     }

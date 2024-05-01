@@ -6,7 +6,6 @@ export const createHabitSchema = z.object({
   time: z.date(),
   isNotificationEnabled: z.boolean(),
   isSoundEnabled: z.boolean(),
-  isVibrationEnabled: z.boolean(),
 });
 
 export type CreateHabitSchema = z.infer<typeof createHabitSchema>;

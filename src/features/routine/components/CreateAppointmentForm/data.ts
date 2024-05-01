@@ -23,7 +23,6 @@ export const getInitialValues = ({
     time: new Date(),
     isNotificationEnabled: false,
     isSoundEnabled: false,
-    isVibrationEnabled: false,
   };
   if (editingAppointment) {
     return {
@@ -32,7 +31,6 @@ export const getInitialValues = ({
       time: new Date(editingAppointment.date),
       isNotificationEnabled: editingAppointment.isNotificationEnabled,
       isSoundEnabled: editingAppointment.isSoundEnabled,
-      isVibrationEnabled: editingAppointment.isVibrationEnabled,
     };
   }
 
@@ -41,7 +39,6 @@ export const getInitialValues = ({
       ...baseValue,
       isNotificationEnabled: profile.isNotificationEnabled,
       isSoundEnabled: profile.isSoundEnabled,
-      isVibrationEnabled: profile.isVibrationEnabled,
     };
   }
 
@@ -53,12 +50,10 @@ export const transformData = ({
   time,
   isNotificationEnabled,
   isSoundEnabled,
-  isVibrationEnabled,
   ...data
 }: CreateAppointmentSchema): CreateAppointment => ({
   date: buildDate(date, time),
   isNotificationEnabled,
   isSoundEnabled: isNotificationEnabled && isSoundEnabled,
-  isVibrationEnabled: isNotificationEnabled && isVibrationEnabled,
   ...data,
 });

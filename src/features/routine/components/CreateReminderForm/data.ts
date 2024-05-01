@@ -20,6 +20,5 @@ export const transformData = (data: CreateReminderSchema): CreateTask => ({
   kind: 'reminder',
   isNotificationEnabled: false,
   isSoundEnabled: false,
-  isVibrationEnabled: false,
   ...data,
 });

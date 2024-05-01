@@ -42,12 +42,10 @@ export const useUpsertPreferenceForm = () => {
       ? {
           isNotificationEnabled: profile.isNotificationEnabled,
           isSoundEnabled: profile.isSoundEnabled,
-          isVibrationEnabled: profile.isVibrationEnabled,
         }
       : {
           isNotificationEnabled: false,
           isSoundEnabled: false,
-          isVibrationEnabled: false,
         },
     mode: 'onSubmit',
   });
@@ -60,12 +58,10 @@ export const useUpsertPreferenceForm = () => {
       try {
         if (!data.isNotificationEnabled) {
           data.isSoundEnabled = false;
-          data.isVibrationEnabled = false;
         }
         const result = await dispatch(upsertPreference(data)).unwrap();
         form.setValue('isNotificationEnabled', result.isNotificationEnabled);
         form.setValue('isSoundEnabled', result.isSoundEnabled);
-        form.setValue('isVibrationEnabled', result.isVibrationEnabled);
         toastify(toastSuccessUpsertPreference);
       } catch (err) {
         const message = ErrorHandler.handle(err);
