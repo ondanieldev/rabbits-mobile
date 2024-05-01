@@ -4,7 +4,7 @@ import { UpsertPreferenceSchema } from '../schemas/upsertPreferenceScema';
 
 export class PreferenceService {
   static async upsert(data: UpsertPreferenceSchema): Promise<User> {
-    const response = await habitsApi.patch('/users/preference', data);
+    const response = await habitsApi.patch('/users/preferences', data);
     return response.data;
   }
 }
