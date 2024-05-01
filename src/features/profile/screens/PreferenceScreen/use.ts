@@ -8,7 +8,7 @@ import { PreferenceView } from '../../views/PreferenceView';
 export type PreferenceScreen = () => StackRouteConfig<'PreferenceScreen'>;
 
 export const usePreferenceScreen: PreferenceScreen = () => {
-  const { t } = useTranslation('preference');
+  const { t } = useTranslation('profile');
 
   const title = useMemo(() => t('preferenceScreenTitle'), [t]);
 

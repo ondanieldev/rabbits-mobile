@@ -8,7 +8,7 @@ import { useAuth } from './src/features/auth/contexts/authContext';
 import { AuthSignInView } from './src/features/auth/views/AuthSignInView';
 import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
 import { NotificationService } from './src/features/notification/services/NotificationService';
-import { usePreferenceScreen } from './src/features/preference/screens/PreferenceScreen/use';
+import { usePreferenceScreen } from './src/features/profile/screens/PreferenceScreen/use';
 import { useRoutineEditScreen } from './src/features/routine/screens/RoutineEditScreen/use';
 import { useRoutineMainScreen } from './src/features/routine/screens/RoutineMainScreen/use';
 import { useRoutineUpsertScreen } from './src/features/routine/screens/RoutineUpsertScreen/use';
