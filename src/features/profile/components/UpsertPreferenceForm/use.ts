@@ -75,13 +75,7 @@ export const useUpsertPreferenceForm = () => {
     [dispatch, toastify, form],
   );
 
-  /**
-   * Watch main field to show/hide other fields
-   */
-  const isNotificationEnabled = form.watch('isNotificationEnabled');
-
   return {
-    isNotificationEnabled,
     form,
     onSubmit,
   };

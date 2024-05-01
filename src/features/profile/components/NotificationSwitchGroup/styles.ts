@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const upsertPreferenceFormStyles = StyleSheet.create({
+export const notificationSwitchGroupInputStyles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
   },
