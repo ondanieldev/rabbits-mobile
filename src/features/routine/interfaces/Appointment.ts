@@ -5,6 +5,9 @@ export interface Appointment {
   name: string;
   date: string | Date;
   isCompleted: boolean;
+  isNotificationEnabled: boolean;
+  isSoundEnabled: boolean;
+  isVibrationEnabled: boolean;
   userId: string;
   user?: User;
 }

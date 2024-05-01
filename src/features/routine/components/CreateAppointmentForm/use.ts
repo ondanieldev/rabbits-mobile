@@ -22,13 +22,7 @@ import {
   createAppointment,
   updateAppointment,
 } from '../../stores/appointmentStore';
-
-const buildDate = (date: Date, time: Date) => {
-  const newDate = new Date(date);
-  newDate.setHours(time.getHours());
-  newDate.setMinutes(time.getMinutes());
-  return newDate;
-};
+import { getInitialValues, initialValues, transformData } from './data';
 
 export const useCreateAppointmentForm = ({
   editingAppointment,
@@ -54,16 +48,8 @@ export const useCreateAppointmentForm = ({
   const form = useForm<CreateAppointmentSchema>({
     resolver: zodResolver(createAppointmentSchema),
     defaultValues: editingAppointment
-      ? {
-          name: editingAppointment.name,
-          date: new Date(editingAppointment.date),
-          time: new Date(editingAppointment.date),
-        }
-      : {
-          name: '',
-          date: new Date(),
-          time: new Date(),
-        },
+      ? getInitialValues(editingAppointment)
+      : initialValues,
     mode: 'onSubmit',
   });
 
@@ -73,12 +59,7 @@ export const useCreateAppointmentForm = ({
   const handleCreate = useCallback(
     async (data: CreateAppointmentSchema) => {
       try {
-        await dispatch(
-          createAppointment({
-            date: buildDate(data.date, data.time),
-            name: data.name,
-          }),
-        ).unwrap();
+        await dispatch(createAppointment(transformData(data))).unwrap();
         form.reset();
         toastify(toastSuccessCreateAppointment);
       } catch (err) {
@@ -100,10 +81,9 @@ export const useCreateAppointmentForm = ({
       try {
         await dispatch(
           updateAppointment({
-            date: buildDate(data.date, data.time),
-            name: data.name,
             id: editingAppointment.id,
             isCompleted: !!editingAppointment.isCompleted,
+            ...transformData(data),
           }),
         ).unwrap();
         navigation.goBack();

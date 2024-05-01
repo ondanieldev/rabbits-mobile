@@ -3,6 +3,7 @@ import { Divider } from '../../../../shared/components/Divider';
 import { Form } from '../../../../shared/components/Form';
 import { TextButton } from '../../../../shared/components/TextButton';
 import { TextInput } from '../../../../shared/components/TextInput';
+import { NotificationSwitchGroup } from '../../../profile/components/NotificationSwitchGroup';
 import { Appointment } from '../../interfaces/Appointment';
 import { useCreateAppointmentForm } from './use';
 import { useCreateAppointmentFormTranslation } from './useTranslation';
@@ -46,6 +47,10 @@ export const CreateAppointmentForm: React.FC<
         baseTextInputProps={{ label: timeLabel }}
         formatDisplayedValue={formatTime}
       />
+
+      <Divider />
+
+      <NotificationSwitchGroup form={form} />
 
       <Divider />
 
