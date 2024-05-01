@@ -26,10 +26,16 @@ export const getInitialValues = (editingHabit: Task): CreateHabitSchema => ({
 
 export const transformData = ({
   time,
+  isNotificationEnabled,
+  isSoundEnabled,
+  isVibrationEnabled,
   ...data
 }: CreateHabitSchema): CreateTask => ({
   hours: time.getHours(),
   minutes: time.getMinutes(),
   kind: 'habit',
+  isNotificationEnabled,
+  isSoundEnabled: isNotificationEnabled && isSoundEnabled,
+  isVibrationEnabled: isNotificationEnabled && isVibrationEnabled,
   ...data,
 });
