@@ -6,7 +6,9 @@ import notifee, {
 
 import {
   notifeeBaseNotificationAndroid,
+  notifeeSoundAndVibrationChannel,
   notifeeSoundChannel,
+  notifeeVibrationChannel,
 } from '../data/notifee';
 import { UpsertTriggerNotification } from '../interfaces/UpsertTriggerNotification';
 
@@ -31,7 +33,14 @@ export class NotificationService {
     sound,
     vibration,
   }: UpsertTriggerNotification) {
-    const channelId = await notifee.createChannel(notifeeSoundChannel);
+    let channelId = 'default';
+    if (sound && vibration) {
+      channelId = await notifee.createChannel(notifeeSoundAndVibrationChannel);
+    } else if (sound) {
+      channelId = await notifee.createChannel(notifeeSoundChannel);
+    } else if (vibration) {
+      channelId = await notifee.createChannel(notifeeVibrationChannel);
+    }
 
     const notification: Notification = {
       id,
@@ -43,15 +52,6 @@ export class NotificationService {
         ...notifeeBaseNotificationAndroid,
       },
     };
-
-    if (!sound && notification.android) {
-      notification.android.channelId = 'default';
-      delete notification.android.sound;
-    }
-
-    if (!vibration && notification.android) {
-      delete notification.android.vibrationPattern;
-    }
 
     const trigger: Trigger = {
       type: TriggerType.TIMESTAMP,
