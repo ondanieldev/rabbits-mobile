@@ -6,8 +6,13 @@ import { routineManagerButtonsStyles } from './style';
 import { useRoutineManagerButtons } from './use';
 
 export const RoutineManagerButtons: React.FC = () => {
-  const { handleSignOut, signOutStatus, handleAdd, handleEdit } =
-    useRoutineManagerButtons();
+  const {
+    handleSignOut,
+    signOutStatus,
+    handleAdd,
+    handleEdit,
+    handlePreference,
+  } = useRoutineManagerButtons();
 
   return (
     <View style={routineManagerButtonsStyles.container}>
@@ -22,6 +27,13 @@ export const RoutineManagerButtons: React.FC = () => {
         iconProps={routineManagerButtonsIconProps.edit}
         buttonProps={{
           onPress: handleEdit,
+        }}
+      />
+
+      <CircleIconButton
+        iconProps={routineManagerButtonsIconProps.preferences}
+        buttonProps={{
+          onPress: handlePreference,
         }}
       />
 
