@@ -38,7 +38,7 @@ export const UpsertPreferenceForm: React.FC = () => {
 
           <SwitchInput
             form={form}
-            name="isVibrationEnable"
+            name="isVibrationEnabled"
             label={isVibrationEnabledLabel}
           />
         </>
