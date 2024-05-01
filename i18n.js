@@ -5,7 +5,7 @@ import i18n from 'i18next';
 import enAuth from './public/locales/en/auth.json';
 import enCommon from './public/locales/en/common.json';
 import enError from './public/locales/en/error.json';
-import enPreference from './public/locales/en/preference.json';
+import enProfile from './public/locales/en/profile.json';
 import enRoutine from './public/locales/en/routine.json';
 import enToast from './public/locales/en/toast.json';
 
@@ -17,7 +17,7 @@ i18n.use(initReactI18next).init({
       auth: enAuth,
       common: enCommon,
       error: enError,
-      preference: enPreference,
+      profile: enProfile,
       toast: enToast,
       routine: enRoutine,
     },
