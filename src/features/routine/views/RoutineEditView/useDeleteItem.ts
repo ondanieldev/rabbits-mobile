@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
@@ -24,6 +24,14 @@ export const useRoutineEditViewDeleteItem = () => {
   const dispatch = useDispatch();
 
   /**
+   * Loading setup
+   */
+  const changingTaskIds = useSelector(state => state.task.changingTaskIds);
+  const changingAppointmentIds = useSelector(
+    state => state.appointment.changingAppointmentIds,
+  );
+
+  /**
    * Loading parts
    */
   const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
@@ -34,10 +42,20 @@ export const useRoutineEditViewDeleteItem = () => {
   /**
    * Loading result
    */
-  const isDeleting = useMemo(
-    () =>
-      deleteTaskStatus === 'pending' || deleteAppointmentStatus === 'pending',
-    [deleteTaskStatus, deleteAppointmentStatus],
+  const isDeleting = useCallback(
+    (data: ItemData) => {
+      return (
+        (changingTaskIds.includes(data.id) && deleteTaskStatus === 'pending') ||
+        (changingAppointmentIds.includes(data.id) &&
+          deleteAppointmentStatus === 'pending')
+      );
+    },
+    [
+      deleteTaskStatus,
+      deleteAppointmentStatus,
+      changingTaskIds,
+      changingAppointmentIds,
+    ],
   );
 
   /**
@@ -47,9 +65,9 @@ export const useRoutineEditViewDeleteItem = () => {
     async (data: ItemData) => {
       try {
         if (data.objectType === 'task') {
-          dispatch(deleteTask(data.id));
+          await dispatch(deleteTask(data.id));
         } else if (data.objectType === 'appointment') {
-          dispatch(deleteAppointment(data.id));
+          await dispatch(deleteAppointment(data.id));
         }
         toastify(toastSuccessDeleteItem);
       } catch (err) {

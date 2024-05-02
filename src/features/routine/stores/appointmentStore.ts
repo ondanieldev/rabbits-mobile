@@ -19,6 +19,7 @@ import { AppointmentService } from '../services/AppointmentService';
 export interface AppointmentState {
   ids: EntityState<Appointment, string>['ids'];
   entities: EntityState<Appointment, string>['entities'];
+  changingAppointmentIds: string[];
   appointmentListStatus: AsyncStatus;
   appointmentListError: string | null;
   createAppointmentStatus: AsyncStatus;
@@ -43,6 +44,7 @@ const appointmentAdapter = createEntityAdapter({
  */
 export const appointmentStoreInitialState: AppointmentState =
   appointmentAdapter.getInitialState({
+    changingAppointmentIds: [],
     appointmentListStatus: 'idle',
     appointmentListError: null,
     createAppointmentStatus: 'idle',
@@ -109,29 +111,43 @@ export const appointmentStore = createSlice({
         state.appointmentListError = action.error.message || null;
       })
 
-      .addCase(updateAppointment.pending, state => {
+      .addCase(updateAppointment.pending, (state, action) => {
         state.updateAppointmentStatus = 'pending';
+        state.changingAppointmentIds.push(action.meta.arg.id);
       })
       .addCase(updateAppointment.fulfilled, (state, action) => {
         state.updateAppointmentStatus = 'fulfilled';
         const { id, ...changes } = action.payload;
         appointmentAdapter.updateOne(state, { id, changes });
+        state.changingAppointmentIds = state.changingAppointmentIds.filter(
+          changingId => changingId !== id,
+        );
       })
       .addCase(updateAppointment.rejected, (state, action) => {
         state.updateAppointmentStatus = 'rejected';
         state.createAppointmentError = action.error.message || null;
+        state.changingAppointmentIds = state.changingAppointmentIds.filter(
+          changingId => changingId !== action.meta.arg.id,
+        );
       })
 
-      .addCase(deleteAppointment.pending, state => {
-        state.createAppointmentStatus = 'pending';
+      .addCase(deleteAppointment.pending, (state, action) => {
+        state.deleteAppointmentStatus = 'pending';
+        state.changingAppointmentIds.push(action.meta.arg);
       })
       .addCase(deleteAppointment.fulfilled, (state, action) => {
-        state.createAppointmentStatus = 'fulfilled';
+        state.deleteAppointmentStatus = 'fulfilled';
+        state.changingAppointmentIds = state.changingAppointmentIds.filter(
+          changingId => changingId !== action.payload,
+        );
         appointmentAdapter.removeOne(state, action.payload);
       })
       .addCase(deleteAppointment.rejected, (state, action) => {
-        state.createAppointmentStatus = 'rejected';
+        state.deleteAppointmentStatus = 'rejected';
         state.createAppointmentError = action.error.message || null;
+        state.changingAppointmentIds = state.changingAppointmentIds.filter(
+          changingId => changingId !== action.meta.arg,
+        );
       });
   },
 });

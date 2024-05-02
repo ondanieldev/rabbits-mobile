@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleProp, TouchableHighlight, View, ViewStyle } from 'react-native';
 
 import { CircleCheckBox } from '../../../../shared/components/CircleCheckBox';
@@ -20,8 +20,8 @@ export interface ItemProps {
   onSelect?: (data: ItemData) => void;
   onDelete?: (data: ItemData) => void;
   onToggle?: (data: ItemData) => void;
-  isDeleting?: boolean;
-  isToggling?: boolean;
+  isDeleting?: boolean | ((data: ItemData) => boolean);
+  isToggling?: boolean | ((data: ItemData) => boolean);
 }
 
 export const Item: React.FC<ItemProps> = props => {
@@ -49,21 +49,37 @@ export const Item: React.FC<ItemProps> = props => {
 };
 
 const Checkbox = ({ props }: { props: ItemProps }) => {
+  const isLoading = useMemo(
+    () =>
+      typeof props.isToggling === 'boolean'
+        ? props.isToggling
+        : props.isToggling?.(props.data),
+    [props],
+  );
+
   return (
     <CircleCheckBox
       isChecked={props.data.isCompleted}
       onToggle={() => props.onToggle?.(props.data)}
-      isLoading={props.isToggling}
+      isLoading={isLoading}
     />
   );
 };
 
 const DeleteIcon = ({ props }: { props: ItemProps }) => {
+  const disabled = useMemo(
+    () =>
+      typeof props.isDeleting === 'boolean'
+        ? props.isDeleting
+        : props.isDeleting?.(props.data),
+    [props],
+  );
+
   return (
     <IconButton
       buttonProps={{
         onPress: () => props.onDelete?.(props.data),
-        disabled: props.isDeleting,
+        disabled,
       }}
       iconProps={itemTrashIconProps}
     />

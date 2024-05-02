@@ -20,6 +20,7 @@ import { TaskUtils } from '../utils/TaskUtils';
 export interface TaskState {
   ids: EntityState<Task, string>['ids'];
   entities: EntityState<Task, string>['entities'];
+  changingTaskIds: string[];
   taskListStatus: AsyncStatus;
   taskListError: string | null;
   createTaskStatus: AsyncStatus;
@@ -41,6 +42,7 @@ const taskAdapter = createEntityAdapter({
  * Initial state
  */
 export const taskStoreInitialState: TaskState = taskAdapter.getInitialState({
+  changingTaskIds: [],
   taskListStatus: 'idle',
   taskListError: null,
   createTaskStatus: 'idle',
@@ -107,29 +109,43 @@ export const taskStore = createSlice({
         state.taskListError = action.error.message || null;
       })
 
-      .addCase(updateTask.pending, state => {
+      .addCase(updateTask.pending, (state, action) => {
         state.updateTaskStatus = 'pending';
+        state.changingTaskIds.push(action.meta.arg.id);
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         state.updateTaskStatus = 'fulfilled';
         const { id, ...changes } = action.payload;
         taskAdapter.updateOne(state, { id, changes });
+        state.changingTaskIds = state.changingTaskIds.filter(
+          changingId => changingId !== id,
+        );
       })
       .addCase(updateTask.rejected, (state, action) => {
         state.updateTaskStatus = 'rejected';
         state.createTaskError = action.error.message || null;
+        state.changingTaskIds = state.changingTaskIds.filter(
+          changingId => changingId !== action.meta.arg.id,
+        );
       })
 
-      .addCase(deleteTask.pending, state => {
-        state.createTaskStatus = 'pending';
+      .addCase(deleteTask.pending, (state, action) => {
+        state.deleteTaskStatus = 'pending';
+        state.changingTaskIds.push(action.meta.arg);
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
-        state.createTaskStatus = 'fulfilled';
+        state.deleteTaskStatus = 'fulfilled';
         taskAdapter.removeOne(state, action.payload);
+        state.changingTaskIds = state.changingTaskIds.filter(
+          changingId => changingId !== action.payload,
+        );
       })
       .addCase(deleteTask.rejected, (state, action) => {
-        state.createTaskStatus = 'rejected';
+        state.deleteTaskStatus = 'rejected';
         state.createTaskError = action.error.message || null;
+        state.changingTaskIds = state.changingTaskIds.filter(
+          changingId => changingId !== action.meta.arg,
+        );
       });
   },
 });
