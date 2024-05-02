@@ -2,7 +2,6 @@
 
 ## TODO
 
-- Clear notifications on manual and forced sign out
 - Implement validate email
 - Implement change password
 - Create a good Readme
