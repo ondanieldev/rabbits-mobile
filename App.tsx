@@ -32,14 +32,14 @@ export function AppWrapper(): React.JSX.Element {
 }
 
 export function App(): React.JSX.Element {
-  const { authToken, readProfileStatus } = useAuth();
+  const { authToken, pingStatus } = useAuth();
 
   const routineMainScreen = useRoutineMainScreen();
   const routineUpsertScreen = useRoutineUpsertScreen();
   const routineEditScreen = useRoutineEditScreen();
   const preferenceScreen = usePreferenceScreen();
 
-  if (readProfileStatus === 'pending') {
+  if (pingStatus === 'idle' || pingStatus === 'pending') {
     return <SplashView />;
   }
 
