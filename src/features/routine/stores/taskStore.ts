@@ -121,14 +121,14 @@ export const taskStore = createSlice({
       })
 
       .addCase(deleteTask.pending, state => {
-        state.createTaskStatus = 'pending';
+        state.deleteTaskStatus = 'pending';
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
-        state.createTaskStatus = 'fulfilled';
+        state.deleteTaskStatus = 'fulfilled';
         taskAdapter.removeOne(state, action.payload);
       })
       .addCase(deleteTask.rejected, (state, action) => {
-        state.createTaskStatus = 'rejected';
+        state.deleteTaskStatus = 'rejected';
         state.createTaskError = action.error.message || null;
       });
   },

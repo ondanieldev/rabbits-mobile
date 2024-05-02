@@ -99,14 +99,14 @@ export const completedTaskStore = createSlice({
       })
 
       .addCase(deleteCompletedTask.pending, state => {
-        state.createCompletedTaskStatus = 'pending';
+        state.deleteCompletedTaskStatus = 'pending';
       })
       .addCase(deleteCompletedTask.fulfilled, (state, action) => {
-        state.createCompletedTaskStatus = 'fulfilled';
+        state.deleteCompletedTaskStatus = 'fulfilled';
         completedTaskAdapter.removeOne(state, action.payload);
       })
       .addCase(deleteCompletedTask.rejected, (state, action) => {
-        state.createCompletedTaskStatus = 'rejected';
+        state.deleteCompletedTaskStatus = 'rejected';
         state.createCompletedTaskError = action.error.message || null;
       });
   },

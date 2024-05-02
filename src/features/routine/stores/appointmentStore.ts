@@ -123,14 +123,14 @@ export const appointmentStore = createSlice({
       })
 
       .addCase(deleteAppointment.pending, state => {
-        state.createAppointmentStatus = 'pending';
+        state.deleteAppointmentStatus = 'pending';
       })
       .addCase(deleteAppointment.fulfilled, (state, action) => {
-        state.createAppointmentStatus = 'fulfilled';
+        state.deleteAppointmentStatus = 'fulfilled';
         appointmentAdapter.removeOne(state, action.payload);
       })
       .addCase(deleteAppointment.rejected, (state, action) => {
-        state.createAppointmentStatus = 'rejected';
+        state.deleteAppointmentStatus = 'rejected';
         state.createAppointmentError = action.error.message || null;
       });
   },
