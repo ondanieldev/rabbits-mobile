@@ -37,6 +37,8 @@ export class ItemDataUtils {
       kind: task.kind,
       date,
       completedRefId: completedTask?.id,
+      isNotificationEnabled: task.isNotificationEnabled,
+      isSoundEnabled: task.isSoundEnabled,
     };
   };
 
@@ -50,6 +52,8 @@ export class ItemDataUtils {
       date,
       daysOfWeek: [date.getDay() + 1],
       completedRefId: appointment.id,
+      isNotificationEnabled: appointment.isNotificationEnabled,
+      isSoundEnabled: appointment.isSoundEnabled,
     };
   };
 
