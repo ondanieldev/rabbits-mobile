@@ -7,6 +7,7 @@ import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { AuthTokenStorage } from '../../../auth/storages/AuthTokenStorage';
 import { setAuthToken, signOut } from '../../../auth/stores/authStore';
+import { NotificationService } from '../../../notification/services/NotificationService';
 
 export const useRoutineManagerButtons = () => {
   /**
@@ -52,6 +53,7 @@ export const useRoutineManagerButtons = () => {
     } finally {
       dispatch(setAuthToken(null));
       AuthTokenStorage.delete();
+      NotificationService.deleteAll();
     }
   }, [dispatch]);
 
