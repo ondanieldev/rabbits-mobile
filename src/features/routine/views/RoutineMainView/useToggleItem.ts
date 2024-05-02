@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
@@ -10,13 +10,10 @@ import {
   deleteCompletedTask,
 } from '../../stores/completedTaskStore';
 
-export type RoutineMainViewToggleItemHook = ({}: { referenceDate: Date }) => {
-  isTogglingItem: boolean;
-  onToggleItem: (data: ItemData) => void;
-};
-
-export const useRoutineMainViewToggleItem: RoutineMainViewToggleItemHook = ({
+export const useRoutineMainViewToggleItem = ({
   referenceDate,
+}: {
+  referenceDate: Date;
 }) => {
   /**
    * Redux setup
@@ -26,6 +23,12 @@ export const useRoutineMainViewToggleItem: RoutineMainViewToggleItemHook = ({
   /**
    * Loading parts
    */
+  const changingRelatedTaskIds = useSelector(
+    state => state.completedTask.changingRelatedTaskIds,
+  );
+  const changingAppointmentIds = useSelector(
+    state => state.appointment.changingAppointmentIds,
+  );
   const createCompletedTaskStatus = useSelector(
     state => state.completedTask.createCompletedTaskStatus,
   );
@@ -39,15 +42,20 @@ export const useRoutineMainViewToggleItem: RoutineMainViewToggleItemHook = ({
   /**
    * Loading result
    */
-  const isTogglingItem = useMemo(
-    () =>
-      createCompletedTaskStatus === 'pending' ||
-      deleteCompletedTaskStatus === 'pending' ||
-      updateAppointmentStatus === 'pending',
+  const isTogglingItem = useCallback(
+    (data: ItemData) =>
+      (changingRelatedTaskIds.includes(data.id) &&
+        createCompletedTaskStatus === 'pending') ||
+      (changingRelatedTaskIds.includes(data.id) &&
+        deleteCompletedTaskStatus === 'pending') ||
+      (changingAppointmentIds.includes(data.id) &&
+        updateAppointmentStatus === 'pending'),
     [
       createCompletedTaskStatus,
       deleteCompletedTaskStatus,
       updateAppointmentStatus,
+      changingRelatedTaskIds,
+      changingAppointmentIds,
     ],
   );
 
@@ -81,6 +89,8 @@ export const useRoutineMainViewToggleItem: RoutineMainViewToggleItemHook = ({
           id: data.id,
           isCompleted: !data.isCompleted,
           name: data.name,
+          isNotificationEnabled: data.isNotificationEnabled,
+          isSoundEnabled: data.isSoundEnabled,
         }),
       ).unwrap();
     },

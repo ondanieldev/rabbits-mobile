@@ -18,6 +18,7 @@ import { CompletedTaskService } from '../services/CompletedTaskService';
 export interface CompletedTaskState {
   ids: EntityState<CompletedTask, string>['ids'];
   entities: EntityState<CompletedTask, string>['entities'];
+  changingRelatedTaskIds: string[];
   completedTaskListStatus: AsyncStatus;
   completedTaskListError: string | null;
   createCompletedTaskStatus: AsyncStatus;
@@ -38,6 +39,7 @@ const completedTaskAdapter = createEntityAdapter({
  */
 export const completedTaskStoreInitialState: CompletedTaskState =
   completedTaskAdapter.getInitialState({
+    changingRelatedTaskIds: [],
     completedTaskListStatus: 'idle',
     completedTaskListError: null,
     createCompletedTaskStatus: 'idle',
@@ -74,16 +76,23 @@ export const completedTaskStore = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(createCompletedTask.pending, state => {
+      .addCase(createCompletedTask.pending, (state, action) => {
         state.createCompletedTaskStatus = 'pending';
+        state.changingRelatedTaskIds.push(action.meta.arg.taskId);
       })
       .addCase(createCompletedTask.fulfilled, (state, action) => {
         state.createCompletedTaskStatus = 'fulfilled';
         completedTaskAdapter.addOne(state, action.payload);
+        state.changingRelatedTaskIds = state.changingRelatedTaskIds.filter(
+          id => id !== action.payload.taskId,
+        );
       })
       .addCase(createCompletedTask.rejected, (state, action) => {
         state.createCompletedTaskStatus = 'rejected';
         state.createCompletedTaskError = action.error.message || null;
+        state.changingRelatedTaskIds = state.changingRelatedTaskIds.filter(
+          id => id !== action.meta.arg.taskId,
+        );
       })
 
       .addCase(readCompletedTaskList.pending, state => {
@@ -98,16 +107,32 @@ export const completedTaskStore = createSlice({
         state.completedTaskListError = action.error.message || null;
       })
 
-      .addCase(deleteCompletedTask.pending, state => {
+      .addCase(deleteCompletedTask.pending, (state, action) => {
         state.deleteCompletedTaskStatus = 'pending';
+        const completedTask = state.entities[action.meta.arg];
+        if (completedTask) {
+          state.changingRelatedTaskIds.push(completedTask.taskId);
+        }
       })
       .addCase(deleteCompletedTask.fulfilled, (state, action) => {
         state.deleteCompletedTaskStatus = 'fulfilled';
+        const completedTask = state.entities[action.payload];
+        if (completedTask) {
+          state.changingRelatedTaskIds = state.changingRelatedTaskIds.filter(
+            id => id !== completedTask.taskId,
+          );
+        }
         completedTaskAdapter.removeOne(state, action.payload);
       })
       .addCase(deleteCompletedTask.rejected, (state, action) => {
         state.deleteCompletedTaskStatus = 'rejected';
         state.createCompletedTaskError = action.error.message || null;
+        const completedTask = state.entities[action.meta.arg];
+        if (completedTask) {
+          state.changingRelatedTaskIds = state.changingRelatedTaskIds.filter(
+            id => id !== completedTask.taskId,
+          );
+        }
       });
   },
 });

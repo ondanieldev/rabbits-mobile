@@ -27,6 +27,9 @@ export const useRoutineEditViewDeleteItem = () => {
    * Loading setup
    */
   const changingTaskIds = useSelector(state => state.task.changingTaskIds);
+  const changingAppointmentIds = useSelector(
+    state => state.appointment.changingAppointmentIds,
+  );
 
   /**
    * Loading parts
@@ -43,10 +46,16 @@ export const useRoutineEditViewDeleteItem = () => {
     (data: ItemData) => {
       return (
         (changingTaskIds.includes(data.id) && deleteTaskStatus === 'pending') ||
-        deleteAppointmentStatus === 'pending'
+        (changingAppointmentIds.includes(data.id) &&
+          deleteAppointmentStatus === 'pending')
       );
     },
-    [deleteTaskStatus, deleteAppointmentStatus, changingTaskIds],
+    [
+      deleteTaskStatus,
+      deleteAppointmentStatus,
+      changingTaskIds,
+      changingAppointmentIds,
+    ],
   );
 
   /**
