@@ -57,4 +57,8 @@ export class NotificationService {
   static async delete(id: string) {
     return notifee.cancelNotification(id);
   }
+
+  static async deleteAll() {
+    return notifee.cancelAllNotifications();
+  }
 }
