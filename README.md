@@ -3,7 +3,6 @@
 ## TODO
 
 - Clear notifications on manual and forced sign out
-- Improve Toggle/select loading
 - Implement validate email
 - Implement change password
 - Create a good Readme
