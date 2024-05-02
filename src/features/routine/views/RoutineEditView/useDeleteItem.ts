@@ -47,9 +47,9 @@ export const useRoutineEditViewDeleteItem = () => {
     async (data: ItemData) => {
       try {
         if (data.objectType === 'task') {
-          dispatch(deleteTask(data.id));
+          await dispatch(deleteTask(data.id));
         } else if (data.objectType === 'appointment') {
-          dispatch(deleteAppointment(data.id));
+          await dispatch(deleteAppointment(data.id));
         }
         toastify(toastSuccessDeleteItem);
       } catch (err) {
