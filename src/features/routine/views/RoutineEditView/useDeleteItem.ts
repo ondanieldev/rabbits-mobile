@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
@@ -24,6 +24,11 @@ export const useRoutineEditViewDeleteItem = () => {
   const dispatch = useDispatch();
 
   /**
+   * Loading setup
+   */
+  const changingTaskIds = useSelector(state => state.task.changingTaskIds);
+
+  /**
    * Loading parts
    */
   const deleteTaskStatus = useSelector(state => state.task.deleteTaskStatus);
@@ -34,10 +39,14 @@ export const useRoutineEditViewDeleteItem = () => {
   /**
    * Loading result
    */
-  const isDeleting = useMemo(
-    () =>
-      deleteTaskStatus === 'pending' || deleteAppointmentStatus === 'pending',
-    [deleteTaskStatus, deleteAppointmentStatus],
+  const isDeleting = useCallback(
+    (data: ItemData) => {
+      return (
+        (changingTaskIds.includes(data.id) && deleteTaskStatus === 'pending') ||
+        deleteAppointmentStatus === 'pending'
+      );
+    },
+    [deleteTaskStatus, deleteAppointmentStatus, changingTaskIds],
   );
 
   /**
