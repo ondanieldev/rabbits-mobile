@@ -6,17 +6,9 @@ import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { AuthTokenStorage } from '../../../auth/storages/AuthTokenStorage';
-import { signOut } from '../../../auth/stores/authStore';
-import { ErrorHandler } from '../../../error/services/ErrorHandler';
-import { useToast } from '../../../toast/contexts/toastContext';
-import { toastErrorSignOut } from '../../../toast/data/toastTemplates';
+import { setAuthToken, signOut } from '../../../auth/stores/authStore';
 
 export const useRoutineManagerButtons = () => {
-  /**
-   * Toast setup
-   */
-  const { toastify } = useToast();
-
   /**
    * Navigation setup
    */
@@ -56,12 +48,12 @@ export const useRoutineManagerButtons = () => {
   const handleSignOut = useCallback(async () => {
     try {
       await dispatch(signOut()).unwrap();
+    } catch {
+    } finally {
+      dispatch(setAuthToken(null));
       AuthTokenStorage.delete();
-    } catch (err) {
-      const message = ErrorHandler.handle(err);
-      toastify(toastErrorSignOut(message));
     }
-  }, [dispatch, toastify]);
+  }, [dispatch]);
 
   return {
     handleAdd,
