@@ -5,7 +5,7 @@ import { AuthCard } from '../../components/AuthCard';
 import { AuthCTALink } from '../../components/AuthCTALink';
 import { AuthTitle } from '../../components/AuthTitle';
 import { AuthView } from '../../components/AuthView';
-// import { VerifyEmailForm } from '../../components/VerifyEmailForm';
+import { VerifyEmailForm } from '../../components/VerifyEmailForm';
 import { useVerifyEmailView } from './use';
 import { useVerifyEmailViewTranslation } from './useTranslation';
 
@@ -25,7 +25,7 @@ export const VerifyEmailView: React.FC<VerifyEmailViewProps> = () => {
       <AuthCard>
         <AuthTitle base={titleBase} />
 
-        {/* <VerifyEmailForm /> */}
+        <VerifyEmailForm />
       </AuthCard>
 
       <AuthCTALink

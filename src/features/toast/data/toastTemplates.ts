@@ -142,3 +142,20 @@ export const toastErrorResetPassword: Fn = message => ({
   title: 'TITLE_ERROR_RESET_PASSWORD',
   type: 'error',
 });
+
+export const toastErrorVerifyEmailGenerateToken: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_VERIFY_EMAIL_GENERATE_TOKEN',
+  type: 'error',
+});
+
+export const toastErrorVerifyEmail: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_VERIFY_EMAIL',
+  type: 'error',
+});
+
+export const toastSuccessVerifyEmail: Obj = {
+  title: 'TITLE_SUCCESS_VERIFY_EMAIL',
+  type: 'success',
+};
