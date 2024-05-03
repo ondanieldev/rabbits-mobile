@@ -14,6 +14,9 @@ export class ErrorHandler {
     if (typeof error === 'object') {
       return ErrorHandler.handleObjectError(error as ObjectError);
     }
+    if (typeof error === 'string') {
+      return error;
+    }
     return errorCodeUnknown;
   }
 

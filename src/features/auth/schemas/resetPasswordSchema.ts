@@ -5,7 +5,6 @@ export const resetPasswordGenerateTokenSchema = z.object({
 });
 
 export const resetPasswordValidateTokenSchema = z.object({
-  email: z.string().trim().email(),
   token: z.string().trim(),
 });
 

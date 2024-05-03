@@ -10,6 +10,8 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
+import { ResetPasswordGenerateTokenScreenParams } from '../../features/auth/views/ResetPasswordGenerateTokenView';
+import { ResetPasswordValidateTokenScreenParams } from '../../features/auth/views/ResetPasswordValidateTokenView';
 import { RoutineUpsertScreenParams } from '../../features/routine/screens/RoutineUpsertScreen/use';
 
 export const stackScreenNames = [
@@ -50,8 +52,8 @@ export type StackNavigationParamList = {
   DebugNotificationsScreen: {};
   PreferenceScreen: {};
   ResetPasswordScreen: {};
-  ResetPasswordGenerateTokenScreen: {};
-  ResetPasswordValidateTokenScreen: {};
+  ResetPasswordGenerateTokenScreen: ResetPasswordGenerateTokenScreenParams;
+  ResetPasswordValidateTokenScreen: ResetPasswordValidateTokenScreenParams;
   RoutineMainScreen: {};
   RoutineUpsertScreen: RoutineUpsertScreenParams;
   RoutineEditScreen: {};

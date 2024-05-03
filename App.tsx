@@ -7,6 +7,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from './src/features/auth/contexts/authContext';
 import { AuthSignInView } from './src/features/auth/views/AuthSignInView';
 import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
+import { ResetPasswordGenerateTokenView } from './src/features/auth/views/ResetPasswordGenerateTokenView';
+import { ResetPasswordValidateTokenView } from './src/features/auth/views/ResetPasswordValidateTokenView';
 import { DebugNotificationsView } from './src/features/debug/views/DebugNotificationsView';
 import { NotificationService } from './src/features/notification/services/NotificationService';
 import { usePreferenceScreen } from './src/features/profile/screens/PreferenceScreen/use';
@@ -59,6 +61,20 @@ export function App(): React.JSX.Element {
             <Stack.Screen
               component={AuthSignUpView}
               name={'AuthSignUpScreen'}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={ResetPasswordGenerateTokenView}
+              name={'ResetPasswordGenerateTokenScreen'}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={ResetPasswordValidateTokenView}
+              name={'ResetPasswordValidateTokenScreen'}
               options={{
                 headerShown: false,
               }}

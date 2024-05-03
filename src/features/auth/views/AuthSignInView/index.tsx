@@ -16,10 +16,16 @@ export interface AuthSignInViewProps
   > {}
 
 export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
-  const { ctaBase, ctaHighlight, titleBase, titleHighlight } =
-    useAuthSignInViewTranslation();
+  const {
+    resetPasswordCtaBase,
+    resetPasswordCtaHighlight,
+    sigUpCtaHighlight,
+    signUpCtaBase,
+    titleBase,
+    titleHighlight,
+  } = useAuthSignInViewTranslation();
 
-  const { ctaOnPress } = useAuthSignInView();
+  const { hanldeResetPassword, hanldeSignUp } = useAuthSignInView();
 
   return (
     <AuthView>
@@ -30,9 +36,15 @@ export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
       </AuthCard>
 
       <AuthCTALink
-        base={ctaBase}
-        highlight={ctaHighlight}
-        onPress={ctaOnPress}
+        base={signUpCtaBase}
+        highlight={sigUpCtaHighlight}
+        onPress={hanldeSignUp}
+      />
+
+      <AuthCTALink
+        base={resetPasswordCtaBase}
+        highlight={resetPasswordCtaHighlight}
+        onPress={hanldeResetPassword}
       />
     </AuthView>
   );
