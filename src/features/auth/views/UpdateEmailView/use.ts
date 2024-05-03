@@ -4,11 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 
-export const useVerifyEmailView = () => {
+export const useUpdateEmailView = () => {
   const navigation = useNavigation<StackNavigationProp>();
 
   const ctaOnPress = useCallback(() => {
-    navigation.navigate('UpdateEmailScreen', {});
+    navigation.navigate('VerifyEmailScreen', {});
   }, [navigation]);
 
   return {

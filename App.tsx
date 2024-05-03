@@ -9,6 +9,7 @@ import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
 import { ResetPasswordGenerateTokenView } from './src/features/auth/views/ResetPasswordGenerateTokenView';
 import { ResetPasswordValidateTokenView } from './src/features/auth/views/ResetPasswordValidateTokenView';
 import { ResetPasswordView } from './src/features/auth/views/ResetPasswordView';
+import { UpdateEmailView } from './src/features/auth/views/UpdateEmailView';
 import { VerifyEmailView } from './src/features/auth/views/VerifyEmailView';
 import { DebugNotificationsView } from './src/features/debug/views/DebugNotificationsView';
 import { NotificationService } from './src/features/notification/services/NotificationService';
@@ -97,13 +98,22 @@ export function App(): React.JSX.Element {
         )}
 
         {showVerifyEmailScreens && (
-          <Stack.Screen
-            component={VerifyEmailView}
-            name={'VerifyEmailScreen'}
-            options={{
-              headerShown: false,
-            }}
-          />
+          <>
+            <Stack.Screen
+              component={VerifyEmailView}
+              name={'VerifyEmailScreen'}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={UpdateEmailView}
+              name={'UpdateEmailScreen'}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </>
         )}
 
         {showMainScreens && (
