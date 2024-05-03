@@ -7,9 +7,7 @@ import { SignUp } from '../interfaces/SignUp';
 
 export class AuthService {
   public static async signIn(data: SignIn): Promise<AuthToken> {
-    const response = await habitsApi.post<{
-      accessToken: string;
-    }>('/auth/sign-in', data);
+    const response = await habitsApi.post<AuthToken>('/auth/sign-in', data);
     return response.data;
   }
 

@@ -11,7 +11,7 @@ habitsApi.interceptors.request.use(config => {
   const authToken = AuthTokenStorage.get();
 
   if (authToken) {
-    config.headers.Authorization = `Bearer ${authToken.accessToken}`;
+    config.headers.Authorization = `Bearer ${authToken.token}`;
   }
 
   return config;
