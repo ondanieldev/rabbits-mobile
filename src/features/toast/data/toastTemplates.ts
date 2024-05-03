@@ -119,3 +119,26 @@ export const toastErrorUpsertPreference: Fn = message => ({
   title: 'TITLE_ERROR_UPSERT_PREFERENCE',
   type: 'error',
 });
+
+export const toastErrorResetPasswordGenerateToken: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_RESET_PASSWORD_GENERATE_TOKEN',
+  type: 'error',
+});
+
+export const toastErrorResetPasswordValidateToken: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_RESET_PASSWORD_VALIDATE_TOKEN',
+  type: 'error',
+});
+
+export const toastSuccessResetPassword: Obj = {
+  title: 'TITLE_SUCCESS_RESET_PASSWORD',
+  type: 'success',
+};
+
+export const toastErrorResetPassword: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_RESET_PASSWORD',
+  type: 'error',
+});

@@ -1,3 +1,5 @@
+/* eslint react-native/no-inline-styles: 0 */
+
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
@@ -27,7 +29,19 @@ export const DebugNotificationsView: React.FC<
   useEffect(() => {
     async function bootstrap() {
       const data = await NotificationService.readTriggerList();
-      setNotificationList(data);
+      const copy = [...data];
+      copy.sort((a, b) => {
+        if (
+          !a.notification.android?.timestamp ||
+          !b.notification.android?.timestamp
+        ) {
+          return 0;
+        }
+        return (
+          a.notification.android.timestamp - b.notification.android.timestamp
+        );
+      });
+      setNotificationList(copy);
     }
     bootstrap();
   }, []);
@@ -74,8 +88,8 @@ export const DebugNotificationsView: React.FC<
 
 const Prop: React.FC<{ name: string; value: string }> = ({ name, value }) => {
   return (
-    <View style={{ gap: spacings.xs }}>
-      <Text style={{ color: colors.primary }}>{name}</Text>
+    <View style={{ gap: 0 }}>
+      <Text style={{ color: colors.primary, fontWeight: 'bold' }}>{name}</Text>
       <Text>{value}</Text>
     </View>
   );

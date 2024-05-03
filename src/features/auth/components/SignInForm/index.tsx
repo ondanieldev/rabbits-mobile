@@ -5,8 +5,12 @@ import { TextInput } from '../../../../shared/components/TextInput';
 import { useSignInForm } from './use';
 import { useSignInFormTranslation } from './useTranslation';
 
-export const SignInForm: React.FC = () => {
-  const { form, onSubmit, signInStatus } = useSignInForm();
+export interface SignInFormProps {
+  email?: string;
+}
+
+export const SignInForm: React.FC<SignInFormProps> = props => {
+  const { form, onSubmit, signInStatus } = useSignInForm(props);
 
   const { buttonText, emailLabel, passwordLabel } = useSignInFormTranslation();
 

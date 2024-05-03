@@ -9,30 +9,46 @@ import { SignInForm } from '../../components/SignInForm';
 import { useAuthSignInView } from './use';
 import { useAuthSignInViewTranslation } from './useTranslation';
 
+export interface AuthSignInScreenParams {
+  email?: string;
+}
+
 export interface AuthSignInViewProps
   extends NativeStackScreenProps<
     StackNavigationParamList,
     'AuthSignInScreen'
   > {}
 
-export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
-  const { ctaBase, ctaHighlight, titleBase, titleHighlight } =
-    useAuthSignInViewTranslation();
+export const AuthSignInView: React.FC<AuthSignInViewProps> = ({ route }) => {
+  const {
+    resetPasswordCtaBase,
+    resetPasswordCtaHighlight,
+    sigUpCtaHighlight,
+    signUpCtaBase,
+    titleBase,
+    titleHighlight,
+  } = useAuthSignInViewTranslation();
 
-  const { ctaOnPress } = useAuthSignInView();
+  const { hanldeResetPassword, hanldeSignUp } = useAuthSignInView();
 
   return (
     <AuthView>
       <AuthCard>
         <AuthTitle base={titleBase} highlight={titleHighlight} />
 
-        <SignInForm />
+        <SignInForm {...route.params} />
       </AuthCard>
 
       <AuthCTALink
-        base={ctaBase}
-        highlight={ctaHighlight}
-        onPress={ctaOnPress}
+        base={signUpCtaBase}
+        highlight={sigUpCtaHighlight}
+        onPress={hanldeSignUp}
+      />
+
+      <AuthCTALink
+        base={resetPasswordCtaBase}
+        highlight={resetPasswordCtaHighlight}
+        onPress={hanldeResetPassword}
       />
     </AuthView>
   );

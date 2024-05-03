@@ -7,11 +7,16 @@ import { StackNavigationProp } from '../../../../shared/navigation/stack';
 export const useAuthSignInView = () => {
   const navigation = useNavigation<StackNavigationProp>();
 
-  const ctaOnPress = useCallback(() => {
+  const hanldeSignUp = useCallback(() => {
     navigation.navigate('AuthSignUpScreen', {});
   }, [navigation]);
 
+  const hanldeResetPassword = useCallback(() => {
+    navigation.navigate('ResetPasswordGenerateTokenScreen', {});
+  }, [navigation]);
+
   return {
-    ctaOnPress,
+    hanldeSignUp,
+    hanldeResetPassword,
   };
 };

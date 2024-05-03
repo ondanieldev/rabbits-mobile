@@ -7,13 +7,18 @@ export const useAuthSignInViewTranslation = () => {
   const titleBase = useMemo(() => t('signInTo'), [t]);
   const titleHighlight = useMemo(() => t('habits'), [t]);
 
-  const ctaBase = useMemo(() => t('signUpCTA'), [t]);
-  const ctaHighlight = useMemo(() => t('signUpLink'), [t]);
+  const signUpCtaBase = useMemo(() => t('signUpCTA'), [t]);
+  const sigUpCtaHighlight = useMemo(() => t('signUpLink'), [t]);
+
+  const resetPasswordCtaBase = useMemo(() => t('resetPasswordCTA'), [t]);
+  const resetPasswordCtaHighlight = useMemo(() => t('resetPasswordLink'), [t]);
 
   return {
     titleBase,
     titleHighlight,
-    ctaBase,
-    ctaHighlight,
+    signUpCtaBase,
+    sigUpCtaHighlight,
+    resetPasswordCtaBase,
+    resetPasswordCtaHighlight,
   };
 };
