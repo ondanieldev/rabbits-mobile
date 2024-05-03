@@ -4,8 +4,8 @@ import { Text } from '../../../../shared/components/Text';
 import { authCTALinkStyles } from './styles';
 
 export interface AuthCTALinkProps {
-  base: string;
-  highlight: string;
+  base?: string;
+  highlight?: string;
   onPress: () => void;
 }
 
@@ -16,9 +16,11 @@ export const AuthCTALink: React.FC<AuthCTALinkProps> = ({
 }) => {
   return (
     <View style={authCTALinkStyles.container}>
-      <Text>{base}</Text>
+      {base && <Text>{base}</Text>}
       <TouchableHighlight onPress={onPress}>
-        <Text style={authCTALinkStyles.highlight}>{highlight}</Text>
+        {highlight && (
+          <Text style={authCTALinkStyles.highlight}>{highlight}</Text>
+        )}
       </TouchableHighlight>
     </View>
   );
