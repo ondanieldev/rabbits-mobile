@@ -17,6 +17,9 @@ export const stackScreenNames = [
   'AuthSignUpScreen',
   'DebugNotificationsScreen',
   'PreferenceScreen',
+  'ResetPasswordScreen',
+  'ResetPasswordGenerateTokenScreen',
+  'ResetPasswordValidateTokenScreen',
   'RoutineMainScreen',
   'RoutineUpsertScreen',
   'RoutineEditScreen',
@@ -46,6 +49,9 @@ export type StackNavigationParamList = {
   AuthSignUpScreen: {};
   DebugNotificationsScreen: {};
   PreferenceScreen: {};
+  ResetPasswordScreen: {};
+  ResetPasswordGenerateTokenScreen: {};
+  ResetPasswordValidateTokenScreen: {};
   RoutineMainScreen: {};
   RoutineUpsertScreen: RoutineUpsertScreenParams;
   RoutineEditScreen: {};
