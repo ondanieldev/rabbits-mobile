@@ -2,7 +2,7 @@ import { IconButtonProps } from '../../../../shared/components/IconButton';
 import { iconSizes } from '../../../../shared/styles/globalStyles';
 
 export const routineManagerButtonsIconProps: Record<
-  'add' | 'edit' | 'preferences' | 'signOut',
+  'add' | 'edit' | 'preferences' | 'signOut' | 'debug',
   IconButtonProps['iconProps']
 > = {
   add: {
@@ -19,6 +19,10 @@ export const routineManagerButtonsIconProps: Record<
   },
   signOut: {
     name: 'log-out',
+    size: iconSizes.sm,
+  },
+  debug: {
+    name: 'code',
     size: iconSizes.sm,
   },
 };

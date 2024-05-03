@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useAuth } from './src/features/auth/contexts/authContext';
 import { AuthSignInView } from './src/features/auth/views/AuthSignInView';
 import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
+import { DebugNotificationsView } from './src/features/debug/views/DebugNotificationsView';
 import { NotificationService } from './src/features/notification/services/NotificationService';
 import { usePreferenceScreen } from './src/features/profile/screens/PreferenceScreen/use';
 import { useRoutineEditScreen } from './src/features/routine/screens/RoutineEditScreen/use';
@@ -69,6 +70,10 @@ export function App(): React.JSX.Element {
             <Stack.Screen {...routineUpsertScreen} />
             <Stack.Screen {...routineEditScreen} />
             <Stack.Screen {...preferenceScreen} />
+            <Stack.Screen
+              name="DebugNotificationsScreen"
+              component={DebugNotificationsView}
+            />
           </>
         )}
       </Stack.Navigator>

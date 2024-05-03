@@ -42,6 +42,13 @@ export const useRoutineManagerButtons = () => {
   }, [navigation]);
 
   /**
+   * Debug
+   */
+  const handleDebug = useCallback(() => {
+    navigation.navigate('DebugNotificationsScreen', {});
+  }, [navigation]);
+
+  /**
    * Sign out
    */
   const signOutStatus = useSelector(state => state.auth.signOutStatus);
@@ -63,5 +70,6 @@ export const useRoutineManagerButtons = () => {
     handleSignOut,
     signOutStatus,
     handlePreference,
+    handleDebug,
   };
 };

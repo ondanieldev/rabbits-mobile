@@ -12,6 +12,7 @@ export const RoutineManagerButtons: React.FC = () => {
     handleAdd,
     handleEdit,
     handlePreference,
+    handleDebug,
   } = useRoutineManagerButtons();
 
   return (
@@ -34,6 +35,13 @@ export const RoutineManagerButtons: React.FC = () => {
         iconProps={routineManagerButtonsIconProps.preferences}
         buttonProps={{
           onPress: handlePreference,
+        }}
+      />
+
+      <CircleIconButton
+        iconProps={routineManagerButtonsIconProps.debug}
+        buttonProps={{
+          onPress: handleDebug,
         }}
       />
 

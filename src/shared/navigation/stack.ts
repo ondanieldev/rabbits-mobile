@@ -15,10 +15,11 @@ import { RoutineUpsertScreenParams } from '../../features/routine/screens/Routin
 export const stackScreenNames = [
   'AuthSignInScreen',
   'AuthSignUpScreen',
+  'DebugNotificationsScreen',
+  'PreferenceScreen',
   'RoutineMainScreen',
   'RoutineUpsertScreen',
   'RoutineEditScreen',
-  'PreferenceScreen',
 ] as const;
 
 export type StackScreenName = (typeof stackScreenNames)[number];
@@ -43,10 +44,11 @@ export type StackScreenChildren<T extends StackScreenName> = (
 export type StackNavigationParamList = {
   AuthSignInScreen: {};
   AuthSignUpScreen: {};
+  DebugNotificationsScreen: {};
+  PreferenceScreen: {};
   RoutineMainScreen: {};
   RoutineUpsertScreen: RoutineUpsertScreenParams;
   RoutineEditScreen: {};
-  PreferenceScreen: {};
 };
 
 export type StackNavigationProp = NavigationProp<StackNavigationParamList>;
