@@ -9,6 +9,7 @@ import { AuthSignInView } from './src/features/auth/views/AuthSignInView';
 import { AuthSignUpView } from './src/features/auth/views/AuthSignUpView';
 import { ResetPasswordGenerateTokenView } from './src/features/auth/views/ResetPasswordGenerateTokenView';
 import { ResetPasswordValidateTokenView } from './src/features/auth/views/ResetPasswordValidateTokenView';
+import { ResetPasswordView } from './src/features/auth/views/ResetPasswordView';
 import { DebugNotificationsView } from './src/features/debug/views/DebugNotificationsView';
 import { NotificationService } from './src/features/notification/services/NotificationService';
 import { usePreferenceScreen } from './src/features/profile/screens/PreferenceScreen/use';
@@ -75,6 +76,13 @@ export function App(): React.JSX.Element {
             <Stack.Screen
               component={ResetPasswordValidateTokenView}
               name={'ResetPasswordValidateTokenScreen'}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={ResetPasswordView}
+              name={'ResetPasswordScreen'}
               options={{
                 headerShown: false,
               }}

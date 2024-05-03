@@ -10,8 +10,6 @@ export const resetPasswordValidateTokenSchema = z.object({
 
 export const resetPasswordSchema = z
   .object({
-    email: z.string().trim().email(),
-    token: z.string().trim(),
     password: z.string().min(5),
     confirmPassword: z.string().min(5),
   })

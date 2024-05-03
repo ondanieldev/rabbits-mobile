@@ -1,8 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { SignInFormProps } from '.';
 import { useDispatch } from '../../../../shared/hooks/useDispatch';
 import { useSelector } from '../../../../shared/hooks/useSelector';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
@@ -15,7 +16,7 @@ import { SignInSchema, signInSchema } from '../../schemas/signInSchema';
 import { AuthTokenStorage } from '../../storages/AuthTokenStorage';
 import { signIn } from '../../stores/authStore';
 
-export const useSignInForm = () => {
+export const useSignInForm = ({ email }: SignInFormProps) => {
   /**
    * Toast setup
    */
@@ -32,7 +33,7 @@ export const useSignInForm = () => {
   const form = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: '',
+      email: email || '',
       password: '',
     },
     mode: 'onSubmit',
@@ -56,6 +57,15 @@ export const useSignInForm = () => {
     },
     [dispatch, toastify],
   );
+
+  /**
+   * Fill form with default email
+   */
+  useEffect(() => {
+    if (email) {
+      form.setValue('email', email);
+    }
+  }, [email, form]);
 
   /**
    * Return

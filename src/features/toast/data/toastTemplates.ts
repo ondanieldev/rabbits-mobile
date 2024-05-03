@@ -131,3 +131,14 @@ export const toastErrorResetPasswordValidateToken: Fn = message => ({
   title: 'TITLE_ERROR_RESET_PASSWORD_VALIDATE_TOKEN',
   type: 'error',
 });
+
+export const toastSuccessResetPassword: Obj = {
+  title: 'TITLE_SUCCESS_RESET_PASSWORD',
+  type: 'success',
+};
+
+export const toastErrorResetPassword: Fn = message => ({
+  message,
+  title: 'TITLE_ERROR_RESET_PASSWORD',
+  type: 'error',
+});

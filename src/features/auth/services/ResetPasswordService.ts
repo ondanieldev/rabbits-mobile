@@ -19,6 +19,6 @@ export class ResetPasswordService {
   }
 
   public static async resetPassword(data: ResetPassword): Promise<void> {
-    await habitsApi.post('/users/reset-password/reset-password', data);
+    await habitsApi.post('/users/reset-password', data);
   }
 }

@@ -10,8 +10,10 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 
+import { AuthSignInScreenParams } from '../../features/auth/views/AuthSignInView';
 import { ResetPasswordGenerateTokenScreenParams } from '../../features/auth/views/ResetPasswordGenerateTokenView';
 import { ResetPasswordValidateTokenScreenParams } from '../../features/auth/views/ResetPasswordValidateTokenView';
+import { ResetPasswordScreenParams } from '../../features/auth/views/ResetPasswordView';
 import { RoutineUpsertScreenParams } from '../../features/routine/screens/RoutineUpsertScreen/use';
 
 export const stackScreenNames = [
@@ -47,11 +49,11 @@ export type StackScreenChildren<T extends StackScreenName> = (
 ) => React.ReactNode;
 
 export type StackNavigationParamList = {
-  AuthSignInScreen: {};
+  AuthSignInScreen: AuthSignInScreenParams;
   AuthSignUpScreen: {};
   DebugNotificationsScreen: {};
   PreferenceScreen: {};
-  ResetPasswordScreen: {};
+  ResetPasswordScreen: ResetPasswordScreenParams;
   ResetPasswordGenerateTokenScreen: ResetPasswordGenerateTokenScreenParams;
   ResetPasswordValidateTokenScreen: ResetPasswordValidateTokenScreenParams;
   RoutineMainScreen: {};

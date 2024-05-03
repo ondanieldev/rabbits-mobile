@@ -4,20 +4,24 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
 
-import { ResetPasswordValidateTokenFormProps } from '.';
+import { ResetPasswordFormProps } from '.';
 import { StackNavigationProp } from '../../../../shared/navigation/stack';
 import { ErrorHandler } from '../../../error/services/ErrorHandler';
 import { useToast } from '../../../toast/contexts/toastContext';
-import { toastErrorResetPasswordValidateToken } from '../../../toast/data/toastTemplates';
 import {
-  ResetPasswordValidateTokenSchema,
-  resetPasswordValidateTokenSchema,
+  toastErrorResetPassword,
+  toastSuccessResetPassword,
+} from '../../../toast/data/toastTemplates';
+import {
+  ResetPasswordSchema,
+  resetPasswordSchema,
 } from '../../schemas/resetPasswordSchema';
 import { ResetPasswordService } from '../../services/ResetPasswordService';
 
-export const useResetPasswordValidateTokenForm = ({
+export const useResetPasswordForm = ({
   email,
-}: ResetPasswordValidateTokenFormProps) => {
+  token,
+}: ResetPasswordFormProps) => {
   // Toast setup
   const { toastify } = useToast();
 
@@ -25,10 +29,11 @@ export const useResetPasswordValidateTokenForm = ({
   const navigation = useNavigation<StackNavigationProp>();
 
   // Form setup
-  const form = useForm<ResetPasswordValidateTokenSchema>({
-    resolver: zodResolver(resetPasswordValidateTokenSchema),
+  const form = useForm<ResetPasswordSchema>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      token: '',
+      password: '',
+      confirmPassword: '',
     },
     mode: 'onSubmit',
   });
@@ -38,21 +43,23 @@ export const useResetPasswordValidateTokenForm = ({
 
   // Request token
   const onSubmit = useCallback(
-    async ({ token }: ResetPasswordValidateTokenSchema) => {
+    async (data: ResetPasswordSchema) => {
       setIsLoading(true);
       try {
-        await ResetPasswordService.validateToken({
+        await ResetPasswordService.resetPassword({
           email,
           token,
+          ...data,
         });
-        navigation.navigate('ResetPasswordScreen', { email, token });
+        toastify(toastSuccessResetPassword);
+        navigation.navigate('AuthSignInScreen', { email });
       } catch (err) {
         const message = ErrorHandler.handle(err);
-        toastify(toastErrorResetPasswordValidateToken(message));
+        toastify(toastErrorResetPassword(message));
       }
       setIsLoading(false);
     },
-    [navigation, toastify, email],
+    [navigation, toastify, email, token],
   );
 
   // Return

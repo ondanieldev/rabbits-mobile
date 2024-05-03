@@ -9,13 +9,17 @@ import { SignInForm } from '../../components/SignInForm';
 import { useAuthSignInView } from './use';
 import { useAuthSignInViewTranslation } from './useTranslation';
 
+export interface AuthSignInScreenParams {
+  email?: string;
+}
+
 export interface AuthSignInViewProps
   extends NativeStackScreenProps<
     StackNavigationParamList,
     'AuthSignInScreen'
   > {}
 
-export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
+export const AuthSignInView: React.FC<AuthSignInViewProps> = ({ route }) => {
   const {
     resetPasswordCtaBase,
     resetPasswordCtaHighlight,
@@ -32,7 +36,7 @@ export const AuthSignInView: React.FC<AuthSignInViewProps> = () => {
       <AuthCard>
         <AuthTitle base={titleBase} highlight={titleHighlight} />
 
-        <SignInForm />
+        <SignInForm {...route.params} />
       </AuthCard>
 
       <AuthCTALink

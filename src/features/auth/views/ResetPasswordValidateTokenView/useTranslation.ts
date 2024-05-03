@@ -6,10 +6,12 @@ export const useResetPasswordValidateTokenViewTranslation = () => {
 
   const titleBase = useMemo(() => t('resetPassword'), [t]);
 
+  const ctaBase = useMemo(() => t('checkYourEmail'), [t]);
   const ctaHighlight = useMemo(() => t('backToGenerateToken'), [t]);
 
   return {
     titleBase,
+    ctaBase,
     ctaHighlight,
   };
 };
