@@ -70,7 +70,8 @@ export const useVerifyEmailForm = () => {
   // Request token on load
   useEffect(() => {
     handleGenerateToken();
-  }, [handleGenerateToken]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- This effect should only run once
+  }, []);
 
   // Return
   return {
