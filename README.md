@@ -11,6 +11,9 @@
 - Finish translation implementation
 - Implement light/dark mode
 - Mesure performance
+- Save insomnia
+- Add to portfolio with links
+- Setup icon and name
 
 ## Roadmap
 
