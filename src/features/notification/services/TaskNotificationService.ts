@@ -44,14 +44,13 @@ export class TaskNotificationService {
       !isPast(date) &&
       task.kind === 'habit' &&
       user.isNotificationEnabled &&
-      task.isNotificationEnabled &&
       TaskUtils.includesDayOfWeek(task, date)
     ) {
       await NotificationService.upsertTrigger({
         id,
         timestamp: date.getTime(),
         title: task.name,
-        sound: user.isSoundEnabled && task.isSoundEnabled,
+        sound: user.isSoundEnabled,
       });
       return id;
     }

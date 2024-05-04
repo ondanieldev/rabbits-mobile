@@ -12,6 +12,4 @@ export interface ItemData {
   completedRefId?: string;
   kind?: TaskKind;
   daysOfWeek?: number[];
-  isNotificationEnabled: boolean;
-  isSoundEnabled: boolean;
 }

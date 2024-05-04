@@ -46,16 +46,12 @@ export class AppointmentNotificationService {
     const date = AppointmentNotificationService.getDate(appointment);
     const id = AppointmentNotificationService.getId(appointment);
 
-    if (
-      !isPast(date) &&
-      user.isNotificationEnabled &&
-      appointment.isNotificationEnabled
-    ) {
+    if (!isPast(date) && user.isNotificationEnabled) {
       await NotificationService.upsertTrigger({
         id,
         timestamp: date.getTime(),
         title: appointment.name,
-        sound: user.isSoundEnabled && appointment.isSoundEnabled,
+        sound: user.isSoundEnabled,
       });
       return id;
     }

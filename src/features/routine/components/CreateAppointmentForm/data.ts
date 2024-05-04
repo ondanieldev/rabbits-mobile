@@ -21,39 +21,22 @@ export const getInitialValues = ({
     name: '',
     date: new Date(),
     time: new Date(),
-    isNotificationEnabled: false,
-    isSoundEnabled: false,
   };
   if (editingAppointment) {
     return {
       name: editingAppointment.name,
       date: new Date(editingAppointment.date),
       time: new Date(editingAppointment.date),
-      isNotificationEnabled: editingAppointment.isNotificationEnabled,
-      isSoundEnabled: editingAppointment.isSoundEnabled,
     };
   }
-
-  if (profile) {
-    return {
-      ...baseValue,
-      isNotificationEnabled: profile.isNotificationEnabled,
-      isSoundEnabled: profile.isSoundEnabled,
-    };
-  }
-
   return baseValue;
 };
 
 export const transformData = ({
   date,
   time,
-  isNotificationEnabled,
-  isSoundEnabled,
   ...data
 }: CreateAppointmentSchema): CreateAppointment => ({
   date: buildDate(date, time),
-  isNotificationEnabled,
-  isSoundEnabled: isNotificationEnabled && isSoundEnabled,
   ...data,
 });

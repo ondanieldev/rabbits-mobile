@@ -15,8 +15,6 @@ export const getInitialValues = ({
     name: '',
     daysOfWeek: [] as unknown as [number, ...number[]],
     time: new Date(),
-    isNotificationEnabled: false,
-    isSoundEnabled: false,
   };
   if (editingHabit) {
     return {
@@ -26,32 +24,17 @@ export const getInitialValues = ({
         hour: editingHabit.hours,
         minute: editingHabit.minutes,
       }),
-      isNotificationEnabled: editingHabit.isNotificationEnabled,
-      isSoundEnabled: editingHabit.isSoundEnabled,
     };
   }
-
-  if (profile) {
-    return {
-      ...baseValue,
-      isNotificationEnabled: profile.isNotificationEnabled,
-      isSoundEnabled: profile.isSoundEnabled,
-    };
-  }
-
   return baseValue;
 };
 
 export const transformData = ({
   time,
-  isNotificationEnabled,
-  isSoundEnabled,
   ...data
 }: CreateHabitSchema): CreateTask => ({
   hours: time.getHours(),
   minutes: time.getMinutes(),
   kind: 'habit',
-  isNotificationEnabled,
-  isSoundEnabled: isNotificationEnabled && isSoundEnabled,
   ...data,
 });

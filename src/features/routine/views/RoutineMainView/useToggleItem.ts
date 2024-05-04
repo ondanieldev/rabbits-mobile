@@ -89,8 +89,6 @@ export const useRoutineMainViewToggleItem = ({
           id: data.id,
           isCompleted: !data.isCompleted,
           name: data.name,
-          isNotificationEnabled: data.isNotificationEnabled,
-          isSoundEnabled: data.isSoundEnabled,
         }),
       ).unwrap();
     },
