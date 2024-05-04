@@ -26,5 +26,9 @@
   "TITLE_ERROR_RESET_PASSWORD_GENERATE_TOKEN": "Error sending token",
   "TITLE_ERROR_RESET_PASSWORD_VALIDATE_TOKEN": "Error validating token",
   "TITLE_SUCCESS_RESET_PASSWORD": "Success resetting password",
-  "TITLE_ERROR_RESET_PASSWORD": "Error resetting password"
+  "TITLE_ERROR_RESET_PASSWORD": "Error resetting password",
+  "TITLE_ERROR_VERIFY_EMAIL_GENERATE_TOKEN": "Error seding token",
+  "TITLE_ERROR_VERIFY_EMAIL": "Error verifying email",
+  "TITLE_SUCCESS_VERIFY_EMAIL": "Success verifying email",
+  "TITLE_ERROR_UPDATE_EMAIL": "Error updating email"
 }

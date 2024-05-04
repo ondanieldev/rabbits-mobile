@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { AsyncStatus } from '../../../shared/enums/AsyncStatus';
 import { User } from '../../../shared/interfaces/User';
@@ -47,7 +47,13 @@ export const upsertPreference = createAsyncThunk(
 export const profileStore = createSlice({
   name: 'profile',
   initialState: profileInitialState,
-  reducers: {},
+  reducers: {
+    updateProfile: (state, action: PayloadAction<Partial<User>>) => {
+      if (state.profile) {
+        Object.assign(state.profile, action.payload);
+      }
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(readProfile.pending, state => {
@@ -81,3 +87,8 @@ export const profileStore = createSlice({
  */
 export const selectProfile = (state: ReduxStoreRootState) =>
   state.profile.profile;
+
+/**
+ * Actions
+ */
+export const { updateProfile } = profileStore.actions;

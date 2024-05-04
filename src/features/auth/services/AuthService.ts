@@ -1,7 +1,6 @@
 import { User } from '../../../shared/interfaces/User';
 import { habitsApi } from '../../../shared/services/habitsApi';
 import { AuthToken } from '../interfaces/AuthToken';
-import { Profile } from '../interfaces/Profile';
 import { SignIn } from '../interfaces/SignIn';
 import { SignUp } from '../interfaces/SignUp';
 
@@ -20,8 +19,8 @@ export class AuthService {
     return response.data;
   }
 
-  public static async ping(): Promise<Profile> {
-    const response = await habitsApi.get<Profile>('/auth/ping');
+  public static async ping(): Promise<void> {
+    const response = await habitsApi.get('/auth/ping');
     return response.data;
   }
 }

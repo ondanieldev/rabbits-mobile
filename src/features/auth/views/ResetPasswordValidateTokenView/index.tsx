@@ -25,7 +25,7 @@ export const ResetPasswordValidateTokenView: React.FC<
   const { email } = route.params;
 
   const { titleBase, ctaBase, ctaHighlight } =
-    useResetPasswordValidateTokenViewTranslation();
+    useResetPasswordValidateTokenViewTranslation({ email });
 
   const { ctaOnPress } = useResetPasswordValidateTokenView({ email });
 

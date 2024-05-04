@@ -27,6 +27,8 @@ export const stackScreenNames = [
   'RoutineMainScreen',
   'RoutineUpsertScreen',
   'RoutineEditScreen',
+  'UpdateEmailScreen',
+  'VerifyEmailScreen',
 ] as const;
 
 export type StackScreenName = (typeof stackScreenNames)[number];
@@ -59,6 +61,8 @@ export type StackNavigationParamList = {
   RoutineMainScreen: {};
   RoutineUpsertScreen: RoutineUpsertScreenParams;
   RoutineEditScreen: {};
+  UpdateEmailScreen: {};
+  VerifyEmailScreen: {};
 };
 
 export type StackNavigationProp = NavigationProp<StackNavigationParamList>;
