@@ -43,8 +43,8 @@ export const useUpdateEmailForm = () => {
     async (data: UpdateEmailSchema) => {
       setIsLoading(true);
       try {
-        await VerifyEmailService.updateEmail(data);
-        dispatch(updateProfile({ email: data.email }));
+        const user = await VerifyEmailService.updateEmail(data);
+        dispatch(updateProfile(user));
         navigation.navigate('VerifyEmailScreen', {});
       } catch (err) {
         const message = ErrorHandler.handle(err);
