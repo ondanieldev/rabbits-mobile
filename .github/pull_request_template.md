@@ -2,24 +2,24 @@
 
 ## Changes
 
-_Please include a description about what was modified on the PR. Also include any motivation or relevant context._
+<!-- Please include a description about what was modified on the PR. Also include any motivation or relevant context. -->
 
-_If the PR contains any modification of the UI, it will be good to include photos or videos comparing their before and after._
+<!-- If the PR contains any modification of the UI, it will be good to include photos or videos comparing their before and after. -->
 
-_If the PR solves an issue, you can keep the line below and replace "issue" by its number. If it is not related to an issue, please remove the line._
+<!-- If the PR solves an issue, please uncomment the line below and replace "issue" by its number. If it is not related to an issue, you can ignore the line. -->
 
-_Resolve #(issue)_
+<!-- Resolve #(issue) -->
 
 ## Kind
 
-Choose one:
+<!-- Mark one: -->
 
 - [] Solving bug.
 - [] New feature.
 
 ## Checklist
 
-Please make sure that:
+<!-- Please make sure that all the following rules are applied and mark them: -->
 
 - [] Branch name follows naming convention;
 - [] Commits follows commiting conventions;
