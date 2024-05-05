@@ -1,17 +1,5 @@
-# Security issue
+# Secutiry policy
 
-## Summary
+Please do not open GitHub issues or pull requests - this makes the problem immediately visible to everyone, including malicious actors.
 
-_Short summary of the problem. Make the impact and severity as clear as possible. For example: An unsafe deserialization vulnerability allows any unauthenticated user to execute arbitrary code on the server._
-
-## Details
-
-_Give all details on the vulnerability. Pointing to the incriminated source code is very helpful for the maintainer._
-
-## PoC
-
-_Complete instructions, including specific configuration details, to reproduce the vulnerability._
-
-## Impact
-
-_What kind of vulnerability is it? Who is impacted?_
+Security issues in this open source project can be safely reported via GitHub Security tab. By doing that, only maintainers and trusted collaborators will be able to view it. You can check this [GitHub tutorial](https://docs.github.com/pt/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability) to do so.
