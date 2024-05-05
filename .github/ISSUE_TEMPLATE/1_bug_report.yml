@@ -39,7 +39,7 @@ body:
   - type: textarea
     attributes:
       label: Solution suggestion
-      description: Have you thought about a solution for the problem? If so, please share it with us.
+      description: Have you thought about a solution for the problem? If so, please share it.
       placeholder: |
         Instead of doing ... we could change to ... in order to ...
         The image below shows how it would be after the change:
