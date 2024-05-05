@@ -1,0 +1,46 @@
+name: Bug report
+description: Do you notice any bug or unexpected behavior? Please report it!
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before reporting a bug, please [check if it is already being discussed](https://github.com/ondanieldev/habits-mobile/issues?labels=bug). If so, you can complement it with additional information or suggest a solution.
+  - type: textarea
+    attributes:
+      label: Description
+      description: What kind of problem have you found? Please, describe it clearly and add images if it needs.
+      placeholder: |
+        I found a problem on the screen ... when I was trying to ...
+        The image below shows the error:
+        ![image](https://example.com/image)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: Which are the necessary steps so others can reproduce the problem?
+      placeholder: |
+        1. Sign in
+        2. Go to the screen ...
+        2. Click on ...
+        3. Do ...
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Tested platforms
+      description: Which platform have you tested on?
+      multiple: true
+      options:
+        - Android
+        - IOS
+        - Other
+  - type: textarea
+    attributes:
+      label: Solution suggestion
+      description: Have you thought about a solution for the problem? If so, please share it with us.
+      placeholder: |
+        Instead of doing ... we could change to ... in order to ...
+        The image below shows how it would be after the change:
+        ![image](https://example.com/image)
