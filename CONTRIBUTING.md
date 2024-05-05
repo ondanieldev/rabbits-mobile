@@ -50,7 +50,7 @@ Please follow the rules below when making your changes:
   - Be prefixed by `feature/` or `bugfix/`;
   - Be lowercase;
   - Have words separated by `-`;
-  - e.g.: `feature/implement-light-theme`.
+  - e.g.: `feature/light-theme`.
 - Follow [commit conventions](https://www.conventionalcommits.org/en/v1.0.0/):
   - e.g.: `git commit -m "feat(light-theme): add light theme colors to global styles"`.
 - Adhere to the coding conventions you see in the surrounding code;

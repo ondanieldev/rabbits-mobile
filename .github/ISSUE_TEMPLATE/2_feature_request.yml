@@ -11,7 +11,7 @@ body:
       label: Description
       description: What you want to be implemented/improved? Please describe your suggestion and your needs.
       placeholder: |
-        I think that the screen ... would be better if ... because I had difficulty on ...
+        I think that the ... would be better if ... because I had difficulty on ...
     validations:
       required: true
   - type: textarea
