@@ -1,0 +1,24 @@
+name: Feature request
+description: Do you have any suggestion about a new feature or improvement? Please request it!
+labels: ['feature']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before requesting a feature, please [check if it is already requested](https://github.com/ondanieldev/habits-mobile/issues?labels=feature). If so, you can complement it with additional information.
+  - type: textarea
+    attributes:
+      label: Description
+      description: What you want to be implemented/improved? Please describe your suggestion and your needs.
+      placeholder: |
+        I think that the screen ... would be better if ... because I had difficulty on ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Implementation suggestion
+      description: Have you thought about how this could be implemented? Share images, code or references that you consider useful for the implementation. 
+      placeholder: |
+        We could change ... to add ...
+        The image below shows a sketch of how it would be:
+        ![image](https://example.com/image)

@@ -1,0 +1,29 @@
+name: Ask a question
+description: Do you have any questions? Ask them here, it will be a pleasure to help you.
+labels: ['question']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before asking a question, please [check if it is already asked](https://github.com/ondanieldev/habits-mobile/issues?labels=question). If so, you can complement it with additional information.
+  - type: dropdown
+    attributes:
+      label: Subject
+      description: What is the subject of your question?
+      multiple: true
+      options:
+        - App
+        - Code
+        - Contribution
+        - Repository
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Question
+      description: What is your question?
+      placeholder: |
+        I do not understand how can I do ...
+    validations:
+      required: true
