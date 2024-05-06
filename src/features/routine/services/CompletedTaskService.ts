@@ -1,12 +1,12 @@
 import { OffsetPaginated } from '../../../shared/interfaces/OffsetPaginated';
-import { habitsApi } from '../../../shared/services/habitsApi';
+import { appApi } from '../../../shared/services/appApi';
 import { CompletedTask } from '../interfaces/CompletedTask';
 import { CreateCompletedTask } from '../interfaces/CreateCompletedTask';
 import { ReadCompletedTaskList } from '../interfaces/RadCompletedTaskList';
 
 export class CompletedTaskService {
   static async create(input: CreateCompletedTask): Promise<CompletedTask> {
-    const response = await habitsApi.post<CompletedTask>(
+    const response = await appApi.post<CompletedTask>(
       '/tasks/completed',
       input,
     );
@@ -16,7 +16,7 @@ export class CompletedTaskService {
   static async readList(
     input: ReadCompletedTaskList,
   ): Promise<OffsetPaginated<CompletedTask>> {
-    const response = await habitsApi.get<OffsetPaginated<CompletedTask>>(
+    const response = await appApi.get<OffsetPaginated<CompletedTask>>(
       '/tasks/completed',
       {
         params: input,
@@ -26,7 +26,7 @@ export class CompletedTaskService {
   }
 
   static async delete(taskId: string): Promise<string> {
-    await habitsApi.delete<CompletedTask>(`/tasks/completed/${taskId}`);
+    await appApi.delete<CompletedTask>(`/tasks/completed/${taskId}`);
     return taskId;
   }
 }
