@@ -1,4 +1,3 @@
-import { User } from '../../../../shared/interfaces/User';
 import { DateUtils } from '../../../../shared/utils/DateUtils';
 import { CreateTask } from '../../interfaces/CreateTask';
 import { Task } from '../../interfaces/Task';
@@ -6,10 +5,8 @@ import { CreateHabitSchema } from '../../schemas/createHabitSchema';
 
 export const getInitialValues = ({
   editingHabit,
-  profile,
 }: {
   editingHabit?: Task;
-  profile?: User | null;
 }): CreateHabitSchema => {
   const baseValue: CreateHabitSchema = {
     name: '',

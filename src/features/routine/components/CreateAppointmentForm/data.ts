@@ -1,4 +1,3 @@
-import { User } from '../../../../shared/interfaces/User';
 import { Appointment } from '../../interfaces/Appointment';
 import { CreateAppointment } from '../../interfaces/CreateAppointment';
 import { CreateAppointmentSchema } from '../../schemas/createAppointmentSchema';
@@ -12,10 +11,8 @@ const buildDate = (date: Date, time: Date) => {
 
 export const getInitialValues = ({
   editingAppointment,
-  profile,
 }: {
   editingAppointment?: Appointment;
-  profile?: User | null;
 }): CreateAppointmentSchema => {
   const baseValue: CreateAppointmentSchema = {
     name: '',

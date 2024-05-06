@@ -2,7 +2,6 @@ import { ScrollView } from 'react-native';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { DefaultView } from '../../../../shared/components/DefaultView';
 import { Divider } from '../../../../shared/components/Divider';
 import { StackNavigationParamList } from '../../../../shared/navigation/stack';
 import { CreateAppointmentForm } from '../../components/CreateAppointmentForm';
