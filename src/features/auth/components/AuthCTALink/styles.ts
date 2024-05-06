@@ -7,9 +7,13 @@ export const authCTALinkStyles = StyleSheet.create({
     gap: spacings.xs,
     alignItems: 'center',
   },
+  base: {
+    textAlign: 'center',
+  },
   highlight: {
     color: colors.primary,
     textDecorationLine: 'underline',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

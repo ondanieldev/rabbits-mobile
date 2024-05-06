@@ -27,27 +27,27 @@ export const RoutineUpsertView: React.FC<RoutineUpsertViewProps> = props => {
   } = useRoutineUpsertView(props);
 
   return (
-    <DefaultView style={routineUpsertViewStyles.container}>
-      <ScrollView>
-        {!editingTask && !editingAppointment && (
-          <ItemCreatableTypeSelector
-            selectedCreatableType={selectedCreatableType}
-            setSelectedCreatableType={setSelectedCreatableType}
-          />
-        )}
+    <ScrollView
+      style={routineUpsertViewStyles.container}
+      contentContainerStyle={routineUpsertViewStyles.contentContainer}>
+      {!editingTask && !editingAppointment && (
+        <ItemCreatableTypeSelector
+          selectedCreatableType={selectedCreatableType}
+          setSelectedCreatableType={setSelectedCreatableType}
+        />
+      )}
 
-        <Divider />
+      <Divider />
 
-        {selectedCreatableType === 'habit' && (
-          <CreateHabitForm editingHabit={editingTask} />
-        )}
-        {selectedCreatableType === 'reminder' && (
-          <CreateReminderForm ediditingReminder={editingTask} />
-        )}
-        {selectedCreatableType === 'event' && (
-          <CreateAppointmentForm editingAppointment={editingAppointment} />
-        )}
-      </ScrollView>
-    </DefaultView>
+      {selectedCreatableType === 'habit' && (
+        <CreateHabitForm editingHabit={editingTask} />
+      )}
+      {selectedCreatableType === 'reminder' && (
+        <CreateReminderForm ediditingReminder={editingTask} />
+      )}
+      {selectedCreatableType === 'event' && (
+        <CreateAppointmentForm editingAppointment={editingAppointment} />
+      )}
+    </ScrollView>
   );
 };
