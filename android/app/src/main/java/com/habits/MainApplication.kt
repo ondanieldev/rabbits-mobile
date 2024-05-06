@@ -1,4 +1,4 @@
-package com.habits
+package com.rabbits
 
 import android.app.Application
 import com.facebook.react.PackageList
