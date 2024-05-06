@@ -9,9 +9,9 @@ import { updateProfile } from '../../../profile/stores/profileStore';
 import { useToast } from '../../../toast/contexts/toastContext';
 import {
   toastErrorVerifyEmail,
-  toastErrorVerifyEmailGenerateToken,
   toastSuccessVerifyEmail,
 } from '../../../toast/data/toastTemplates';
+import { useGenerateVerifyEmailToken } from '../../hooks/useGenerateVerifyEmailToken';
 import {
   VerifyEmailSchema,
   verifyEmailSchema,
@@ -19,6 +19,10 @@ import {
 import { VerifyEmailService } from '../../services/VerifyEmailService';
 
 export const useVerifyEmailForm = () => {
+  // Use common hook to generate token
+  const { handleGenerateToken: baseHandleGenerateToken } =
+    useGenerateVerifyEmailToken();
+
   // Redux setup
   const dispatch = useDispatch();
 
@@ -41,14 +45,9 @@ export const useVerifyEmailForm = () => {
   // Request token
   const handleGenerateToken = useCallback(async () => {
     setIsLoadingGenerateToken(true);
-    try {
-      await VerifyEmailService.generateToken();
-    } catch (err) {
-      const message = ErrorHandler.handle(err);
-      toastify(toastErrorVerifyEmailGenerateToken(message));
-    }
+    await baseHandleGenerateToken();
     setIsLoadingGenerateToken(false);
-  }, [toastify]);
+  }, [baseHandleGenerateToken]);
 
   // Verify email
   const onSubmit = useCallback(

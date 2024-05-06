@@ -10,6 +10,7 @@ import { ErrorHandler } from '../../../error/services/ErrorHandler';
 import { updateProfile } from '../../../profile/stores/profileStore';
 import { useToast } from '../../../toast/contexts/toastContext';
 import { toastErrorUpdateEmail } from '../../../toast/data/toastTemplates';
+import { useGenerateVerifyEmailToken } from '../../hooks/useGenerateVerifyEmailToken';
 import {
   UpdateEmailSchema,
   updateEmailSchema,
@@ -17,6 +18,9 @@ import {
 import { VerifyEmailService } from '../../services/VerifyEmailService';
 
 export const useUpdateEmailForm = () => {
+  // Use common hook to generate token
+  const { handleGenerateToken } = useGenerateVerifyEmailToken();
+
   // Redux setup
   const dispatch = useDispatch();
 
@@ -51,8 +55,9 @@ export const useUpdateEmailForm = () => {
         toastify(toastErrorUpdateEmail(message));
       }
       setIsLoading(false);
+      handleGenerateToken();
     },
-    [dispatch, toastify, navigation],
+    [dispatch, toastify, navigation, handleGenerateToken],
   );
 
   // Return
