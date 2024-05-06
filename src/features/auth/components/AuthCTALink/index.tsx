@@ -16,7 +16,7 @@ export const AuthCTALink: React.FC<AuthCTALinkProps> = ({
 }) => {
   return (
     <View style={authCTALinkStyles.container}>
-      {base && <Text>{base}</Text>}
+      {base && <Text style={authCTALinkStyles.base}>{base}</Text>}
       <TouchableHighlight onPress={onPress}>
         {highlight && (
           <Text style={authCTALinkStyles.highlight}>{highlight}</Text>
