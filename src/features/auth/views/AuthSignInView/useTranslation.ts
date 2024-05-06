@@ -5,7 +5,7 @@ export const useAuthSignInViewTranslation = () => {
   const { t } = useTranslation('auth');
 
   const titleBase = useMemo(() => t('signInTo'), [t]);
-  const titleHighlight = useMemo(() => t('habits'), [t]);
+  const titleHighlight = useMemo(() => t('appName'), [t]);
 
   const signUpCtaBase = useMemo(() => t('signUpCTA'), [t]);
   const sigUpCtaHighlight = useMemo(() => t('signUpLink'), [t]);
