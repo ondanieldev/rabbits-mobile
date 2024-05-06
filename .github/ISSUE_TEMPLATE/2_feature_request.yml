@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before requesting a feature, please [check if it is already requested](https://github.com/ondanieldev/habits-mobile/issues?labels=enhancement). If so, you can complement it with additional information.
+        Before requesting a feature, please [check if it is already requested](https://github.com/ondanieldev/rabbits-mobile/issues?labels=enhancement). If so, you can complement it with additional information.
   - type: textarea
     attributes:
       label: Description

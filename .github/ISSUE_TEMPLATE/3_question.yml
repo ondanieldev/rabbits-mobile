@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before asking a question, please [check if it is already asked](https://github.com/ondanieldev/habits-mobile/issues?labels=question). If so, you can complement it with additional information.
+        Before asking a question, please [check if it is already asked](https://github.com/ondanieldev/rabbits-mobile/issues?labels=question). If so, you can complement it with additional information.
   - type: dropdown
     attributes:
       label: Subject
