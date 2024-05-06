@@ -1,8 +1,8 @@
-# Habits Mobile
+# Rabbits Mobile
 
 ## Description
 
-Habits is a simple app that aims to help people to improve their routine by managing habits, reminders and events.
+Rabbits is a simple app that aims to help people to improve their routine by managing habits, reminders and events.
 
 I want to improve the app continuously in order to add more ways to help people to manage their lives. Given this idea, project's roadmap includes modules for managing house storage, finance, pets and plants!
 
@@ -60,13 +60,13 @@ TODO.
 
 ## How to contribute
 
-If you want to contribute, please check [contributing](https://github.com/ondanieldev/habits-mobile/blob/master/CONTRIBUTING.md).
+If you want to contribute, please check [contributing](https://github.com/ondanieldev/rabbits-mobile/blob/master/CONTRIBUTING.md).
 
 ## Links
 
 - Google Play Store
 - Storybook
-- [Figma](https://www.figma.com/file/ipDwne7ajgybxQml25PKn6/Habits?type=design&node-id=0%3A1&mode=design&t=xilbIvdMgOBRBxmg-1)
-- [Roadmap](https://ondanieldev.notion.site/Habits-Roadmap-05a85728e4d946cd8b4fb51dea256ce0)
+- [Figma](https://www.figma.com/file/ipDwne7ajgybxQml25PKn6/Rabbits?type=design&node-id=0%3A1&mode=design&t=q69bOm7uSXI063jO-1)
+- [Roadmap](https://ondanieldev.notion.site/Rabbits-Roadmap-05a85728e4d946cd8b4fb51dea256ce0?pvs=4)
 
-- [Habits API repository](https://github.com/ondanieldev/habits-api)
+- [Rabbits API repository](https://github.com/ondanieldev/rabbits-api)
