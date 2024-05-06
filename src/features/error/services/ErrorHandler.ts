@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 
 import { errorCodeUnknown } from '../data/errorCodes';
-import { HabitsApiError } from '../interfaces/HabitsApiError';
+import { AppApiError } from '../interfaces/AppApiError';
 import { ObjectError } from '../interfaces/ObjectError';
 
 export type ErrorCode = string;
@@ -22,7 +22,7 @@ export class ErrorHandler {
 
   static handleAxiosError(error: AxiosError): ErrorCode {
     if (error.response?.data) {
-      const errorData = error.response.data as HabitsApiError;
+      const errorData = error.response.data as AppApiError;
       const message = errorData.message;
       if (!message) {
         return errorCodeUnknown;

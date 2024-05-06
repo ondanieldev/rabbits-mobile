@@ -1,20 +1,20 @@
 import { OffsetPaginated } from '../../../shared/interfaces/OffsetPaginated';
 import { OffsetPaginationQuery } from '../../../shared/interfaces/OffsetPaginationQuery';
-import { habitsApi } from '../../../shared/services/habitsApi';
+import { appApi } from '../../../shared/services/appApi';
 import { Appointment } from '../interfaces/Appointment';
 import { CreateAppointment } from '../interfaces/CreateAppointment';
 import { UpdateAppointment } from '../interfaces/UpdateAppointment';
 
 export class AppointmentService {
   static async create(input: CreateAppointment): Promise<Appointment> {
-    const response = await habitsApi.post<Appointment>('/appointments', input);
+    const response = await appApi.post<Appointment>('/appointments', input);
     return response.data;
   }
 
   static async readList(
     input: OffsetPaginationQuery,
   ): Promise<OffsetPaginated<Appointment>> {
-    const response = await habitsApi.get<OffsetPaginated<Appointment>>(
+    const response = await appApi.get<OffsetPaginated<Appointment>>(
       '/appointments',
       {
         params: input,
@@ -27,7 +27,7 @@ export class AppointmentService {
     id,
     ...input
   }: UpdateAppointment): Promise<Appointment> {
-    const response = await habitsApi.put<Appointment>(
+    const response = await appApi.put<Appointment>(
       `/appointments/${id}`,
       input,
     );
@@ -35,7 +35,7 @@ export class AppointmentService {
   }
 
   static async delete(taskId: string): Promise<string> {
-    await habitsApi.delete<Appointment>(`/appointments/${taskId}`);
+    await appApi.delete<Appointment>(`/appointments/${taskId}`);
     return taskId;
   }
 }

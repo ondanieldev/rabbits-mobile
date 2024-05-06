@@ -1,4 +1,4 @@
-import { habitsApi } from '../../../shared/services/habitsApi';
+import { appApi } from '../../../shared/services/appApi';
 import {
   ResetPassword,
   ResetPasswordGenerateToken,
@@ -9,16 +9,16 @@ export class ResetPasswordService {
   public static async generateToken(
     data: ResetPasswordGenerateToken,
   ): Promise<void> {
-    await habitsApi.post('/users/reset-password/generate-token', data);
+    await appApi.post('/users/reset-password/generate-token', data);
   }
 
   public static async validateToken(
     data: ResetPasswordValidateToken,
   ): Promise<void> {
-    await habitsApi.post('/users/reset-password/validate-token', data);
+    await appApi.post('/users/reset-password/validate-token', data);
   }
 
   public static async resetPassword(data: ResetPassword): Promise<void> {
-    await habitsApi.post('/users/reset-password', data);
+    await appApi.post('/users/reset-password', data);
   }
 }

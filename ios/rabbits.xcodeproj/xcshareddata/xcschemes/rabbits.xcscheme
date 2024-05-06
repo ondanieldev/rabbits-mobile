@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "habits.app"
-               BlueprintName = "habits"
-               ReferencedContainer = "container:habits.xcodeproj">
+               BuildableName = "rabbits.app"
+               BlueprintName = "rabbits"
+               ReferencedContainer = "container:rabbits.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "habitsTests.xctest"
-               BlueprintName = "habitsTests"
-               ReferencedContainer = "container:habits.xcodeproj">
+               BuildableName = "rabbitsTests.xctest"
+               BlueprintName = "rabbitsTests"
+               ReferencedContainer = "container:rabbits.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "habits.app"
-            BlueprintName = "habits"
-            ReferencedContainer = "container:habits.xcodeproj">
+            BuildableName = "rabbits.app"
+            BlueprintName = "rabbits"
+            ReferencedContainer = "container:rabbits.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "habits.app"
-            BlueprintName = "habits"
-            ReferencedContainer = "container:habits.xcodeproj">
+            BuildableName = "rabbits.app"
+            BlueprintName = "rabbits"
+            ReferencedContainer = "container:rabbits.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

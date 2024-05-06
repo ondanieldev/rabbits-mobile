@@ -1,4 +1,4 @@
-export type HabitsApiError = {
+export type AppApiError = {
   message?: string | string[];
   statusCode?: number;
 };

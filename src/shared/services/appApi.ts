@@ -3,11 +3,11 @@ import axios, { AxiosError } from 'axios';
 import { AuthTokenStorage } from '../../features/auth/storages/AuthTokenStorage';
 import { ErrorHandler } from '../../features/error/services/ErrorHandler';
 
-export const habitsApi = axios.create({
-  baseURL: process.env.HABITS_API_URL,
+export const appApi = axios.create({
+  baseURL: process.env.APP_API_URL,
 });
 
-habitsApi.interceptors.request.use(config => {
+appApi.interceptors.request.use(config => {
   const authToken = AuthTokenStorage.get();
 
   if (authToken) {
@@ -17,7 +17,7 @@ habitsApi.interceptors.request.use(config => {
   return config;
 });
 
-habitsApi.interceptors.response.use(
+appApi.interceptors.response.use(
   response => response,
   error => {
     if (error instanceof AxiosError) {
