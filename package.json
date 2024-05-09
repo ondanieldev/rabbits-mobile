@@ -1,6 +1,7 @@
 {
   "name": "rabbits",
   "version": "0.0.1",
+  "description": "Rabbits is a simple app that aims to help people to improve their routine by managing habits, reminders and events.",
   "private": true,
   "author": {
     "email": "me@ondaniel.com.br",
@@ -11,8 +12,9 @@
     "assets:android:dir": "mkdir ./android/app/src/main/assets/",
     "assets:android:index": "touch ./android/app/src/main/assets/index.android",
     "bundle:android": "react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android --assets-dest ./android/app/src/main/res/",
-    "build:android:debug": "cd android/ && ./gradlew assembleDebug && cd ..",
-    "build:android:release": "cd android/ && ./gradlew assembleRelease && cd ..",
+    "build:android:debug": "cd ./android && ./gradlew assembleDebug && cd ..",
+    "build:android:release": "cd ./android && ./gradlew assembleRelease && cd ..",
+    "clean:android": "cd ./android && ./gradlew clean && cd ..",
     "start:android": "react-native run-android",
     "start:ios": "react-native run-ios",
     "start:metro": "react-native start",
