@@ -1,7 +1,7 @@
 {
   "name": "rabbits",
   "version": "0.0.1",
-  "description": "Rabbits is a simple app that aims to help people to improve their routine by managing habits, reminders and events.",
+  "description": "Rabbits is an app that aims to help people to improve their routine by managing habits, reminders and events.",
   "private": true,
   "author": {
     "email": "me@ondaniel.com.br",
