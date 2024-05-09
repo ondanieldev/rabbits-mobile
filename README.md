@@ -94,7 +94,7 @@ TODO.
 
 ## How to contribute
 
-If you want to contribute, please check [contributing](https://github.com/ondanieldev/rabbits-mobile/blob/master/CONTRIBUTING.md).
+If you want to contribute, please check [contributing](https://github.com/ondanieldev/rabbits-mobile/blob/HEAD/CONTRIBUTING.md).
 
 ## Links
 

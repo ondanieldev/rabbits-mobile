@@ -6,7 +6,7 @@ In this document, there is a guide to help you contributing with this project. I
 
 ## Reporting security issues privately
 
-Do you notice any bug or unexpected behavior that results into a security vulnerability? Please check [security policy](https://github.com/ondanieldev/rabbits-mobile/blob/master/SECURITY.md).
+Do you notice any bug or unexpected behavior that results into a security vulnerability? Please check [security policy](https://github.com/ondanieldev/rabbits-mobile/blob/HEAD/SECURITY.md).
 
 ## Reporting bugs
 
