@@ -74,16 +74,36 @@ The following steps must be ran only once:
 
 The following steps must be ran whenever you want do generate a new output:
 
-- Run `yarn bundle:android:debug` to generate debug APK;
-- Run `yarn bundle:android:release` to generate release APK.
+- Run `yarn bundle:android` to generate bundle;
+- Run `yarn build:android:apk:debug` to generate debug APK;
+- Run `yarn build:android:apk:release` to generate release APK.
 
 Both APKs will be available under `android/app/build/outputs/apk` folder.
 
 ## How to deploy
 
-### Deploying to android
+### Deploying to Google Play Store
 
-TODO.
+- Go to the folder where your JDK bin is placed;
+- Run `keytool -genkey -v -keystore rabbits.keystore -alias deploy -keyalg RSA -keysize 2048 -validity 10000` to generate a new keystore file:
+  - You will be prompted some questions. One of them will be the password of the keystore. Make sure to know it as it will be used on the next step.
+- Go to your home directory:
+  - e.g.: `cd ~`;
+  - Create a folder `.gradle` if there is not exist one;
+  - Inside this folder, create a file `gradle.properties` if there is not exist one;
+  - Add the following lines to the file:
+  
+  ```text
+  APP_UPLOAD_STORE_FILE=rabbits.keystore
+  APP_UPLOAD_KEY_ALIAS=deploy
+  APP_UPLOAD_STORE_PASSWORD=***
+  APP_UPLOAD_KEY_PASSWORD=***
+  ```
+
+  - Replace `***` by the password you have inserted when generating the keystore.
+- Go back to the project folder;
+- Run `yarn build:android:aab:release` to generate AAB (Android App Bundle);
+- TODO.
 
 ## Storybook
 
