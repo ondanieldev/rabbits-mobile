@@ -21,7 +21,7 @@ I want to improve the app continuously in order to add more ways to help people 
 Before running the following commands, start your android studio virtual device or connect to your computer an android device with its USB debugging mode on:
 
 - Run `yarn start:metro` to start metro bundler;
-- Run `yarn start:android` to download the app to the current device.
+- Run `yarn start:android` to download app on the current device.
 
 ### Running on IOS
 
@@ -58,6 +58,13 @@ Both APKs will be available under `android/app/build/outputs/apk` folder.
 
 TODO.
 
+## Storybook
+
+### Running storybook on Android
+
+- Run `yarn storybook:metro` to start metro bundler using storybook environment;
+- Run `yarn storybook:android` to download app on the current device using storybook environment.
+
 ## How to contribute
 
 If you want to contribute, please check [contributing](https://github.com/ondanieldev/rabbits-mobile/blob/master/CONTRIBUTING.md).
@@ -65,7 +72,6 @@ If you want to contribute, please check [contributing](https://github.com/ondani
 ## Links
 
 - Google Play Store
-- Storybook
 - [Figma](https://www.figma.com/file/ipDwne7ajgybxQml25PKn6/Rabbits?type=design&node-id=0%3A1&mode=design&t=q69bOm7uSXI063jO-1)
 - [Roadmap](https://ondanieldev.notion.site/Rabbits-Roadmap-05a85728e4d946cd8b4fb51dea256ce0?pvs=4)
 
